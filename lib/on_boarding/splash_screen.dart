@@ -33,9 +33,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> getVersionInfo() async {
-    // String version = await Utility.getVersionInfo();
+    String version = await Utility.getVersionInfo();
     setState(() {
-      // versionName = version;
+      versionName = version;
     });
   }
 
@@ -54,11 +54,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Image.asset(AssetImagePath.appLogo),
               ),
             ),
-            const Align(
+            Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 10.0),
-                child: Text('Version '),
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Text('Version $versionName'),
               ),
             ),
           ],
