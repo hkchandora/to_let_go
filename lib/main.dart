@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_let_go/onboarding/login_screen.dart';
+import 'package:to_let_go/on_boarding/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }
