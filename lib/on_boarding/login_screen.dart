@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
+import 'package:get/route_manager.dart';
+import 'package:to_let_go/on_boarding/registration_screen.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -73,9 +75,14 @@ class _LoginScreenState extends State<LoginScreen> {
                        ),
                         const SizedBox(height: 20),
                         Row(
-                          children: const [
-                            Text("Don't have an Account?", style: mediumTextStyleLightGray_16),
-                            Text("SignUp Now", style: extraBoldTextStyleWhite_18),
+                          children: [
+                            const Text("Don't have an Account?", style: mediumTextStyleLightGray_16),
+                            InkWell(
+                              onTap: (){
+                                Get.to(RegistrationScreen());
+                              },
+                              child: const Text("SignUp Now", style: extraBoldTextStyleWhite_18),
+                            ),
                           ],
                         ),
                       ],
