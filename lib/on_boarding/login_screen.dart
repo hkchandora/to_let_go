@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/colors.dart';
+import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  bool showProgressBar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset(AssetImagePath.appLogo),
               ),
               const SizedBox(height: 30),
+              const Text("Welcome\nGlad to see you!", style: boldTextStyleLightGray_30, textAlign: TextAlign.center),
+              const SizedBox(height: 30),
               InputTextWidget(
                 textEditingController: emailTextEditingController,
                 textInputType: TextInputType.emailAddress,
@@ -44,6 +49,37 @@ class _LoginScreenState extends State<LoginScreen> {
                 iconData: Icons.lock_outline,
                 isObscure: true,
               ),
+              const SizedBox(height: 30),
+              showProgressBar
+                  ? const CircularProgressIndicator()
+                  : Column(
+                    children: [
+                     Container(
+                       width: double.infinity,
+                       height: 54,
+                       decoration: const BoxDecoration(
+                         color: colorWhite,
+                         borderRadius: BorderRadius.all(Radius.circular(10)),
+                       ),
+                       child: InkWell(
+                         onTap: (){
+                           setState(() {
+                             showProgressBar = true;
+                           });
+                         },
+                         child: const Center(child: Text("Login", style: boldTextStyleBlack_20)),
+                       ),
+                     ),
+                      const SizedBox(height: 20),
+                      Row(
+                        children: const [
+                          Text("Don't have an Account?", style: mediumTextStyleLightGray_16),
+                          Text("SignUp Now", style: extraBoldTextStyleWhite_18),
+
+                        ],
+                      ),
+                    ],
+                  )
             ],
           ),
         ),

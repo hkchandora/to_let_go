@@ -28,6 +28,7 @@ const boldTextStyle_30 = TextStyle(fontSize: textSize_30, fontWeight: bold, colo
 const semiBoldTextStyle_30 = TextStyle(fontSize: textSize_30, fontWeight: semiBold, color: appTheme);
 const mediumTextStyle_30 = TextStyle(fontSize: textSize_30, fontWeight: medium, color: appTheme);
 const regularTextStyle_30 = TextStyle(fontSize: textSize_30, fontWeight: regular, color: appTheme);
+const boldTextStyleLightGray_30 = TextStyle(fontSize: textSize_30, fontWeight: bold, color: colorLightGray);
 
 //FontSize 28
 const extraBoldTextStyle_28 = TextStyle(fontSize: textSize_28, fontWeight: extraBold, color: appTheme);
@@ -42,6 +43,14 @@ const boldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: bold, colo
 const semiBoldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: semiBold, color: appTheme);
 const mediumTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: medium, color: appTheme);
 const regularTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: regular, color: appTheme);
+
+//FontSize 20
+const extraBoldTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: extraBold, color: appTheme);
+const boldTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: bold, color: appTheme);
+const semiBoldTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: semiBold, color: appTheme);
+const mediumTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: medium, color: appTheme);
+const regularTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: regular, color: appTheme);
+const boldTextStyleBlack_20 = TextStyle(fontSize: textSize_20, fontWeight: bold, color: colorBlack);
 
 //FontSize 18
 const extraBoldTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: extraBold, color: appTheme);
