@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_let_go/authntication/authentication_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/style.dart';
@@ -17,6 +18,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController passwordTextEditingController = TextEditingController();
   bool showProgressBar = false;
 
+  var authenticationController = AuthenticationController.instanceAuth;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,10 +35,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const SizedBox(height: 30),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width)/4),
-                  child: const CircleAvatar(
-                    radius: 80,
-                    backgroundImage: AssetImage(AssetImagePath.profileAvatar),
-                    backgroundColor: colorBlack,
+                  child: GestureDetector(
+                    onTap: (){
+                      authenticationController.chooseImageFromGallery();
+                    },
+                    child: const CircleAvatar(
+                      radius: 80,
+                      backgroundImage: AssetImage(AssetImagePath.profileAvatar),
+                      backgroundColor: colorBlack,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 30),

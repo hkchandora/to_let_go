@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   String? name;
   String? uid;
@@ -18,27 +20,29 @@ class User {
         this.twitter,
         this.instagram});
 
-  User.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    uid = json['uid'];
-    image = json['image'];
-    email = json['email'];
-    youtube = json['youtube'];
-    facebook = json['facebook'];
-    twitter = json['twitter'];
-    instagram = json['instagram'];
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "uid": uid,
+    "image": image,
+    "email": email,
+    "youtube": youtube,
+    "facebook": facebook,
+    "twitter": twitter,
+    "instagram": instagram
+  };
+
+  static User fromSnap(DocumentSnapshot snapshot){
+    var dataSnapshot = snapshot.data() as Map<String, dynamic>;
+    return User(
+      name: dataSnapshot["name"],
+      uid: dataSnapshot["uid"],
+      image: dataSnapshot["image"],
+      email: dataSnapshot["email"],
+      youtube: dataSnapshot["youtube"],
+      facebook: dataSnapshot["facebook"],
+      twitter: dataSnapshot["twitter"],
+      instagram: dataSnapshot["instagram"]
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['uid'] = this.uid;
-    data['image'] = this.image;
-    data['email'] = this.email;
-    data['youtube'] = this.youtube;
-    data['facebook'] = this.facebook;
-    data['twitter'] = this.twitter;
-    data['instagram'] = this.instagram;
-    return data;
-  }
 }
