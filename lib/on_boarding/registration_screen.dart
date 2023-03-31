@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:to_let_go/authntication/authentication_controller.dart';
+import 'package:to_let_go/authentication/authentication_controller.dart';
+import 'package:to_let_go/global.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/style.dart';
@@ -16,7 +17,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  bool showProgressBar = false;
 
   var authenticationController = AuthenticationController.instanceAuth;
 
@@ -84,9 +84,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ),
                       child: InkWell(
                         onTap: (){
-                          setState(() {
-                            showProgressBar = true;
-                          });
+                          if(authenticationController.profileImage != null
+                              && userNameTextEditingController.text.isNotEmpty
+                              && emailTextEditingController.text.isNotEmpty
+                              && passwordTextEditingController.text.isNotEmpty) {
+                            setState(() {
+                              showProgressBar = true;
+                            });
+                            authenticationController.createAccountForNewUser(
+                                authenticationController.profileImage!,
+                                userNameTextEditingController.text.toString().trim(),
+                                emailTextEditingController.text.toString().trim(),
+                                passwordTextEditingController.text.toString().trim()
+                            );
+                          }
                         },
                         child: const Center(child: Text("Sign Up", style: boldTextStyleBlack_20)),
                       ),
