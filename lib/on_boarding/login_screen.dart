@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
@@ -76,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 20),
                         Row(
                           children: [
-                            const Text("Don't have an Account?", style: mediumTextStyleLightGray_16),
+                            const Text("Don't have an Account? ", style: mediumTextStyleLightGray_16),
                             InkWell(
                               onTap: (){
                                 Get.to(RegistrationScreen());
