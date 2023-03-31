@@ -46,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 0),
                 InputTextWidget(
                   textEditingController: userNameTextEditingController,
                   textInputType: TextInputType.text,
@@ -54,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   iconData: Icons.person_outline,
                   isObscure: false,
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 InputTextWidget(
                   textEditingController: emailTextEditingController,
                   textInputType: TextInputType.emailAddress,
