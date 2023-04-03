@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:to_let_go/dashboard/dashboard_screen.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/model/user.dart' as userModel;
 import 'package:to_let_go/on_boarding/login_screen.dart';
@@ -59,6 +60,7 @@ class AuthenticationController extends GetxController{
       await FirebaseFirestore.instance.collection("users")
           .doc(credential.user!.uid).set(user.toJson());
       Get.snackbar("Account Creation Successful","");
+      Get.to(const DashboardScreen());
     } catch (error){
       Get.snackbar("Account Creation Unsuccessful","Error occurred while creating account. Try Again.");
       showProgressBar = false;
