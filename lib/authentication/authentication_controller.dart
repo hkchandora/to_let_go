@@ -9,6 +9,7 @@ import 'package:to_let_go/dashboard/dashboard_screen.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/model/user.dart' as userModel;
 import 'package:to_let_go/on_boarding/login_screen.dart';
+import 'package:to_let_go/on_boarding/registration_screen.dart';
 
 class AuthenticationController extends GetxController{
 
@@ -78,5 +79,18 @@ class AuthenticationController extends GetxController{
 
     String downloadedUrlOfImage = await taskSnapshot.ref.getDownloadURL();
     return downloadedUrlOfImage;
+  }
+
+  void logInUserNow(String userEmail, String userPassword) async {
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
+      Get.snackbar("Logged in Successful", "you're logged-in successful");
+      showProgressBar = false;
+      Get.to(DashboardScreen());
+    } catch(error){
+      Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");
+      showProgressBar = false;
+      Get.to(RegistrationScreen());
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
@@ -17,6 +18,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   bool showProgressBar = false;
+  var authenticationController = AuthenticationController.instanceAuth;
+
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
                          ),
                          child: InkWell(
                            onTap: (){
-                             setState(() {
-                               showProgressBar = true;
-                             });
+                             if(emailTextEditingController.text.isNotEmpty && passwordTextEditingController.text.isNotEmpty){
+                               setState(() {
+                                 showProgressBar = true;
+                               });
+                               authenticationController.logInUserNow(
+                                 emailTextEditingController.text.trim().toString(),
+                                 passwordTextEditingController.text.toString()
+                               );
+                             }
                            },
                            child: const Center(child: Text("Login", style: boldTextStyleBlack_20)),
                          ),
