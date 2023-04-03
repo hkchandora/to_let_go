@@ -16,6 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   String? versionName;
+  Timer? timer;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTime() async {
     Duration duration = const Duration(seconds: 3);
-    return Timer(duration, (){
+    timer =  Timer(duration, (){
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
     });
@@ -37,6 +38,12 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       versionName = version;
     });
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
   }
 
 

@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:to_let_go/dashboard/dashboard_screen.dart';
 import 'package:to_let_go/global.dart';
+import 'package:to_let_go/home/home_screen.dart';
 import 'package:to_let_go/model/user.dart' as userModel;
 import 'package:to_let_go/on_boarding/login_screen.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
@@ -14,6 +14,8 @@ import 'package:to_let_go/on_boarding/registration_screen.dart';
 class AuthenticationController extends GetxController{
 
   static AuthenticationController instanceAuth = Get.find();
+
+  late Rx<User?> _currentUser;
 
   late Rx<File?> _pickedFile;
   File? get profileImage => _pickedFile.value;
@@ -61,13 +63,13 @@ class AuthenticationController extends GetxController{
       await FirebaseFirestore.instance.collection("users")
           .doc(credential.user!.uid).set(user.toJson());
       Get.snackbar("Account Creation Successful","");
-      Get.to(const DashboardScreen());
     } catch (error){
       Get.snackbar("Account Creation Unsuccessful","Error occurred while creating account. Try Again.");
       showProgressBar = false;
       Get.to(LoginScreen());
     }
   }
+
 
   Future<String> uploadImageToStorage(File imageFile) async {
     Reference reference = FirebaseStorage.instance.ref()
@@ -81,16 +83,34 @@ class AuthenticationController extends GetxController{
     return downloadedUrlOfImage;
   }
 
+
   void logInUserNow(String userEmail, String userPassword) async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       Get.snackbar("Logged in Successful", "you're logged-in successful");
       showProgressBar = false;
-      Get.to(DashboardScreen());
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");
       showProgressBar = false;
       Get.to(RegistrationScreen());
     }
+  }
+
+
+  goToScreen(User? currentUser){
+    if(currentUser == null){
+       Get.offAll(LoginScreen());
+    } else {
+      Get.offAll(HomeScreen());
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+
+    _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_currentUser, goToScreen);
   }
 }
