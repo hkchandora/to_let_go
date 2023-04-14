@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:to_let_go/home/upload_video/upload_form.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 
@@ -13,13 +17,24 @@ class UploadVideoScreen extends StatefulWidget {
 
 class _UploadVideoScreenState extends State<UploadVideoScreen> {
 
+  getVideoFile(ImageSource sourceImg) async {
+    final videoFile = await ImagePicker().pickVideo(source: sourceImg);
+    if(videoFile != null){
+      //Video upload from
+      Get.to(UploadForm(
+          videoFile: File(videoFile.path),
+          videoPath: videoFile.path
+      ));
+    }
+  }
+
   displayDialogBox(){
     return showDialog(
       context: context,
       builder: (context) => SimpleDialog(
         children: [
           SimpleDialogOption(
-            onPressed: (){},
+            onPressed: () => getVideoFile(ImageSource.gallery),
             child: Row(
               children: const [
                 Icon(Icons.image),
@@ -36,7 +51,7 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
             ),
           ),
           SimpleDialogOption(
-            onPressed: (){},
+            onPressed: () => getVideoFile(ImageSource.camera),
             child: Row(
               children: const [
                 Icon(Icons.camera_alt),
