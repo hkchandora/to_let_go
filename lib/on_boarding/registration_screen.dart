@@ -46,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 0),
+                const SizedBox(height: 30),
                 InputTextWidget(
                   textEditingController: userNameTextEditingController,
                   textInputType: TextInputType.text,
@@ -107,9 +107,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       children: [
                         const Text("Already have an account?", style: mediumTextStyleLightGray_16),
                         InkWell(
-                          onTap: (){
-
-                          },
+                          onTap: () => Navigator.pop(context),
                           child: const Text("Login Now", style: extraBoldTextStyleWhite_18),
                         ),
                       ],
