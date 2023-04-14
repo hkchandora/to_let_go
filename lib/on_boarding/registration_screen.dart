@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/util/Colors.dart';
@@ -107,7 +109,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       children: [
                         const Text("Already have an account?", style: mediumTextStyleLightGray_16),
                         InkWell(
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => Get.back(),
                           child: const Text("Login Now", style: extraBoldTextStyleWhite_18),
                         ),
                       ],
