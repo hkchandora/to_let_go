@@ -6,6 +6,7 @@ const colorRed = Color(0xffEECAC5);
 const colorLightRed = Color(0xffFFF1EF);
 const colorWhite = Color(0xffFFFFFF);
 const colorLightWhite = Color(0x1FFFFFFF);
+const colorLightWhite70 = Color(0xB3FFFFFF);
 const colorBg = Color(0xffF8F9FE);
 const colorLightBlue = Color(0xffE2ECFF);
 const colorDarkGray = Color(0xff333333);

@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:to_let_go/global.dart';
+import 'package:to_let_go/util/colors.dart';
+import 'package:to_let_go/util/style.dart';
+import 'package:to_let_go/widget/input_text_widget.dart';
 import 'package:video_player/video_player.dart';
 
 class UploadForm extends StatefulWidget {
@@ -18,6 +21,8 @@ class UploadForm extends StatefulWidget {
 class _UploadFormState extends State<UploadForm> {
 
   VideoPlayerController? playerController;
+  TextEditingController artistSongTextEditingController = TextEditingController();
+  TextEditingController descriptionTagsTextEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -50,7 +55,52 @@ class _UploadFormState extends State<UploadForm> {
               child: VideoPlayer(playerController!),
             ),
             const SizedBox(height: 30),
-            showProgressBar  == true ? Container() : Column()
+            showProgressBar  == true
+                ? Container(child: const CircularProgressIndicator())
+                : Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InputTextWidget(
+                    textEditingController: artistSongTextEditingController,
+                    textInputType: TextInputType.emailAddress,
+                    labelString: "Artist - Song",
+                    iconData: Icons.music_video_sharp,
+                    isObscure: false,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: InputTextWidget(
+                    textEditingController: descriptionTagsTextEditingController,
+                    textInputType: TextInputType.visiblePassword,
+                    labelString: "Description - Tags",
+                    iconData: Icons.slideshow_sharp,
+                    isObscure: true,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  height: 54,
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: const BoxDecoration(
+                    color: colorLightWhite70,
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: InkWell(
+                    onTap: (){
+
+                    },
+                    child: const Center(child: Text("Upload Now", style: boldTextStyleBlack_20)),
+                  ),
+                ),
+                const SizedBox(height: 30),
+              ],
+            )
           ],
         ),
       ),
