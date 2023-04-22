@@ -39,9 +39,18 @@ class UploadController extends GetxController {
     return downloadUrlOfUploadedVideo;
   }
 
-  saveVideoInformationToFirestoreData(String artistSongName, String descriptionTag, String videFilePath, BuildContext context) async {
+  saveVideoInformationToFirestoreData(String artistSongName, String descriptionTag, String videoFilePath, BuildContext context) async {
     try {
       String videoId = DateTime.now().millisecondsSinceEpoch.toString();
+
+      //1. Upload video to storage
+      String videoDownloadUrl = await uploadCompressedVideoFileToFirebaseStorage(videoId, videoFilePath);
+
+      //2. Upload thumbnail to storage
+      String thumbnailDownloadUrl = await uploadThumbnailImageFileToFirebaseStorage(videoId, videoFilePath);
+
+      //3. Save overall video info to firestore database
+      
 
     } catch (errorMsg){
        Get.snackbar("Video upload unsuccessful", "Error occurred, your video is not uploaded. Try again.");
