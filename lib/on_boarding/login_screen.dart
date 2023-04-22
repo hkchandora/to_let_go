@@ -8,6 +8,8 @@ import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -87,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const Text("Don't have an Account? ", style: mediumTextStyleLightGray_16),
                             InkWell(
                               onTap: (){
-                                Get.to(RegistrationScreen());
+                                Get.to(const RegistrationScreen());
                               },
                               child: const Text("SignUp Now", style: extraBoldTextStyleWhite_18),
                             ),

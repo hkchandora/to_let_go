@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 

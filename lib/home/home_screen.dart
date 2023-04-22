@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_let_go/home/following/followings_video_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
@@ -18,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int screenIndex = 0;
-  List screenList = [
+  List screenList = const [
     ForYouVideoScreen(),
     SearchScreen(),
     UploadVideoScreen(),

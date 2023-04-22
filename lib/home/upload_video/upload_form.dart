@@ -12,7 +12,7 @@ class UploadForm extends StatefulWidget {
   final File videoFile;
   final String videoPath;
 
-  UploadForm({required this.videoFile, required this.videoPath});
+  const UploadForm({Key? key, required this.videoFile, required this.videoPath}) : super(key: key);
 
   @override
   State<UploadForm> createState() => _UploadFormState();
@@ -56,7 +56,7 @@ class _UploadFormState extends State<UploadForm> {
             ),
             const SizedBox(height: 30),
             showProgressBar  == true
-                ? Container(child: const CircularProgressIndicator())
+                ? const CircularProgressIndicator()
                 : Column(
               children: [
                 Container(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/util/Colors.dart';
@@ -9,6 +8,8 @@ import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({Key? key}) : super(key: key);
+
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();

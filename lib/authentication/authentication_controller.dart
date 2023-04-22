@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/home_screen.dart';
-import 'package:to_let_go/model/user.dart' as userModel;
+import 'package:to_let_go/model/user.dart' as user_model;
 import 'package:to_let_go/on_boarding/login_screen.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
 
@@ -53,7 +53,7 @@ class AuthenticationController extends GetxController{
 
       String imageDownloadUrl = await uploadImageToStorage(imageFile);
 
-      userModel.User user = userModel.User(
+      user_model.User user = user_model.User(
           name: userName,
           email: userEmail,
           image: imageDownloadUrl,
@@ -66,7 +66,7 @@ class AuthenticationController extends GetxController{
     } catch (error){
       Get.snackbar("Account Creation Unsuccessful","Error occurred while creating account. Try Again.");
       showProgressBar = false;
-      Get.to(LoginScreen());
+      Get.to(const LoginScreen());
     }
   }
 
@@ -92,16 +92,16 @@ class AuthenticationController extends GetxController{
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");
       showProgressBar = false;
-      Get.to(RegistrationScreen());
+      Get.to(const RegistrationScreen());
     }
   }
 
 
   goToScreen(User? currentUser){
     if(currentUser == null){
-       Get.offAll(LoginScreen());
+       Get.offAll(const LoginScreen());
     } else {
-      Get.offAll(HomeScreen());
+      Get.offAll(const HomeScreen());
     }
   }
 
