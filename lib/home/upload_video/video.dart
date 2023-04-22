@@ -4,6 +4,7 @@ class Video{
 
   String? userId;
   String? userName;
+  String? userProfileImage;
   String? videoID;
   int? totalComments;
   int? totalShares;
@@ -18,6 +19,7 @@ class Video{
   Video({
     this.userId,
     this.userName,
+    this.userProfileImage,
     this.videoID,
     this.totalComments,
     this.totalShares,
@@ -32,6 +34,7 @@ class Video{
   Map<String, dynamic> toJson() => {
     "userId" : userId,
     "userName" : userName,
+    "userImage" : userProfileImage,
     "videoID" : videoID,
     "totalComments" : totalComments,
     "totalShares" : totalShares,
@@ -49,6 +52,7 @@ class Video{
     return Video(
       userId : docSnapshot["userId"],
       userName : docSnapshot["userName"],
+      userProfileImage : docSnapshot["userImage"],
       videoID : docSnapshot["videoID"],
       totalComments : docSnapshot["totalComments"],
       totalShares : docSnapshot["totalShares"],

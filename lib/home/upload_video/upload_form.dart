@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:to_let_go/global.dart';
+import 'package:to_let_go/home/upload_video/upload_controller.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
@@ -20,6 +23,7 @@ class UploadForm extends StatefulWidget {
 
 class _UploadFormState extends State<UploadForm> {
 
+  UploadController uploadController = Get.put(UploadController());
   VideoPlayerController? playerController;
   TextEditingController artistSongTextEditingController = TextEditingController();
   TextEditingController descriptionTagsTextEditingController = TextEditingController();
@@ -93,6 +97,19 @@ class _UploadFormState extends State<UploadForm> {
                   ),
                   child: InkWell(
                     onTap: (){
+
+                      if(artistSongTextEditingController.text.isNotEmpty
+                      && descriptionTagsTextEditingController.text.isNotEmpty){
+                        uploadController.saveVideoInformationToFirestoreData(
+                          artistSongTextEditingController.text.toString().trim(),
+                          descriptionTagsTextEditingController.text.toString().trim(),
+                          widget.videoPath,
+                          context,
+                        );
+                        setState(() {
+                          showProgressBar = true;
+                        });
+                      }
 
                     },
                     child: const Center(child: Text("Upload Now", style: boldTextStyleBlack_20)),
