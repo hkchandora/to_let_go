@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.himanshu.to_let_go">
-   <application
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
         android:label="To Let Go"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

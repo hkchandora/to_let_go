@@ -59,7 +59,7 @@ class _UploadFormState extends State<UploadForm> {
               child: VideoPlayer(playerController!),
             ),
             const SizedBox(height: 30),
-            showProgressBar  == true
+            showProgressBar
                 ? const CircularProgressIndicator()
                 : Column(
               children: [
@@ -80,7 +80,7 @@ class _UploadFormState extends State<UploadForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: InputTextWidget(
                     textEditingController: descriptionTagsTextEditingController,
-                    textInputType: TextInputType.text,
+                    textInputType: TextInputType.multiline,
                     labelString: "Description - Tags",
                     iconData: Icons.slideshow_sharp,
                     isObscure: false,
