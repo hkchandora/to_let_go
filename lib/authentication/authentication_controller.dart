@@ -46,7 +46,7 @@ class AuthenticationController extends GetxController{
   }
 
 
-  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async {
+  createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async {
     try{
       UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail,
@@ -85,7 +85,7 @@ class AuthenticationController extends GetxController{
   }
 
 
-  void logInUserNow(String userEmail, String userPassword) async {
+  logInUserNow(String userEmail, String userPassword) async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       Get.snackbar("Logged in Successful", "you're logged-in successful");
@@ -93,7 +93,7 @@ class AuthenticationController extends GetxController{
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");
       showProgressBar = false;
-      Get.to(const RegistrationScreen());
+      // Get.to(const RegistrationScreen());
     }
   }
 

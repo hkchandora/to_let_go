@@ -6,6 +6,7 @@ import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/constants.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
@@ -22,9 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-
   var authenticationController = AuthenticationController.instanceAuth;
-
+  RegExp emailRegex = RegExp(RegexValidator.emailRegex);
   File? profileImage;
 
   @override
@@ -44,6 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width)/4),
                   child: GestureDetector(
                     onTap: () async {
+                      profileImage = null;
                       profileImage = await authenticationController.chooseImageFromGallery();
                       setState((){});
                     },
@@ -99,15 +100,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
                       child: InkWell(
-                        onTap: (){
-                          if(authenticationController.profileImage != null
-                              && userNameTextEditingController.text.isNotEmpty
-                              && emailTextEditingController.text.isNotEmpty
-                              && passwordTextEditingController.text.isNotEmpty) {
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          if(profileImage == null){
+                            Get.snackbar("Error !!", "Please set your profile.");
+                          } else if(userNameTextEditingController.text.trim().isEmpty){
+                            Get.snackbar("Error !!", "User Name can't be empty");
+                          } else if(emailTextEditingController.text.trim().isEmpty){
+                            Get.snackbar("Error !!", "Email can't be empty");
+                          } else if (!emailRegex.hasMatch(emailTextEditingController.text.toString().trim())) {
+                            Get.snackbar("Error !!", "Invalid email");
+                          } else if(passwordTextEditingController.text.trim().isEmpty){
+                            Get.snackbar("Error !!", "Password can't be empty");
+                          } else {
                             setState(() {
                               showProgressBar = true;
                             });
-                            authenticationController.createAccountForNewUser(
+                            await authenticationController.createAccountForNewUser(
                                 authenticationController.profileImage!,
                                 userNameTextEditingController.text.toString().trim(),
                                 emailTextEditingController.text.toString().trim(),

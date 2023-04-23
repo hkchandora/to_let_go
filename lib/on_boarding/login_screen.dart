@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
+import 'package:to_let_go/global.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
+import 'package:to_let_go/util/constants.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/input_text_widget.dart';
 
@@ -19,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  bool showProgressBar = false;
+  RegExp emailRegex = RegExp(RegexValidator.emailRegex);
   var authenticationController = AuthenticationController.instanceAuth;
 
 
@@ -69,15 +71,23 @@ class _LoginScreenState extends State<LoginScreen> {
                            borderRadius: BorderRadius.all(Radius.circular(10)),
                          ),
                          child: InkWell(
-                           onTap: (){
-                             if(emailTextEditingController.text.isNotEmpty && passwordTextEditingController.text.isNotEmpty){
+                           onTap: () async {
+                             FocusScope.of(context).unfocus();
+                             if(emailTextEditingController.text.trim().isEmpty){
+                               Get.snackbar("Error !!", "Email can't be empty");
+                             } else if (!emailRegex.hasMatch(emailTextEditingController.text.toString().trim())) {
+                               Get.snackbar("Error !!", "Invalid email");
+                             } else if(passwordTextEditingController.text.trim().isEmpty){
+                               Get.snackbar("Error !!", "Password can't be empty");
+                             } else {
                                setState(() {
                                  showProgressBar = true;
                                });
-                               authenticationController.logInUserNow(
-                                 emailTextEditingController.text.trim().toString(),
-                                 passwordTextEditingController.text.toString()
+                               await authenticationController.logInUserNow(
+                                   emailTextEditingController.text.trim().toString(),
+                                   passwordTextEditingController.text.toString()
                                );
+                               setState(() {});
                              }
                            },
                            child: const Center(child: Text("Login", style: boldTextStyleBlack_20)),
