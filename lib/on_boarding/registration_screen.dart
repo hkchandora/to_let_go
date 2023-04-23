@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
@@ -23,6 +25,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   var authenticationController = AuthenticationController.instanceAuth;
 
+  File? profileImage;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -39,13 +43,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width)/4),
                   child: GestureDetector(
-                    onTap: (){
-                      authenticationController.chooseImageFromGallery();
+                    onTap: () async {
+                      profileImage = await authenticationController.chooseImageFromGallery();
+                      setState((){});
                     },
-                    child: const CircleAvatar(
+                    child: profileImage == null ? const CircleAvatar(
                       radius: 80,
                       backgroundImage: AssetImage(AssetImagePath.profileAvatar),
                       backgroundColor: colorBlack,
+                    ) : ClipRRect(
+                      borderRadius: BorderRadius.circular(80),
+                      child: Image.file(
+                        authenticationController.profileImage!,
+                        height: 200,
+                        width: 200,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
@@ -108,7 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        const Text("Already have an account?", style: mediumTextStyleLightGray_16),
+                        const Text("Already have an account? ", style: mediumTextStyleLightGray_16),
                         InkWell(
                           onTap: () => Get.back(),
                           child: const Text("Login Now", style: extraBoldTextStyleWhite_18),

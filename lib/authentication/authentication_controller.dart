@@ -17,19 +17,20 @@ class AuthenticationController extends GetxController{
 
   late Rx<User?> _currentUser;
 
-  late Rx<File?> _pickedFile;
-  File? get profileImage => _pickedFile.value;
+  Rx<File?>? pickedFile;
+  File? get profileImage => pickedFile!.value;
 
 
-  void chooseImageFromGallery() async {
+  Future<File> chooseImageFromGallery() async {
     final pickedImageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(pickedImageFile != null){
       Get.snackbar(
         "Profile Image",
         "You have successfully selected your profile image",
       );
-      _pickedFile = Rx<File>(File(pickedImageFile.path));
+      pickedFile = Rx<File>(File(pickedImageFile.path));
     }
+    return pickedFile!.value!;
   }
 
 
@@ -40,7 +41,7 @@ class AuthenticationController extends GetxController{
         "Profile Image",
         "You have successfully captured your profile image with Phone Camera.",
       );
-      _pickedFile = Rx<File>(File(pickedImageFile.path));
+      pickedFile = Rx<File>(File(pickedImageFile.path));
     }
   }
 
