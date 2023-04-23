@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/home_screen.dart';
 import 'package:to_let_go/home/upload_video/video.dart';
-import 'package:video_compress/video_compress.dart';
+import 'package:video_compress_ds/video_compress_ds.dart';
 
 class UploadController extends GetxController {
 

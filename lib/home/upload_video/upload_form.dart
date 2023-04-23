@@ -80,10 +80,10 @@ class _UploadFormState extends State<UploadForm> {
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: InputTextWidget(
                     textEditingController: descriptionTagsTextEditingController,
-                    textInputType: TextInputType.visiblePassword,
+                    textInputType: TextInputType.text,
                     labelString: "Description - Tags",
                     iconData: Icons.slideshow_sharp,
-                    isObscure: true,
+                    isObscure: false,
                   ),
                 ),
                 const SizedBox(height: 10),

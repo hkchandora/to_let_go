@@ -10,7 +10,7 @@ import firebase_auth
 import firebase_core
 import firebase_storage
 import package_info_plus
-import video_compress
+import video_compress_ds
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
