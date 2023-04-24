@@ -95,11 +95,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
-                  Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
-                  Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
-                  Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
-                  Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
+                  ),
                 ],
               ),
             ),
