@@ -10,6 +10,8 @@ import 'package:to_let_go/home/home_screen.dart';
 import 'package:to_let_go/model/user.dart' as user_model;
 import 'package:to_let_go/on_boarding/login_screen.dart';
 import 'package:to_let_go/on_boarding/registration_screen.dart';
+import 'package:to_let_go/util/Preferences.dart';
+import 'package:to_let_go/util/utility.dart';
 
 class AuthenticationController extends GetxController{
 
@@ -53,16 +55,24 @@ class AuthenticationController extends GetxController{
           password: userPassword);
 
       String imageDownloadUrl = await uploadImageToStorage(imageFile);
-
+      String version = await Utility.getVersionInfo();
       user_model.User user = user_model.User(
-          name: userName,
-          email: userEmail,
-          image: imageDownloadUrl,
-          uid: credential.user!.uid
+        name: userName,
+        email: userEmail,
+        image: imageDownloadUrl,
+        uid: credential.user!.uid,
+        appVersion: version,
       );
 
       await FirebaseFirestore.instance.collection("users")
           .doc(credential.user!.uid).set(user.toJson());
+
+      Preferences preferences = Preferences();
+      preferences.setUserEmail(userEmail);
+      preferences.setUserUid(credential.user!.uid);
+      preferences.setUserName(userName);
+      preferences.setUserprofileImageUrl(imageDownloadUrl);
+
       Get.snackbar("Account Creation Successful","");
     } catch (error){
       Get.snackbar("Account Creation Unsuccessful","Error occurred while creating account. Try Again.");
@@ -88,13 +98,23 @@ class AuthenticationController extends GetxController{
   logInUserNow(String userEmail, String userPassword) async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
-      Get.snackbar("Logged in Successful", "you're logged-in successful");
       DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
           .collection("users")
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
 
+      Preferences preferences = Preferences();
+      preferences.setUserEmail(userEmail);
+      preferences.setUserUid(FirebaseAuth.instance.currentUser!.uid);
+      preferences.setUserName((userDocumentSnapshot.data() as Map<String, dynamic>)["name"]);
+      preferences.setUserprofileImageUrl((userDocumentSnapshot.data() as Map<String, dynamic>)["image"]);
+      preferences.setUserFacebook((userDocumentSnapshot.data() as Map<String, dynamic>)["facebook"]);
+      preferences.setUserInstagram((userDocumentSnapshot.data() as Map<String, dynamic>)["instagram"]);
+      preferences.setUserWhatsapp((userDocumentSnapshot.data() as Map<String, dynamic>)["whatsapp"]);
+      preferences.setUserTwitter((userDocumentSnapshot.data() as Map<String, dynamic>)["twitter"]);
+      preferences.setUserYoutube((userDocumentSnapshot.data() as Map<String, dynamic>)["youtube"]);
 
+      Get.snackbar("Logged in Successful", "you're logged-in successful");
       showProgressBar = false;
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/util/Colors.dart';
+import 'package:to_let_go/util/Preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Get.to(const AccountSetting());
                 break;
               case 'Logout':
+                Preferences().clearPreferences();
                 FirebaseAuth.instance.signOut();
                 break;
             }
@@ -126,7 +128,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 20),
             GestureDetector(
-              onTap: () => FirebaseAuth.instance.signOut(),
+              onTap: () {
+                Preferences().clearPreferences();
+                FirebaseAuth.instance.signOut();
+              },
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 50),

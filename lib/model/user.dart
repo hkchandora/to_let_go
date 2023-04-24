@@ -5,6 +5,7 @@ class User {
   String? uid;
   String? image;
   String? email;
+  String? appVersion;
   String? youtube;
   String? facebook;
   String? whatsapp;
@@ -16,6 +17,7 @@ class User {
         this.uid,
         this.image,
         this.email,
+        this.appVersion,
         this.youtube,
         this.facebook,
         this.whatsapp,
@@ -27,6 +29,7 @@ class User {
     "uid": uid,
     "image": image,
     "email": email,
+    "appVersion": appVersion,
     "youtube": youtube,
     "facebook": facebook,
     "whatsapp": whatsapp,
@@ -41,6 +44,7 @@ class User {
       uid: dataSnapshot["uid"],
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],
+      appVersion: dataSnapshot["appVersion"],
       youtube: dataSnapshot["youtube"],
       whatsapp: dataSnapshot["whatsapp"],
       facebook: dataSnapshot["facebook"],
