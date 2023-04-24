@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:to_let_go/authentication/authentication_controller.dart';
+import 'package:to_let_go/global.dart';
+import 'package:to_let_go/util/Preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
@@ -19,6 +22,33 @@ class _AccountSettingState extends State<AccountSetting> {
   TextEditingController whatsappTextEditingController = TextEditingController();
   TextEditingController twitterTextEditingController = TextEditingController();
   TextEditingController youtubeTextEditingController = TextEditingController();
+  var authenticationController = AuthenticationController.instanceAuth;
+  Preferences preferences = Preferences();
+  String? profileImage;
+
+  @override
+  void initState() {
+    getDataFromPreference();
+    super.initState();
+  }
+
+  getDataFromPreference() async {
+    String userProfileImage = await preferences.getUserprofileImageUrl();
+    String userFacebook = await preferences.getUserFacebook();
+    String userInstagram = await preferences.getUserInstagram();
+    String userWhatsapp = await preferences.getUserWhatsapp();
+    String userTwitter = await preferences.getUserTwitter();
+    String userYoutube = await preferences.getUserYoutube();
+
+    setState(() {
+      profileImage = userProfileImage;
+      facebookTextEditingController.text = userFacebook;
+      instagramTextEditingController.text = userInstagram;
+      whatsappTextEditingController.text = userWhatsapp;
+      twitterTextEditingController.text = userTwitter;
+      youtubeTextEditingController.text = userYoutube;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +71,19 @@ class _AccountSettingState extends State<AccountSetting> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Center(
-                  child: CircleAvatar(
+                Center(
+                  child: profileImage != null ? CircleAvatar(
+                    radius: 80,
+                    backgroundImage: NetworkImage(profileImage!),
+                    backgroundColor: colorBlack,
+                  ) : const CircleAvatar(
                     radius: 80,
                     backgroundImage: AssetImage(AssetImagePath.profileAvatar),
                     backgroundColor: colorBlack,
                   ),
                 ),
                 const SizedBox(height: 30),
-                const Text("Upload Your profile social links:", style: regularTextStyleWhite_24),
+                const Text("Upload Your Social Links :-", style: regularTextStyleWhite_24),
                 const SizedBox(height: 20),
                 InputTextWidget(
                   textEditingController: facebookTextEditingController,
@@ -91,7 +125,7 @@ class _AccountSettingState extends State<AccountSetting> {
                   isObscure: false,
                 ),
                 const SizedBox(height: 30),
-                Container(
+                showProgressBar ? const Center(child: CircularProgressIndicator()) : Container(
                   width: double.infinity,
                   height: 54,
                   decoration: const BoxDecoration(
@@ -101,7 +135,16 @@ class _AccountSettingState extends State<AccountSetting> {
                   child: InkWell(
                     onTap: () async {
                       FocusScope.of(context).unfocus();
-
+                      setState(() {
+                        showProgressBar = true;
+                      });
+                      await authenticationController.saveSocialMediaDetails(
+                         facebookTextEditingController.text.trim(),
+                        instagramTextEditingController.text.trim(),
+                        whatsappTextEditingController.text.trim(),
+                        twitterTextEditingController.text.trim(),
+                        youtubeTextEditingController.text.trim()
+                      );
                     },
                     child: const Center(child: Text("Update Now", style: boldTextStyleBlack_20)),
                   ),

@@ -123,6 +123,42 @@ class AuthenticationController extends GetxController{
     }
   }
 
+  saveSocialMediaDetails(String facebook, String instagram, String whatsapp, String twitter, String youtube) async {
+    try{
+      DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+      user_model.User user = user_model.User(
+        name: (userDocumentSnapshot.data() as Map<String, dynamic>)["name"],
+        email: (userDocumentSnapshot.data() as Map<String, dynamic>)["email"],
+        image: (userDocumentSnapshot.data() as Map<String, dynamic>)["image"],
+        uid: (userDocumentSnapshot.data() as Map<String, dynamic>)["uid"],
+        appVersion: (userDocumentSnapshot.data() as Map<String, dynamic>)["appVersion"],
+        facebook: facebook,
+        instagram: instagram,
+        whatsapp: whatsapp,
+        twitter: twitter,
+        youtube: youtube,
+      );
+
+      await FirebaseFirestore.instance.collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid).set(user.toJson());
+
+      Preferences preferences = Preferences();
+      preferences.setUserFacebook(facebook);
+      preferences.setUserInstagram(instagram);
+      preferences.setUserWhatsapp(whatsapp);
+      preferences.setUserTwitter(twitter);
+      preferences.setUserYoutube(youtube);
+      Get.back();
+    } catch (error){
+      Get.snackbar("Error Occurred","Something went wrong.");
+    }
+    showProgressBar = false;
+  }
+
 
   goToScreen(User? currentUser){
     if(currentUser == null){

@@ -23,8 +23,10 @@ class InputTextWidget extends StatelessWidget {
     return TextField(
       controller: textEditingController,
       keyboardType: textInputType,
+      maxLength: textInputType == TextInputType.phone ? 10 : 10000,
       decoration: InputDecoration(
         labelText: labelString,
+        counterText: "",
         prefixIcon: iconData != null
             ? Icon(iconData)
             : Padding(padding: const EdgeInsets.all(8), child: ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.asset(assetReference!, width: 10))),
