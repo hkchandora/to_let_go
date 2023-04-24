@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +23,17 @@ void main() async {
         measurementId: "G-L6DMCM8YZN",
       ),
     ).then((value) {
-      Get.put(AuthenticationController());
+      Timer(const Duration(seconds: 3), (){
+        Get.put(AuthenticationController());
+      });
     });
   } else {
     await Firebase.initializeApp().then((value) {
-      Get.put(AuthenticationController());
+      Timer(const Duration(seconds: 3), (){
+        Get.put(AuthenticationController());
+      });
     });
   }
-
 
   runApp(const MyApp());
 }
