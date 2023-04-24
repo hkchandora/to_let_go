@@ -27,7 +27,7 @@ class InputTextWidget extends StatelessWidget {
         labelText: labelString,
         prefixIcon: iconData != null
             ? Icon(iconData)
-            : Padding(padding: const EdgeInsets.all(8), child: Image.asset(assetReference!, width: 10)),
+            : Padding(padding: const EdgeInsets.all(8), child: ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.asset(assetReference!, width: 10))),
         labelStyle: const TextStyle(fontSize: 18),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),

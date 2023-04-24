@@ -43,6 +43,7 @@ const boldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: bold, colo
 const semiBoldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: semiBold, color: appTheme);
 const mediumTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: medium, color: appTheme);
 const regularTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: regular, color: appTheme);
+const regularTextStyleWhite_24 = TextStyle(fontSize: textSize_24, fontWeight: regular, color: colorWhite);
 
 //FontSize 20
 const extraBoldTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: extraBold, color: appTheme);

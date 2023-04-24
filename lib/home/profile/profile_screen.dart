@@ -23,16 +23,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         PopupMenuButton<String>(
           onSelected: (value){
             switch (value) {
-              case 'Logout':
-                FirebaseAuth.instance.signOut();
-                break;
               case 'Settings':
                 Get.to(const AccountSetting());
+                break;
+              case 'Logout':
+                FirebaseAuth.instance.signOut();
                 break;
             }
           },
           itemBuilder: (BuildContext context) {
-            return {'Logout', 'Settings'}.map((String choice) {
+            return {'Settings', 'Logout'}.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: Text(choice),
