@@ -5,6 +5,7 @@ import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/Preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userName, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getData() async {
     userName = await preferences.getUserName();
+    userProfileImage = await preferences.getUserprofileImageUrl();
     facebookUrl = await preferences.getUserFacebook();
     instagramUrl = await preferences.getUserInstagram();
     whatsappUrl = await preferences.getUserWhatsapp();
@@ -48,8 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Get.to(const AccountSetting());
                 break;
               case 'Logout':
-                Preferences().clearPreferences();
-                FirebaseAuth.instance.signOut();
+                logoutConfirmDialog("Logout", "Do you want to log out?");
                 break;
             }
           },
@@ -75,8 +76,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
-            const Center(
-              child: CircleAvatar(
+            Center(
+              child: userProfileImage != null ? CircleAvatar(
+                radius: 80,
+                backgroundImage: NetworkImage(userProfileImage!),
+                backgroundColor: colorBlack,
+              ) : const CircleAvatar(
                 radius: 80,
                 backgroundImage: AssetImage(AssetImagePath.profileAvatar),
                 backgroundColor: colorBlack,
@@ -118,55 +123,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 30),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
-                    onTap: () => Utility.launchGivenUrl(facebookUrl!),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
-                    ),
-                  ) : const SizedBox(),
-                  instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
-                    onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
-                    ),
-                  ) : const SizedBox(),
-                  whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
-                    onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
-                    ),
-                  ) : const SizedBox(),
-                  twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
-                    onTap: () => Utility.launchGivenUrl(twitterUrl!),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
-                    ),
-                  ) : const SizedBox(),
-                  youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
-                    onTap: () => Utility.launchGivenUrl(youtubeUrl!),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
-                    ),
-                  ) : const SizedBox(),
-                ],
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
+                      onTap: () => Utility.launchGivenUrl(facebookUrl!),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
+                      ),
+                    ) : const SizedBox(),
+                    instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
+                      onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
+                      ),
+                    ) : const SizedBox(),
+                    whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
+                      onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
+                      ),
+                    ) : const SizedBox(),
+                    twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
+                      onTap: () => Utility.launchGivenUrl(twitterUrl!),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
+                      ),
+                    ) : const SizedBox(),
+                    youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
+                      onTap: () => Utility.launchGivenUrl(youtubeUrl!),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
+                      ),
+                    ) : const SizedBox(),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 20),
             GestureDetector(
-              onTap: () {
-                Preferences().clearPreferences();
-                FirebaseAuth.instance.signOut();
-              },
+              onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 50),
@@ -200,4 +205,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  logoutConfirmDialog(String title, String txt) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Align(
+            alignment: Alignment.center,
+            child: Container(
+              padding: const EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
+              alignment: Alignment.center,
+              height: 180,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                color: colorLightGray,
+              ),
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(title, style: extraBoldTextStyleWhite_18),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(txt, style: const TextStyle(fontSize: 16)),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        FlatButton(
+                          child: const Text("No", style: TextStyle(color: colorWhite)),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        FlatButton(
+                          child: const Text("Yes", style: TextStyle(color: colorWhite)),
+                          onPressed: () {
+                            Get.back();
+                            Preferences().clearPreferences();
+                            FirebaseAuth.instance.signOut();
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
