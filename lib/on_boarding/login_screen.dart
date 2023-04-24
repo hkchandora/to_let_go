@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                    emailTextEditingController.text.trim().toString(),
                                    passwordTextEditingController.text.toString()
                                );
-                               setState(() {});
+                               // setState(() {});
                              }
                            },
                            child: const Center(child: Text("Login", style: boldTextStyleBlack_20)),

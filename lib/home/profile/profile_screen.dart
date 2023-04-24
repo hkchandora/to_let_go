@@ -5,6 +5,7 @@ import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/Preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/utility.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userName;
+  String? userName, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
 
   @override
   void initState() {
@@ -26,6 +27,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getData() async {
     userName = await preferences.getUserName();
+    facebookUrl = await preferences.getUserFacebook();
+    instagramUrl = await preferences.getUserInstagram();
+    whatsappUrl = await preferences.getUserWhatsapp();
+    twitterUrl = await preferences.getUserTwitter();
+    youtubeUrl = await preferences.getUserYoutube();
     setState((){});
   }
 
@@ -117,26 +123,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
-                  ),
+                  facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
+                    onTap: () => Utility.launchGivenUrl(facebookUrl!),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
+                    ),
+                  ) : const SizedBox(),
+                  instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
+                    onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
+                    ),
+                  ) : const SizedBox(),
+                  whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
+                    onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
+                    ),
+                  ) : const SizedBox(),
+                  twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
+                    onTap: () => Utility.launchGivenUrl(twitterUrl!),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
+                    ),
+                  ) : const SizedBox(),
+                  youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
+                    onTap: () => Utility.launchGivenUrl(youtubeUrl!),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14),
+                      child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
+                    ),
+                  ) : const SizedBox(),
                 ],
               ),
             ),
