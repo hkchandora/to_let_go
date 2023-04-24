@@ -15,9 +15,23 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
+  Preferences preferences = Preferences();
+  String? userName;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    userName = await preferences.getUserName();
+    setState((){});
+  }
+
   profileAppBar(){
     return AppBar(
-      title: const Text("Profile"),
+      title: Text(userName ?? ""),
       centerTitle: true,
       backgroundColor: colorBlack,
       actions: <Widget>[
