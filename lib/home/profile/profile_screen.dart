@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,11 +25,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
   String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  List? thumbnailUrlList = [];
 
   @override
   void initState() {
     getData();
+    getVideoData();
     super.initState();
+  }
+
+  Future<void> getVideoData() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('videos').get();
+    List allData = querySnapshot.docs.map((doc) => (doc.data() as Map<String, dynamic>)['thumbnailUrl']).toList();
+    setState((){
+      thumbnailUrlList = allData;
+    });
   }
 
   getData() async {
@@ -202,14 +218,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const Divider(color: colorWhite, thickness: 1),
           Expanded(
             child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, mainAxisSpacing: 2, crossAxisSpacing: 2, mainAxisExtent: 250
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.5,
+                mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
               ),
-              itemCount: 5,
+              itemCount: thumbnailUrlList!.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
-                  color: Colors.white,
-                  child: SizedBox(height: 500,child: Text('$index')),
+                  color: colorWhite,
+                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
                 );
               },
             ),
