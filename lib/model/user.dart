@@ -7,6 +7,7 @@ class User {
   String? email;
   String? youtube;
   String? facebook;
+  String? whatsapp;
   String? twitter;
   String? instagram;
 
@@ -17,6 +18,7 @@ class User {
         this.email,
         this.youtube,
         this.facebook,
+        this.whatsapp,
         this.twitter,
         this.instagram});
 
@@ -27,6 +29,7 @@ class User {
     "email": email,
     "youtube": youtube,
     "facebook": facebook,
+    "whatsapp": whatsapp,
     "twitter": twitter,
     "instagram": instagram
   };
@@ -39,9 +42,10 @@ class User {
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],
       youtube: dataSnapshot["youtube"],
+      whatsapp: dataSnapshot["whatsapp"],
       facebook: dataSnapshot["facebook"],
       twitter: dataSnapshot["twitter"],
-      instagram: dataSnapshot["instagram"]
+      instagram: dataSnapshot["instagram"],
     );
   }
 

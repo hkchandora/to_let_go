@@ -61,7 +61,7 @@ class _AccountSettingState extends State<AccountSetting> {
                 const SizedBox(height: 20),
                 InputTextWidget(
                   textEditingController: instagramTextEditingController,
-                  textInputType: TextInputType.url,
+                  textInputType: TextInputType.text,
                   labelString: "Instagram/UserName",
                   assetReference: AssetImagePath.instagram,
                   isObscure: false,

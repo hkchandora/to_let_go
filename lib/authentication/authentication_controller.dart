@@ -89,6 +89,12 @@ class AuthenticationController extends GetxController{
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       Get.snackbar("Logged in Successful", "you're logged-in successful");
+      DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+
+
       showProgressBar = false;
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");

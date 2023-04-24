@@ -67,6 +67,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text("3"),
                       Text("Following"),
@@ -74,6 +76,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
 
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text("4"),
                       Text("Followers"),
@@ -81,6 +85,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
 
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text("100"),
                       Text("Likes"),
