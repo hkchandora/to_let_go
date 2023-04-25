@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
+import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/Preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
+import 'package:to_let_go/widget/widget_common.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -26,6 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Preferences preferences = Preferences();
   String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   List? thumbnailUrlList = [];
+  ProfileController profileController = Get.put(ProfileController());
 
   @override
   void initState() {
@@ -35,11 +35,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> getVideoData() async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('videos').get();
-    List allData = querySnapshot.docs.map((doc) => (doc.data() as Map<String, dynamic>)['thumbnailUrl']).toList();
-    setState((){
-      thumbnailUrlList = allData;
-    });
+    thumbnailUrlList = await profileController.getAllVideoThumbnail();
+    setState((){});
   }
 
   getData() async {
@@ -217,21 +214,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: <Widget>[
           const Divider(color: colorWhite, thickness: 1),
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.5,
-                mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
-              ),
-              itemCount: thumbnailUrlList!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: colorWhite,
-                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("videos").snapshots(),
+              builder: (context, snapshot){
+                printLog("snapshot.hashCode.toString()");
+                printLog(snapshot.hashCode.toString());
+                printLog(snapshot.data.toString());
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.5,
+                    mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
+                  ),
+                  itemCount: thumbnailUrlList!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      color: colorWhite,
+                      child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+                    );
+                  },
                 );
               },
             ),
-          ),
+          )
         ],
       ),
     );
