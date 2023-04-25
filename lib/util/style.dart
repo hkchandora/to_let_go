@@ -79,6 +79,7 @@ const mediumTextStyle_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,co
 const mediumTextStyleLightGray_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,color: colorLightGray);
 const mediumTextStyleDarkGray_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,color: colorDarkGray);
 const regularTextStyleDarkGray_16 = TextStyle(fontSize: textSize_16,fontWeight: regular,color: colorDarkGray);
+const boldTextStyleWhite_16 = TextStyle(fontSize: textSize_16, fontWeight: bold, color: colorWhite);
 
 //FontSize 14
 const extraBoldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: extraBold, color: appTheme);

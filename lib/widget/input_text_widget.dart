@@ -37,8 +37,9 @@ class InputTextWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
-          borderSide: const BorderSide(color: colorGrey)
+          borderSide: const BorderSide(color: colorGrey),
         ),
+        focusColor: colorGrey
       ),
       obscureText: isObscure,
     );
