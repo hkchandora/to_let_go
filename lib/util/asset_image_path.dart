@@ -7,4 +7,5 @@ class AssetImagePath {
   static const twitter = 'images/twitter.png';
   static const whatsapp = 'images/whatsapp.png';
   static const youtube = 'images/youtube.jpeg';
+  static const search = 'images/search.png';
 }
