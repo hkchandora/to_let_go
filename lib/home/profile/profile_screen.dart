@@ -30,13 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     getData();
-    getVideoData();
     super.initState();
-  }
-
-  Future<void> getVideoData() async {
-    thumbnailUrlList = await profileController.getAllVideoThumbnail();
-    setState((){});
   }
 
   getData() async {
@@ -47,6 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     whatsappUrl = await preferences.getUserWhatsapp();
     twitterUrl = await preferences.getUserTwitter();
     youtubeUrl = await preferences.getUserYoutube();
+    thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
     setState((){});
   }
 
@@ -213,30 +208,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Column(
         children: <Widget>[
           const Divider(color: colorWhite, thickness: 1),
+          thumbnailUrlList!.isEmpty ?
+          const Expanded(
+              child: Center(
+                  child: Text("No Video! Please upload your first video"),
+              ),
+          ) :
           Expanded(
-            child: StreamBuilder(
-              stream: FirebaseFirestore.instance.collection("videos").snapshots(),
-              builder: (context, snapshot){
-                printLog("snapshot.hashCode.toString()");
-                printLog(snapshot.hashCode.toString());
-                printLog(snapshot.data.toString());
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 0.5,
-                    mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
-                  ),
-                  itemCount: thumbnailUrlList!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      color: colorWhite,
-                      child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
-                    );
-                  },
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.5,
+                mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
+              ),
+              itemCount: thumbnailUrlList!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: colorWhite,
+                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

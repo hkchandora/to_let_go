@@ -15,4 +15,11 @@ class ProfileController extends GetxController {
     List allVideoThumbnailData = querySnapshot.docs.map((doc) => (doc.data() as Map<String, dynamic>)['thumbnailUrl']).toList();
     return allVideoThumbnailData;
   }
+
+  getUserAllVideoThumbnail(String uid) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('videos').where("userId", isEqualTo: uid).get();
+    List allVideoThumbnailData = querySnapshot.docs.map((doc) => (doc.data() as Map<String, dynamic>)['thumbnailUrl']).toList();
+    return allVideoThumbnailData;
+  }
+
 }
