@@ -102,6 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: InkWell(
                         onTap: () async {
                           FocusScope.of(context).unfocus();
+                          bool isUniqueName = await authenticationController.isUniqueName(userNameTextEditingController.text.trim().toLowerCase());
                           if(profileImage == null){
                             Get.snackbar("Error !!", "Please set your profile.");
                           } else if(userNameTextEditingController.text.trim().isEmpty){
@@ -112,6 +113,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Get.snackbar("Error !!", "Invalid email");
                           } else if(passwordTextEditingController.text.trim().isEmpty){
                             Get.snackbar("Error !!", "Password can't be empty");
+                          } else if(!isUniqueName){
+                            Get.snackbar("Error !!", "User name already taken");
                           } else {
                             setState(() {
                               showProgressBar = true;

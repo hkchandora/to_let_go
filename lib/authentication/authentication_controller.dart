@@ -160,6 +160,17 @@ class AuthenticationController extends GetxController{
   }
 
 
+  Future<bool> isUniqueName(String userName) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').get();
+    List allUserName = querySnapshot.docs.map((doc) => (doc.data() as Map<String, dynamic>)['name']).toList();
+    if(allUserName.contains(userName)){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   goToScreen(User? currentUser){
     if(currentUser == null){
        Get.offAll(const LoginScreen());
