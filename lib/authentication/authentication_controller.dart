@@ -26,10 +26,10 @@ class AuthenticationController extends GetxController{
   Future<File> chooseImageFromGallery() async {
     final pickedImageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(pickedImageFile != null){
-      Get.snackbar(
-        "Profile Image",
-        "You have successfully selected your profile image",
-      );
+      // Get.snackbar(
+      //   "Profile Image",
+      //   "You have successfully selected your profile image",
+      // );
       pickedFile = Rx<File>(File(pickedImageFile.path));
     }
     return pickedFile!.value!;
