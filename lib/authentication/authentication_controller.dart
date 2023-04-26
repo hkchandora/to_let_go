@@ -56,7 +56,7 @@ class AuthenticationController extends GetxController{
 
       String imageDownloadUrl = await uploadImageToStorage(imageFile);
       String version = await Utility.getVersionInfo();
-      user_model.User user = user_model.User(
+      user_model.UserInfoData user = user_model.UserInfoData(
         name: userName,
         email: userEmail,
         image: imageDownloadUrl,
@@ -130,7 +130,7 @@ class AuthenticationController extends GetxController{
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
 
-      user_model.User user = user_model.User(
+      user_model.UserInfoData user = user_model.UserInfoData(
         name: (userDocumentSnapshot.data() as Map<String, dynamic>)["name"],
         email: (userDocumentSnapshot.data() as Map<String, dynamic>)["email"],
         image: (userDocumentSnapshot.data() as Map<String, dynamic>)["image"],

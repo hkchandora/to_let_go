@@ -118,8 +118,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             });
                             await authenticationController.createAccountForNewUser(
                                 authenticationController.profileImage!,
-                                userNameTextEditingController.text.toString().trim(),
-                                emailTextEditingController.text.toString().trim(),
+                                userNameTextEditingController.text.toString().trim().toLowerCase(),
+                                emailTextEditingController.text.toString().trim().toLowerCase(),
                                 passwordTextEditingController.text.toString().trim()
                             );
                           }
