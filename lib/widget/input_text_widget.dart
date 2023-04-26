@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_let_go/global.dart';
 import 'package:to_let_go/util/colors.dart';
 
 class InputTextWidget extends StatelessWidget {
@@ -23,6 +24,7 @@ class InputTextWidget extends StatelessWidget {
     return TextField(
       controller: textEditingController,
       keyboardType: textInputType,
+      enabled: !showProgressBar,
       maxLength: textInputType == TextInputType.phone ? 10 : 10000,
       decoration: InputDecoration(
         labelText: labelString,
@@ -36,6 +38,10 @@ class InputTextWidget extends StatelessWidget {
           borderSide: const BorderSide(color: colorGrey)
         ),
         focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: const BorderSide(color: colorGrey),
+        ),
+        disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: const BorderSide(color: colorGrey),
         ),

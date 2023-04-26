@@ -119,12 +119,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               showProgressBar = true;
                             });
-                            await authenticationController.createAccountForNewUser(
+                            bool isSuccessful = await authenticationController.createAccountForNewUser(
                                 authenticationController.profileImage!,
                                 userNameTextEditingController.text.toString().trim().toLowerCase(),
                                 emailTextEditingController.text.toString().trim().toLowerCase(),
                                 passwordTextEditingController.text.toString().trim()
                             );
+                            if(!isSuccessful){
+                              setState(() {});
+                            }
                           }
                         },
                         child: const Center(child: Text("Sign Up", style: boldTextStyleBlack_20)),

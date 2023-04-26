@@ -83,11 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                setState(() {
                                  showProgressBar = true;
                                });
-                               await authenticationController.logInUserNow(
+                               bool isSuccessful = await authenticationController.logInUserNow(
                                    emailTextEditingController.text.trim().toString(),
                                    passwordTextEditingController.text.toString()
                                );
-                               // setState(() {});
+                               if(!isSuccessful){
+                                 setState(() {});
+                               }
                              }
                            },
                            child: const Center(child: Text("Login", style: boldTextStyleBlack_20)),

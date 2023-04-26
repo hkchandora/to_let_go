@@ -48,7 +48,7 @@ class AuthenticationController extends GetxController{
   }
 
 
-  createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async {
+  Future<bool> createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async {
     try{
       UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail,
@@ -74,10 +74,13 @@ class AuthenticationController extends GetxController{
       preferences.setUserprofileImageUrl(imageDownloadUrl);
 
       Get.snackbar("Account Creation Successful","");
+      showProgressBar = false;
+      return true;
     } catch (error){
       Get.snackbar("Account Creation Unsuccessful","Error occurred while creating account. Try Again.");
       showProgressBar = false;
-      Get.to(const LoginScreen());
+      return false;
+      // Get.to(const LoginScreen());
     }
   }
 
@@ -95,7 +98,7 @@ class AuthenticationController extends GetxController{
   }
 
 
-  logInUserNow(String userEmail, String userPassword) async {
+  Future<bool> logInUserNow(String userEmail, String userPassword) async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
@@ -116,10 +119,11 @@ class AuthenticationController extends GetxController{
 
       Get.snackbar("Logged in Successful", "you're logged-in successful");
       showProgressBar = false;
+      return true;
     } catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred while sign in authentication");
       showProgressBar = false;
-      // Get.to(const RegistrationScreen());
+      return false;
     }
   }
 
