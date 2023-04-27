@@ -93,7 +93,7 @@ class _UploadFormState extends State<UploadForm> {
                     height: 54,
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     decoration: const BoxDecoration(
-                      color: colorLightWhite70,
+                      color: colorWhite,
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     child: InkWell(

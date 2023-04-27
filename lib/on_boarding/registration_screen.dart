@@ -52,15 +52,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       radius: 80,
                       backgroundImage: AssetImage(AssetImagePath.profileAvatar),
                       backgroundColor: colorBlack,
-                    ) : ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.file(
-                        authenticationController.profileImage!,
-                        height: 200,
-                        width: 200,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    ) : CircleAvatar(
+                      radius: 80,
+                      backgroundImage: FileImage(authenticationController.profileImage!),
+                      backgroundColor: colorBlack,
+                    )
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -144,7 +140,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ],
                     ),
                   ],
-                )
+                ),
+                const SizedBox(height: 60),
               ],
             ),
           ),

@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/home_screen.dart';
 import 'package:to_let_go/model/user.dart' as user_model;
 import 'package:to_let_go/on_boarding/login_screen.dart';
+import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/utility.dart';
 
@@ -25,11 +27,26 @@ class AuthenticationController extends GetxController{
   Future<File> chooseImageFromGallery() async {
     final pickedImageFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(pickedImageFile != null){
-      // Get.snackbar(
-      //   "Profile Image",
-      //   "You have successfully selected your profile image",
-      // );
-      pickedFile = Rx<File>(File(pickedImageFile.path));
+      CroppedFile? cropped = await ImageCropper().cropImage(
+        sourcePath: pickedImageFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        cropStyle: CropStyle.circle,
+        compressQuality: 50,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarColor: colorBlack,
+              toolbarTitle: "Crop Image",
+              toolbarWidgetColor: colorWhite,
+              backgroundColor: colorBg,
+              initAspectRatio: CropAspectRatioPreset.square,
+              lockAspectRatio: true)
+
+        ],
+      );
+
+      if(cropped !=  null){
+        pickedFile = Rx<File>(File(cropped.path));
+      }
     }
     return pickedFile!.value!;
   }
