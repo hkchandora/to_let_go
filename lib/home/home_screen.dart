@@ -6,6 +6,7 @@ import 'package:to_let_go/home/search/search_screen.dart';
 import 'package:to_let_go/home/upload_video/upload_custom_icon.dart';
 import 'package:to_let_go/home/upload_video/upload_video_screen.dart';
 import 'package:to_let_go/util/colors.dart';
+import 'package:to_let_go/util/strings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,12 +18,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   int screenIndex = 0;
-  List screenList = const [
-    ForYouVideoScreen(),
-    SearchScreen(),
-    UploadVideoScreen(),
-    FollowingsVideoScreen(),
-    ProfileScreen(),
+  List screenList =  [
+    const ForYouVideoScreen(),
+    const SearchScreen(),
+    const UploadVideoScreen(),
+    const FollowingsVideoScreen(),
+    ProfileScreen(Strings.me, const {}),
   ];
 
   @override

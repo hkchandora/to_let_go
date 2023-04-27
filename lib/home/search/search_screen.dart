@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/home/search/search_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -86,28 +88,34 @@ class _SearchScreenState extends State<SearchScreen> {
       shrinkWrap: true,
       itemCount: searchedUser.length,
       itemBuilder: (context, index) {
-        return Container(
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          decoration: const BoxDecoration(
-            color: colorBlack,
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-          child:  Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(searchedUser[index]['image'].toString()),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(searchedUser[index]['name'].toString(), style: boldTextStyleWhite_16),
-                    Text(searchedUser[index]['email'].toString(), style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
-                  ],
-                )
-              ],
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            Get.to(() => ProfileScreen(Strings.search, searchedUser[index]));
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            decoration: const BoxDecoration(
+              color: colorBlack,
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            ),
+            child:  Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: NetworkImage(searchedUser[index]['image'].toString()),
+                  ),
+                  const SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(searchedUser[index]['name'].toString(), style: boldTextStyleWhite_16),
+                      Text(searchedUser[index]['email'].toString(), style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );

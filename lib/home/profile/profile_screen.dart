@@ -6,11 +6,16 @@ import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
+import 'package:to_let_go/widget/widget_common.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+
+  String isComingFrom;
+  Map<String, dynamic> userData;
+  ProfileScreen( this.isComingFrom, this.userData, {Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -30,23 +35,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getData() async {
-    userName = await preferences.getUserName();
-    userProfileImage = await preferences.getUserprofileImageUrl();
-    facebookUrl = await preferences.getUserFacebook();
-    instagramUrl = await preferences.getUserInstagram();
-    whatsappUrl = await preferences.getUserWhatsapp();
-    twitterUrl = await preferences.getUserTwitter();
-    youtubeUrl = await preferences.getUserYoutube();
-    thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
+    if(widget.isComingFrom == Strings.me){
+      userName = await preferences.getUserName();
+      userProfileImage = await preferences.getUserprofileImageUrl();
+      facebookUrl = await preferences.getUserFacebook();
+      instagramUrl = await preferences.getUserInstagram();
+      whatsappUrl = await preferences.getUserWhatsapp();
+      twitterUrl = await preferences.getUserTwitter();
+      youtubeUrl = await preferences.getUserYoutube();
+      thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
+    } else {
+      userName = widget.userData['name'] ?? "";
+      userProfileImage = widget.userData['image'] ?? "";
+      facebookUrl = widget.userData['facebook'] ?? "";
+      instagramUrl = widget.userData['instagram'] ?? "";
+      whatsappUrl = widget.userData['whatsapp'] ?? "";
+      twitterUrl = widget.userData['twitter'] ?? "";
+      youtubeUrl = widget.userData['youtube'] ?? "";
+      thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
+    }
     setState((){});
   }
 
   profileAppBar(){
     return AppBar(
       title: Text(userName ?? ""),
+      leading: widget.isComingFrom != Strings.me ?
+      IconButton(
+        onPressed: () => Get.back(),
+        icon: const ArrowToolbarBackwardNavigation(),
+      ) : const SizedBox(),
       centerTitle: true,
       backgroundColor: colorBlack,
       actions: <Widget>[
+        widget.isComingFrom == Strings.me ?
         PopupMenuButton<String>(
           onSelected: (value){
             switch (value) {
@@ -66,7 +88,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             }).toList();
           },
-        ),
+        ) :
+        const SizedBox(),
       ],
     );
   }
@@ -112,7 +135,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text("Following"),
                       ],
                     ),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +143,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Text("Followers"),
                       ],
                     ),
-
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              GestureDetector(
+              widget.isComingFrom == Strings.me ? GestureDetector(
                 onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
                 child: Container(
                   width: double.infinity,
@@ -195,8 +216,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                 ),
-              ),
-              const SizedBox(height: 10),
+              ) : const SizedBox(),
+              SizedBox(height: widget.isComingFrom == Strings.me ? 10 : 0),
             ]),
           )
         ];
