@@ -1,22 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserInfoData {
   String? name;
   String? uid;
   String? image;
   String? email;
+  String? appVersion;
   String? youtube;
   String? facebook;
+  String? whatsapp;
   String? twitter;
   String? instagram;
 
-  User(
+  UserInfoData(
       {this.name,
         this.uid,
         this.image,
         this.email,
+        this.appVersion,
         this.youtube,
         this.facebook,
+        this.whatsapp,
         this.twitter,
         this.instagram});
 
@@ -25,23 +29,27 @@ class User {
     "uid": uid,
     "image": image,
     "email": email,
+    "appVersion": appVersion,
     "youtube": youtube,
     "facebook": facebook,
+    "whatsapp": whatsapp,
     "twitter": twitter,
     "instagram": instagram
   };
 
-  static User fromSnap(DocumentSnapshot snapshot){
+  static UserInfoData fromSnap(DocumentSnapshot snapshot){
     var dataSnapshot = snapshot.data() as Map<String, dynamic>;
-    return User(
+    return UserInfoData(
       name: dataSnapshot["name"],
       uid: dataSnapshot["uid"],
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],
+      appVersion: dataSnapshot["appVersion"],
       youtube: dataSnapshot["youtube"],
+      whatsapp: dataSnapshot["whatsapp"],
       facebook: dataSnapshot["facebook"],
       twitter: dataSnapshot["twitter"],
-      instagram: dataSnapshot["instagram"]
+      instagram: dataSnapshot["instagram"],
     );
   }
 

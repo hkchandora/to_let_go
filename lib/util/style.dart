@@ -43,6 +43,7 @@ const boldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: bold, colo
 const semiBoldTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: semiBold, color: appTheme);
 const mediumTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: medium, color: appTheme);
 const regularTextStyle_24 = TextStyle(fontSize: textSize_24, fontWeight: regular, color: appTheme);
+const regularTextStyleWhite_24 = TextStyle(fontSize: textSize_24, fontWeight: regular, color: colorWhite);
 
 //FontSize 20
 const extraBoldTextStyle_20 = TextStyle(fontSize: textSize_20, fontWeight: extraBold, color: appTheme);
@@ -78,6 +79,7 @@ const mediumTextStyle_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,co
 const mediumTextStyleLightGray_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,color: colorLightGray);
 const mediumTextStyleDarkGray_16 = TextStyle(fontSize: textSize_16,fontWeight: medium,color: colorDarkGray);
 const regularTextStyleDarkGray_16 = TextStyle(fontSize: textSize_16,fontWeight: regular,color: colorDarkGray);
+const boldTextStyleWhite_16 = TextStyle(fontSize: textSize_16, fontWeight: bold, color: colorWhite);
 
 //FontSize 14
 const extraBoldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: extraBold, color: appTheme);

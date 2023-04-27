@@ -16,8 +16,8 @@ class ArrowToolbarBackwardNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       AssetImagePath.backButton,
-      height: 17.08,
-      width: 8.54,
+      height: 24,
+      width: 12,
       color: colorWhite,
     );
   }

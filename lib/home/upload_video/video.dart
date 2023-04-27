@@ -64,4 +64,21 @@ class Video{
       publishedDateTime : docSnapshot["publishedDateTime"],
     );
   }
+
+  Future<Video> fromJson(Map<String, dynamic> docSnapshot) async {
+    return Video(
+      userId : docSnapshot["userId"],
+      userName : docSnapshot["userName"],
+      userProfileImage : docSnapshot["userImage"],
+      videoID : docSnapshot["videoID"],
+      totalComments : docSnapshot["totalComments"],
+      totalShares : docSnapshot["totalShares"],
+      likeList : docSnapshot["likeList"],
+      artistSongName : docSnapshot["artistSongName"],
+      descriptionTags : docSnapshot["descriptionTags"],
+      videoUrl : docSnapshot["videoUrl"],
+      thumbnailUrl : docSnapshot["thumbnailUrl"],
+      publishedDateTime : docSnapshot["publishedDateTime"],
+    );
+  }
 }

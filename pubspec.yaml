@@ -42,8 +42,10 @@ dependencies:
   image_picker: ^0.8.7+1
   firebase_storage: ^11.0.16
   video_player: ^2.6.1
-#  video_compress: ^3.1.2
   video_compress_ds: ^3.1.6
+  shared_preferences: ^2.1.0
+  url_launcher: ^6.1.10
+  image_cropper: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +79,9 @@ flutter:
     - images/twitter.png
     - images/whatsapp.png
     - images/youtube.jpeg
+    - images/search.png
+    - images/no_data.png
+    - images/upload.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

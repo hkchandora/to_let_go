@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/upload_video/upload_controller.dart';
 import 'package:to_let_go/util/colors.dart';
@@ -49,76 +48,79 @@ class _UploadFormState extends State<UploadForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 1.3,
-              child: VideoPlayer(playerController!),
-            ),
-            const SizedBox(height: 30),
-            showProgressBar
-                ? const CircularProgressIndicator()
-                : Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InputTextWidget(
-                    textEditingController: artistSongTextEditingController,
-                    textInputType: TextInputType.emailAddress,
-                    labelString: "Artist - Song",
-                    iconData: Icons.music_video_sharp,
-                    isObscure: false,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 1.3,
+                child: VideoPlayer(playerController!),
+              ),
+              const SizedBox(height: 30),
+              showProgressBar
+                  ? const CircularProgressIndicator()
+                  : Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InputTextWidget(
+                      textEditingController: artistSongTextEditingController,
+                      textInputType: TextInputType.emailAddress,
+                      labelString: "Artist - Song",
+                      iconData: Icons.music_video_sharp,
+                      isObscure: false,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: InputTextWidget(
-                    textEditingController: descriptionTagsTextEditingController,
-                    textInputType: TextInputType.multiline,
-                    labelString: "Description - Tags",
-                    iconData: Icons.slideshow_sharp,
-                    isObscure: false,
+                  const SizedBox(height: 10),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InputTextWidget(
+                      textEditingController: descriptionTagsTextEditingController,
+                      textInputType: TextInputType.multiline,
+                      labelString: "Description - Tags",
+                      iconData: Icons.slideshow_sharp,
+                      isObscure: false,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 54,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: const BoxDecoration(
-                    color: colorLightWhite70,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: InkWell(
-                    onTap: (){
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 54,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration: const BoxDecoration(
+                      color: colorWhite,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: InkWell(
+                      onTap: (){
 
-                      if(artistSongTextEditingController.text.isNotEmpty
-                      && descriptionTagsTextEditingController.text.isNotEmpty){
-                        uploadController.saveVideoInformationToFirestoreData(
-                          artistSongTextEditingController.text.toString().trim(),
-                          descriptionTagsTextEditingController.text.toString().trim(),
-                          widget.videoPath,
-                          context,
-                        );
-                        setState(() {
-                          showProgressBar = true;
-                        });
-                      }
+                        if(artistSongTextEditingController.text.isNotEmpty
+                        && descriptionTagsTextEditingController.text.isNotEmpty){
+                          uploadController.saveVideoInformationToFirestoreData(
+                            artistSongTextEditingController.text.toString().trim(),
+                            descriptionTagsTextEditingController.text.toString().trim(),
+                            widget.videoPath,
+                            context,
+                          );
+                          setState(() {
+                            showProgressBar = true;
+                          });
+                        }
 
-                    },
-                    child: const Center(child: Text("Upload Now", style: boldTextStyleBlack_20)),
+                      },
+                      child: const Center(child: Text("Upload Now", style: boldTextStyleBlack_20)),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 30),
-              ],
-            )
-          ],
+                  const SizedBox(height: 30),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

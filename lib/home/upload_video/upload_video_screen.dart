@@ -33,14 +33,17 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
       builder: (context) => SimpleDialog(
         children: [
           SimpleDialogOption(
-            onPressed: () => getVideoFile(ImageSource.gallery),
+            onPressed: () {
+              Get.back();
+              getVideoFile(ImageSource.gallery);
+            },
             child: Row(
               children: const [
                 Icon(Icons.image),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text("Get Video from Phone Gallery",
+                    child: Text("Gallery",
                       maxLines: 3,
                       style: TextStyle(fontSize: 16),
                     ),
@@ -50,14 +53,17 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
             ),
           ),
           SimpleDialogOption(
-            onPressed: () => getVideoFile(ImageSource.camera),
+            onPressed: () {
+              Get.back();
+              getVideoFile(ImageSource.camera);
+            },
             child: Row(
               children: const [
                 Icon(Icons.camera_alt),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.all(8),
-                    child: Text("Make Video with Phone Camera",
+                    child: Text("Camera",
                       maxLines: 3,
                       style: TextStyle(fontSize: 16),
                     ),
@@ -94,8 +100,11 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AssetImagePath.profileAvatar,
-              width: 260,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Image.asset(AssetImagePath.upload, fit: BoxFit.fill,
+                width: double.infinity,
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(

@@ -52,15 +52,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       radius: 80,
                       backgroundImage: AssetImage(AssetImagePath.profileAvatar),
                       backgroundColor: colorBlack,
-                    ) : ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.file(
-                        authenticationController.profileImage!,
-                        height: 200,
-                        width: 200,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    ) : CircleAvatar(
+                      radius: 80,
+                      backgroundImage: FileImage(authenticationController.profileImage!),
+                      backgroundColor: colorBlack,
+                    )
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -102,6 +98,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: InkWell(
                         onTap: () async {
                           FocusScope.of(context).unfocus();
+                          bool isUniqueName = await authenticationController.isUniqueName(userNameTextEditingController.text.trim().toLowerCase());
                           if(profileImage == null){
                             Get.snackbar("Error !!", "Please set your profile.");
                           } else if(userNameTextEditingController.text.trim().isEmpty){
@@ -112,16 +109,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Get.snackbar("Error !!", "Invalid email");
                           } else if(passwordTextEditingController.text.trim().isEmpty){
                             Get.snackbar("Error !!", "Password can't be empty");
+                          } else if(!isUniqueName){
+                            Get.snackbar("Error !!", "User name already taken");
                           } else {
                             setState(() {
                               showProgressBar = true;
                             });
-                            await authenticationController.createAccountForNewUser(
+                            bool isSuccessful = await authenticationController.createAccountForNewUser(
                                 authenticationController.profileImage!,
-                                userNameTextEditingController.text.toString().trim(),
-                                emailTextEditingController.text.toString().trim(),
+                                userNameTextEditingController.text.toString().trim().toLowerCase(),
+                                emailTextEditingController.text.toString().trim().toLowerCase(),
                                 passwordTextEditingController.text.toString().trim()
                             );
+                            if(!isSuccessful){
+                              setState(() {});
+                            }
                           }
                         },
                         child: const Center(child: Text("Sign Up", style: boldTextStyleBlack_20)),
@@ -138,7 +140,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       ],
                     ),
                   ],
-                )
+                ),
+                const SizedBox(height: 60),
               ],
             ),
           ),
