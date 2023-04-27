@@ -55,14 +55,29 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ],
         ),
-        body: searchedUser.isEmpty ? Center(
+        body: mainBody()
+      ),
+    );
+  }
+
+  mainBody() {
+    if(searchTextEditingController.text.isEmpty){
+      return Center(
           child: Padding(
             padding: const EdgeInsets.all(80),
             child: Image.asset(AssetImagePath.search),
           )
-        ) : searchedUserList()
-      ),
-    );
+      );
+    } else if(searchTextEditingController.text.isNotEmpty && searchedUser.isEmpty){
+      return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(80),
+            child: Image.asset(AssetImagePath.noData),
+          )
+      );
+    } else {
+      return searchedUserList();
+    }
   }
 
   searchedUserList(){

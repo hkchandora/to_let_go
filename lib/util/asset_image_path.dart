@@ -8,4 +8,5 @@ class AssetImagePath {
   static const whatsapp = 'images/whatsapp.png';
   static const youtube = 'images/youtube.jpeg';
   static const search = 'images/search.png';
+  static const noData = 'images/no_data.png';
 }
