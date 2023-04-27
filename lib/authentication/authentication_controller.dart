@@ -9,8 +9,7 @@ import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/home_screen.dart';
 import 'package:to_let_go/model/user.dart' as user_model;
 import 'package:to_let_go/on_boarding/login_screen.dart';
-import 'package:to_let_go/on_boarding/registration_screen.dart';
-import 'package:to_let_go/util/Preferences.dart';
+import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/utility.dart';
 
 class AuthenticationController extends GetxController{

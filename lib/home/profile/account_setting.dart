@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/global.dart';
-import 'package:to_let_go/util/Preferences.dart';
+import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';

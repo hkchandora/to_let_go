@@ -1,17 +1,13 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
-import 'package:to_let_go/util/Preferences.dart';
+import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
-import 'package:to_let_go/widget/widget_common.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -270,13 +266,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        FlatButton(
+                        MaterialButton(
                           child: const Text("No", style: TextStyle(color: colorWhite)),
                           onPressed: () {
                             Get.back();
                           },
                         ),
-                        FlatButton(
+                        MaterialButton(
                           child: const Text("Yes", style: TextStyle(color: colorWhite)),
                           onPressed: () {
                             Get.back();

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/on_boarding/splash_screen.dart';
+import 'package:to_let_go/util/strings.dart';
 
 void main() async {
 
@@ -14,7 +15,7 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyDikBiL3WFhIicn0YtRoQl3T12IILuXzCA",
+        apiKey: Strings.apiKey,
         authDomain: "to-let-go-4112b.firebaseapp.com",
         projectId: "to-let-go-4112b",
         storageBucket: "to-let-go-4112b.appspot.com",
