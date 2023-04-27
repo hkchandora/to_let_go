@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 class SearchController extends GetxController{
 
   getSearchedUser(String name) async {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').where("name", isGreaterThanOrEqualTo: name).get();
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').get();
     List searchedUserDataList = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return searchedUserDataList;
+    List finalSearchedList = [];
+    finalSearchedList.addAll(searchedUserDataList.where((element) => element['name'].toString().contains(name)));
+    return finalSearchedList;
   }
 }
