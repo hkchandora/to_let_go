@@ -9,4 +9,5 @@ class AssetImagePath {
   static const youtube = 'images/youtube.jpeg';
   static const search = 'images/search.png';
   static const noData = 'images/no_data.png';
+  static const upload = 'images/upload.png';
 }

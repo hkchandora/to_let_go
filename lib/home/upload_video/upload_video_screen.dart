@@ -100,8 +100,11 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AssetImagePath.profileAvatar,
-              width: 260,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Image.asset(AssetImagePath.upload, fit: BoxFit.fill,
+                width: double.infinity,
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
