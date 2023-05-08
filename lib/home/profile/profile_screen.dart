@@ -70,10 +70,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       actions: <Widget>[
         widget.isComingFrom == Strings.me ?
         PopupMenuButton<String>(
-          onSelected: (value){
+          onSelected: (value) async {
             switch (value) {
               case 'Settings':
-                Get.to(const AccountSetting());
+                await Get.to(const AccountSetting());
+                getData();
                 break;
               case 'Logout':
                 logoutConfirmDialog("Logout", "Do you want to log out?");
@@ -155,12 +156,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
+              Center(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
                         onTap: () => Utility.launchGivenUrl(facebookUrl!),
@@ -169,6 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
                         ),
                       ) : const SizedBox(),
+                      const SizedBox(width: 10),
                       instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
                         onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
                         child: ClipRRect(
@@ -176,6 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
                         ),
                       ) : const SizedBox(),
+                      const SizedBox(width: 10),
                       whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
                         onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
                         child: ClipRRect(
@@ -183,6 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
                         ),
                       ) : const SizedBox(),
+                      const SizedBox(width: 10),
                       twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
                         onTap: () => Utility.launchGivenUrl(twitterUrl!),
                         child: ClipRRect(
@@ -190,6 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
                         ),
                       ) : const SizedBox(),
+                      const SizedBox(width: 10),
                       youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
                         onTap: () => Utility.launchGivenUrl(youtubeUrl!),
                         child: ClipRRect(
