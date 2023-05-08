@@ -25,7 +25,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  String? userId, userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   int? following, followers, posts;
   List? thumbnailUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
@@ -38,6 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getData() async {
     if(widget.isComingFrom == Strings.me){
+      userId = FirebaseAuth.instance.currentUser!.uid;
       userName = await preferences.getUserName();
       userProfileImage = await preferences.getUserprofileImageUrl();
       facebookUrl = await preferences.getUserFacebook();
@@ -50,6 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       followers = 0;
       posts = 0;
     } else {
+      userId = widget.userData['uid'] ?? "";
       userName = widget.userData['name'] ?? "";
       userProfileImage = widget.userData['image'] ?? "";
       facebookUrl = widget.userData['facebook'] ?? "";
@@ -222,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: widget.isComingFrom == Strings.me ? 20 : 0),
               widget.isComingFrom == Strings.me ? GestureDetector(
                 onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
                 child: Container(
@@ -237,8 +239,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                 ),
-              ) : const SizedBox(),
-              SizedBox(height: widget.isComingFrom == Strings.me ? 10 : 0),
+              ) : GestureDetector(
+                onTap: () async {
+                  await profileController.followUser(FirebaseAuth.instance.currentUser!.uid, userId!);
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: colorDarkRed, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                  ),
+                  child: const Center(
+                    child: Text("Follow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
             ]),
           )
         ];
