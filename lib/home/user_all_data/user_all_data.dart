@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_let_go/home/follower/user_follower_screen.dart';
 import 'package:to_let_go/home/following/user_following_screen.dart';
-import 'package:to_let_go/util/preferences.dart';
 
 class UserAllData extends StatefulWidget {
+  String? userName;
 
-  const UserAllData({Key? key}) : super(key: key);
+  UserAllData(this.userName, {Key? key}) : super(key: key);
 
   @override
   State<UserAllData> createState() => _UserAllDataState();
@@ -13,29 +13,13 @@ class UserAllData extends StatefulWidget {
 
 class _UserAllDataState extends State<UserAllData> {
 
-  String? userName;
-  Preferences preferences = Preferences();
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
-  getData() async {
-    String getUserName = await preferences.getUserName();
-    setState((){
-      userName = getUserName;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(userName ?? ""),
+          title: Text(widget.userName ?? ""),
           bottom: const TabBar(
             tabs: [
               Tab(text: "Following"),

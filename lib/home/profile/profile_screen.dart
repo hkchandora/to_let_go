@@ -145,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Text("Following"),
                         ],
                       ),
-                      onTap: () => Get.to(UserAllData()),
+                      onTap: () => Get.to(UserAllData(userName)),
                     ),
                     GestureDetector(
                       child: Column(
@@ -156,7 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Text("Followers"),
                         ],
                       ),
-                      onTap: () => Get.to(UserAllData()),
+                      onTap: () => Get.to(UserAllData(userName)),
                     ),
                     GestureDetector(
                       child: Column(
