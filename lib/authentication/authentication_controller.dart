@@ -29,7 +29,7 @@ class AuthenticationController extends GetxController{
     if(pickedImageFile != null){
       CroppedFile? cropped = await ImageCropper().cropImage(
         sourcePath: pickedImageFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         cropStyle: CropStyle.circle,
         compressQuality: 50,
         uiSettings: [

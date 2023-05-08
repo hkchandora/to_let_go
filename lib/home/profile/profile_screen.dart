@@ -1,10 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_let_go/home/follower/user_follower_screen.dart';
-import 'package:to_let_go/home/following/followings_screen.dart';
-import 'package:to_let_go/home/following/user_following_screen.dart';
-import 'package:to_let_go/home/like/like_screen.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/user_all_data/user_all_data.dart';
