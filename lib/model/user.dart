@@ -11,6 +11,9 @@ class UserInfoData {
   String? whatsapp;
   String? twitter;
   String? instagram;
+  int? following;
+  int? followers;
+  int? likes;
 
   UserInfoData(
       {this.name,
@@ -22,7 +25,11 @@ class UserInfoData {
         this.facebook,
         this.whatsapp,
         this.twitter,
-        this.instagram});
+        this.instagram,
+        this.following,
+        this.followers,
+        this.likes,
+      });
 
   Map<String, dynamic> toJson() => {
     "name": name,
@@ -34,7 +41,10 @@ class UserInfoData {
     "facebook": facebook,
     "whatsapp": whatsapp,
     "twitter": twitter,
-    "instagram": instagram
+    "instagram": instagram,
+    "following": following,
+    "followers": followers,
+    "likes": likes
   };
 
   static UserInfoData fromSnap(DocumentSnapshot snapshot){
@@ -50,6 +60,9 @@ class UserInfoData {
       facebook: dataSnapshot["facebook"],
       twitter: dataSnapshot["twitter"],
       instagram: dataSnapshot["instagram"],
+      following: dataSnapshot["following"],
+      followers: dataSnapshot["followers"],
+      likes: dataSnapshot["likes"],
     );
   }
 
