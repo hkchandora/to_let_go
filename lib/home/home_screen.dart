@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:to_let_go/home/following/followings_video_screen.dart';
+import 'package:to_let_go/home/following/followings_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/home/search/search_screen.dart';
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const ForYouVideoScreen(),
     const SearchScreen(),
     const UploadVideoScreen(),
-    const FollowingsVideoScreen(),
+    const FollowingsScreen(),
     ProfileScreen(Strings.me, const {}),
   ];
 

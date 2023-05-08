@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/home/follower/follower_screen.dart';
+import 'package:to_let_go/home/following/followings_screen.dart';
+import 'package:to_let_go/home/like/like_screen.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
@@ -128,29 +131,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("3"),
-                        Text("Following"),
-                      ],
+                    GestureDetector(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text("3"),
+                          Text("Following"),
+                        ],
+                      ),
+                      onTap: () => Get.to(const FollowingsScreen()),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("4"),
-                        Text("Followers"),
-                      ],
+                    GestureDetector(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text("4"),
+                          Text("Followers"),
+                        ],
+                      ),
+                      onTap: () => Get.to(const FollowersScreen()),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text("100"),
-                        Text("Likes"),
-                      ],
+                    GestureDetector(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text("100"),
+                          Text("Likes"),
+                        ],
+                      ),
+                      onTap: () => Get.to(const LikeScreen()),
                     ),
                   ],
                 ),

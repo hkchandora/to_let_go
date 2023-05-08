@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:to_let_go/util/style.dart';
 
-class FollowingsVideoScreen extends StatefulWidget {
-  const FollowingsVideoScreen({Key? key}) : super(key: key);
+class FollowersScreen extends StatefulWidget {
+  const FollowersScreen({Key? key}) : super(key: key);
 
   @override
-  State<FollowingsVideoScreen> createState() => _FollowingsVideoScreenState();
+  State<FollowersScreen> createState() => _FollowersScreenState();
 }
 
-class _FollowingsVideoScreenState extends State<FollowingsVideoScreen> {
+class _FollowersScreenState extends State<FollowersScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
        body: Center(
            child: Text(
-             "Followings video screen",
+             "Follower video screen",
              style: extraBoldTextStyleWhite_18,
            ),
        ),
