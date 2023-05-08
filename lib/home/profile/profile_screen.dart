@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_let_go/home/follower/follower_screen.dart';
+import 'package:to_let_go/home/follower/user_follower_screen.dart';
 import 'package:to_let_go/home/following/followings_screen.dart';
+import 'package:to_let_go/home/following/user_following_screen.dart';
 import 'package:to_let_go/home/like/like_screen.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
+import 'package:to_let_go/home/user_all_data/user_all_data.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
@@ -147,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Text("Following"),
                         ],
                       ),
-                      onTap: () => Get.to(const FollowingsScreen()),
+                      onTap: () => Get.to(const UserAllData()),
                     ),
                     GestureDetector(
                       child: Column(
@@ -158,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Text("Followers"),
                         ],
                       ),
-                      onTap: () => Get.to(const FollowersScreen()),
+                      onTap: () => Get.to(const UserAllData()),
                     ),
                     GestureDetector(
                       child: Column(
@@ -169,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           const Text("Likes"),
                         ],
                       ),
-                      onTap: () => Get.to(const LikeScreen()),
+                      onTap: () => Get.to(const UserAllData()),
                     ),
                   ],
                 ),
