@@ -28,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
   String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  int? following, followers, likes;
   List? thumbnailUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
 
@@ -47,6 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       twitterUrl = await preferences.getUserTwitter();
       youtubeUrl = await preferences.getUserYoutube();
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
+      following = 0;
+      followers = 0;
+      likes = 0;
     } else {
       userName = widget.userData['name'] ?? "";
       userProfileImage = widget.userData['image'] ?? "";
@@ -56,6 +60,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       twitterUrl = widget.userData['twitter'] ?? "";
       youtubeUrl = widget.userData['youtube'] ?? "";
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
+      following = widget.userData['following'] ?? 0;
+      followers = widget.userData['followers'] ?? 0;
+      likes = widget.userData['likes'] ?? 0;
     }
     setState((){});
   }
@@ -135,9 +142,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("3"),
-                          Text("Following"),
+                        children: [
+                          Text(following.toString()),
+                          const Text("Following"),
                         ],
                       ),
                       onTap: () => Get.to(const FollowingsScreen()),
@@ -146,9 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("4"),
-                          Text("Followers"),
+                        children: [
+                          Text(followers.toString()),
+                          const Text("Followers"),
                         ],
                       ),
                       onTap: () => Get.to(const FollowersScreen()),
@@ -157,9 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text("100"),
-                          Text("Likes"),
+                        children: [
+                          Text(likes.toString()),
+                          const Text("Likes"),
                         ],
                       ),
                       onTap: () => Get.to(const LikeScreen()),

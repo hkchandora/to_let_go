@@ -91,6 +91,9 @@ class AuthenticationController extends GetxController{
       preferences.setUserUid(credential.user!.uid);
       preferences.setUserName(userName);
       preferences.setUserprofileImageUrl(imageDownloadUrl);
+      preferences.setUserFollowing(0);
+      preferences.setUserFollowers(0);
+      preferences.setUserLikes(0);
 
       Get.snackbar("Account Creation Successful","");
       showProgressBar = false;
@@ -135,6 +138,9 @@ class AuthenticationController extends GetxController{
       preferences.setUserWhatsapp((userDocumentSnapshot.data() as Map<String, dynamic>)["whatsapp"]);
       preferences.setUserTwitter((userDocumentSnapshot.data() as Map<String, dynamic>)["twitter"]);
       preferences.setUserYoutube((userDocumentSnapshot.data() as Map<String, dynamic>)["youtube"]);
+      preferences.setUserFollowing((userDocumentSnapshot.data() as Map<String, dynamic>)["following"]);
+      preferences.setUserFollowers((userDocumentSnapshot.data() as Map<String, dynamic>)["followers"]);
+      preferences.setUserLikes((userDocumentSnapshot.data() as Map<String, dynamic>)["likes"]);
 
       Get.snackbar("Logged in Successful", "you're logged-in successful");
       showProgressBar = false;

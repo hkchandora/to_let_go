@@ -10,6 +10,9 @@ class Preferences {
   static const String keyUserWhatsapp = "userWhatsapp";
   static const String keyUserTwitter = "userTwitter";
   static const String keyUserInstagram = "userInstagram";
+  static const String keyUserFollowing = "userFollowing";
+  static const String keyUserFollowers = "userFollowers";
+  static const String keyUserLikes = "userLikes";
 
   Future<String> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,6 +112,39 @@ class Preferences {
   setUserInstagram(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(keyUserInstagram, value);
+  }
+
+  Future<int> getUserFollowing() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userFollowing = prefs.getInt(keyUserFollowing) ?? 0;
+    return userFollowing;
+  }
+
+  setUserFollowing(int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(keyUserFollowing, value);
+  }
+
+  Future<int> getUserFollowers() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userFollowers = prefs.getInt(keyUserFollowers) ?? 0;
+    return userFollowers;
+  }
+
+  setUserFollowers(int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(keyUserFollowers, value);
+  }
+
+  Future<int> getUserLikes() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int userLikes = prefs.getInt(keyUserLikes) ?? 0;
+    return userLikes;
+  }
+
+  setUserLikes(int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(keyUserLikes, value);
   }
 
   clearPreferences() async {
