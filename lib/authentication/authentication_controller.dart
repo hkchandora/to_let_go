@@ -78,6 +78,9 @@ class AuthenticationController extends GetxController{
         image: imageDownloadUrl,
         uid: credential.user!.uid,
         appVersion: version,
+        following: 0,
+        followers: 0,
+        likes: 0
       );
 
       await FirebaseFirestore.instance.collection("users")
@@ -161,6 +164,9 @@ class AuthenticationController extends GetxController{
         whatsapp: whatsapp,
         twitter: twitter,
         youtube: youtube,
+        following: (userDocumentSnapshot.data() as Map<String, dynamic>)["following"],
+        followers: (userDocumentSnapshot.data() as Map<String, dynamic>)["followers"],
+        likes: (userDocumentSnapshot.data() as Map<String, dynamic>)["likes"],
       );
 
       await FirebaseFirestore.instance.collection("users")
