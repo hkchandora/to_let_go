@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
   String? userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
-  int? following, followers, likes;
+  int? following, followers, posts;
   List? thumbnailUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
 
@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
       following = 0;
       followers = 0;
-      likes = 0;
+      posts = 0;
     } else {
       userName = widget.userData['name'] ?? "";
       userProfileImage = widget.userData['image'] ?? "";
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
       following = widget.userData['following'] ?? 0;
       followers = widget.userData['followers'] ?? 0;
-      likes = widget.userData['likes'] ?? 0;
+      posts = widget.userData['posts'] ?? 0;
     }
     setState((){});
   }
@@ -163,8 +163,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(likes.toString()),
-                          const Text("Likes"),
+                          Text(posts.toString()),
+                          const Text("Posts"),
                         ],
                       ),
                       onTap: () => Get.to(const UserAllData()),

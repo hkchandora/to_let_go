@@ -13,7 +13,7 @@ class UserInfoData {
   String? instagram;
   int? following;
   int? followers;
-  int? likes;
+  int? posts;
 
   UserInfoData(
       {this.name,
@@ -28,7 +28,7 @@ class UserInfoData {
         this.instagram,
         this.following,
         this.followers,
-        this.likes,
+        this.posts,
       });
 
   Map<String, dynamic> toJson() => {
@@ -44,7 +44,7 @@ class UserInfoData {
     "instagram": instagram,
     "following": following,
     "followers": followers,
-    "likes": likes
+    "posts": posts
   };
 
   static UserInfoData fromSnap(DocumentSnapshot snapshot){
@@ -62,7 +62,7 @@ class UserInfoData {
       instagram: dataSnapshot["instagram"],
       following: dataSnapshot["following"],
       followers: dataSnapshot["followers"],
-      likes: dataSnapshot["likes"],
+      posts: dataSnapshot["posts"],
     );
   }
 

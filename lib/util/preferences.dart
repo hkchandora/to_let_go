@@ -12,7 +12,7 @@ class Preferences {
   static const String keyUserInstagram = "userInstagram";
   static const String keyUserFollowing = "userFollowing";
   static const String keyUserFollowers = "userFollowers";
-  static const String keyUserLikes = "userLikes";
+  static const String keyUserPosts = "userPosts";
 
   Future<String> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -136,15 +136,15 @@ class Preferences {
     prefs.setInt(keyUserFollowers, value);
   }
 
-  Future<int> getUserLikes() async {
+  Future<int> getUserPosts() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int userLikes = prefs.getInt(keyUserLikes) ?? 0;
-    return userLikes;
+    int userPost = prefs.getInt(keyUserPosts) ?? 0;
+    return userPost;
   }
 
-  setUserLikes(int value) async {
+  setUserPosts(int value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(keyUserLikes, value);
+    prefs.setInt(keyUserPosts, value);
   }
 
   clearPreferences() async {

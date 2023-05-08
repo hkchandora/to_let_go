@@ -80,7 +80,7 @@ class AuthenticationController extends GetxController{
         appVersion: version,
         following: 0,
         followers: 0,
-        likes: 0
+        posts: 0
       );
 
       await FirebaseFirestore.instance.collection("users")
@@ -93,7 +93,7 @@ class AuthenticationController extends GetxController{
       preferences.setUserprofileImageUrl(imageDownloadUrl);
       preferences.setUserFollowing(0);
       preferences.setUserFollowers(0);
-      preferences.setUserLikes(0);
+      preferences.setUserPosts(0);
 
       Get.snackbar("Account Creation Successful","");
       showProgressBar = false;
@@ -140,7 +140,7 @@ class AuthenticationController extends GetxController{
       preferences.setUserYoutube((userDocumentSnapshot.data() as Map<String, dynamic>)["youtube"]);
       preferences.setUserFollowing((userDocumentSnapshot.data() as Map<String, dynamic>)["following"]);
       preferences.setUserFollowers((userDocumentSnapshot.data() as Map<String, dynamic>)["followers"]);
-      preferences.setUserLikes((userDocumentSnapshot.data() as Map<String, dynamic>)["likes"]);
+      preferences.setUserPosts((userDocumentSnapshot.data() as Map<String, dynamic>)["posts"]);
 
       Get.snackbar("Logged in Successful", "you're logged-in successful");
       showProgressBar = false;
@@ -172,7 +172,7 @@ class AuthenticationController extends GetxController{
         youtube: youtube,
         following: (userDocumentSnapshot.data() as Map<String, dynamic>)["following"],
         followers: (userDocumentSnapshot.data() as Map<String, dynamic>)["followers"],
-        likes: (userDocumentSnapshot.data() as Map<String, dynamic>)["likes"],
+        posts: (userDocumentSnapshot.data() as Map<String, dynamic>)["posts"],
       );
 
       await FirebaseFirestore.instance.collection("users")
