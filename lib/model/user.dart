@@ -65,5 +65,30 @@ class UserInfoData {
       posts: dataSnapshot["posts"],
     );
   }
+}
 
+class ChildUserInfo {
+  String? uid;
+  String? name;
+  String? image;
+  String? email;
+
+  ChildUserInfo({this.name, this.uid, this.email, this.image});
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+    "uid": uid,
+    "image": image,
+    "email": email
+  };
+
+  static ChildUserInfo fromSnap(DocumentSnapshot snapshot){
+    var dataSnapshot = snapshot.data() as Map<String, dynamic>;
+    return ChildUserInfo(
+      uid: dataSnapshot["uid"],
+      name: dataSnapshot["name"],
+      image: dataSnapshot["image"],
+      email: dataSnapshot["email"],
+    );
+  }
 }

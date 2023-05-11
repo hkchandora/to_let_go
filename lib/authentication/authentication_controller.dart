@@ -154,29 +154,37 @@ class AuthenticationController extends GetxController{
 
   saveSocialMediaDetails(String facebook, String instagram, String whatsapp, String twitter, String youtube) async {
     try{
-      DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get();
+      // DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+      //     .collection("users")
+      //     .doc(FirebaseAuth.instance.currentUser!.uid)
+      //     .get();
 
-      user_model.UserInfoData user = user_model.UserInfoData(
-        name: (userDocumentSnapshot.data() as Map<String, dynamic>)["name"],
-        email: (userDocumentSnapshot.data() as Map<String, dynamic>)["email"],
-        image: (userDocumentSnapshot.data() as Map<String, dynamic>)["image"],
-        uid: (userDocumentSnapshot.data() as Map<String, dynamic>)["uid"],
-        appVersion: (userDocumentSnapshot.data() as Map<String, dynamic>)["appVersion"],
-        facebook: facebook,
-        instagram: instagram,
-        whatsapp: whatsapp,
-        twitter: twitter,
-        youtube: youtube,
-        following: (userDocumentSnapshot.data() as Map<String, dynamic>)["following"],
-        followers: (userDocumentSnapshot.data() as Map<String, dynamic>)["followers"],
-        posts: (userDocumentSnapshot.data() as Map<String, dynamic>)["posts"],
-      );
+      // user_model.UserInfoData user = user_model.UserInfoData(
+      //   name: (userDocumentSnapshot.data() as Map<String, dynamic>)["name"],
+      //   email: (userDocumentSnapshot.data() as Map<String, dynamic>)["email"],
+      //   image: (userDocumentSnapshot.data() as Map<String, dynamic>)["image"],
+      //   uid: (userDocumentSnapshot.data() as Map<String, dynamic>)["uid"],
+      //   appVersion: (userDocumentSnapshot.data() as Map<String, dynamic>)["appVersion"],
+      //   facebook: facebook,
+      //   instagram: instagram,
+      //   whatsapp: whatsapp,
+      //   twitter: twitter,
+      //   youtube: youtube,
+      //   following: (userDocumentSnapshot.data() as Map<String, dynamic>)["following"],
+      //   followers: (userDocumentSnapshot.data() as Map<String, dynamic>)["followers"],
+      //   posts: (userDocumentSnapshot.data() as Map<String, dynamic>)["posts"],
+      // );
 
+      // await FirebaseFirestore.instance.collection("users")
+      //     .doc(FirebaseAuth.instance.currentUser!.uid).set(user.toJson());
       await FirebaseFirestore.instance.collection("users")
-          .doc(FirebaseAuth.instance.currentUser!.uid).set(user.toJson());
+          .doc(FirebaseAuth.instance.currentUser!.uid).update({
+        "facebook": facebook,
+        "instagram": instagram,
+        "whatsapp": whatsapp,
+        "twitter": twitter,
+        "youtube": youtube,
+      });
 
       Preferences preferences = Preferences();
       preferences.setUserFacebook(facebook);

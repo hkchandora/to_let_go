@@ -47,9 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       twitterUrl = await preferences.getUserTwitter();
       youtubeUrl = await preferences.getUserYoutube();
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
-      following = 0;
-      followers = 0;
-      posts = 0;
+      following = await preferences.getUserFollowing();
+      followers = await preferences.getUserFollowers();
+      posts = thumbnailUrlList!.length;
     } else {
       userId = widget.userData['uid'] ?? "";
       userName = widget.userData['name'] ?? "";
@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
       following = widget.userData['following'] ?? 0;
       followers = widget.userData['followers'] ?? 0;
-      posts = widget.userData['posts'] ?? 0;
+      posts = thumbnailUrlList!.length;
     }
     setState((){});
   }
