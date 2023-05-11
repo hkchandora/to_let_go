@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
 import 'package:to_let_go/home/profile/account_setting.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/user_all_data/user_all_data.dart';
@@ -279,9 +280,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               itemCount: thumbnailUrlList!.length,
               itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: colorWhite,
-                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+                return GestureDetector(
+                  onTap: (){
+                    Get.to(ForYouVideoScreen(false));
+                  },
+                  child: Card(
+                    color: colorWhite,
+                    child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+                  ),
                 );
               },
             ),

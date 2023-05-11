@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int screenIndex = 0;
   List screenList =  [
-    const ForYouVideoScreen(),
+    ForYouVideoScreen(true),
     const SearchScreen(),
     const UploadVideoScreen(),
     const FollowingsScreen(),
