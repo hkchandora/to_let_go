@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? userId, userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   int? following, followers, posts;
   List? thumbnailUrlList = [];
+  List videoUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
 
   @override
@@ -48,6 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       twitterUrl = await preferences.getUserTwitter();
       youtubeUrl = await preferences.getUserYoutube();
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
+      videoUrlList = await profileController.getUserAllVideoUrl(FirebaseAuth.instance.currentUser!.uid);
       following = await preferences.getUserFollowing();
       followers = await preferences.getUserFollowers();
       posts = thumbnailUrlList!.length;
@@ -61,6 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       twitterUrl = widget.userData['twitter'] ?? "";
       youtubeUrl = widget.userData['youtube'] ?? "";
       thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
+      videoUrlList = await profileController.getUserAllVideoUrl(widget.userData['uid']) ?? [];
       following = widget.userData['following'] ?? 0;
       followers = widget.userData['followers'] ?? 0;
       posts = thumbnailUrlList!.length;
@@ -281,9 +284,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               itemCount: thumbnailUrlList!.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: (){
-                    Get.to(ForYouVideoScreen(false));
-                  },
+                  onTap: () => Get.to(() => ForYouVideoScreen(false, videoUrlList)),
                   child: Card(
                     color: colorWhite,
                     child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
