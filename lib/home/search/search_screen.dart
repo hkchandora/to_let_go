@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
         return GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
-            Get.to(() => ProfileScreen(Strings.search, searchedUser[index]));
+            Get.to(() => ProfileScreen(Strings.search, searchedUser[index]['uid']));
           },
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),

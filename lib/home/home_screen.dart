@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:to_let_go/home/following/followings_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const SearchScreen(),
     const UploadVideoScreen(),
     const FollowingsScreen(),
-    ProfileScreen(Strings.me, const {}),
+    ProfileScreen(Strings.me, FirebaseAuth.instance.currentUser!.uid),
   ];
 
   @override

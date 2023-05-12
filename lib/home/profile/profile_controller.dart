@@ -30,6 +30,12 @@ class ProfileController extends GetxController {
     return allVideoThumbnailData;
   }
 
+  Future<Map<String, dynamic>> getUserData(String uid) async {
+    DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+        .collection("users").doc(uid).get();
+    return userDocumentSnapshot.data() as Map<String, dynamic>;
+  }
+
   followUser(String followersUID, String followingUID) async{
     try{
       //Get User's info

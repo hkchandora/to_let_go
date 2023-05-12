@@ -16,8 +16,8 @@ import 'package:to_let_go/widget/widget_common.dart';
 class ProfileScreen extends StatefulWidget {
 
   String isComingFrom;
-  Map<String, dynamic> userData;
-  ProfileScreen( this.isComingFrom, this.userData, {Key? key}) : super(key: key);
+  String? uid;
+  ProfileScreen( this.isComingFrom, this.uid, {Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -40,36 +40,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   getData() async {
-    if(widget.isComingFrom == Strings.me){
-      userId = FirebaseAuth.instance.currentUser!.uid;
-      userName = await preferences.getUserName();
-      userProfileImage = await preferences.getUserprofileImageUrl();
-      facebookUrl = await preferences.getUserFacebook();
-      instagramUrl = await preferences.getUserInstagram();
-      whatsappUrl = await preferences.getUserWhatsapp();
-      twitterUrl = await preferences.getUserTwitter();
-      youtubeUrl = await preferences.getUserYoutube();
-      thumbnailUrlList = await profileController.getUserAllVideoThumbnail(FirebaseAuth.instance.currentUser!.uid);
-      videoUrlList = await profileController.getUserAllVideoUrl(FirebaseAuth.instance.currentUser!.uid);
-      following = await preferences.getUserFollowing();
-      followers = await preferences.getUserFollowers();
-      posts = thumbnailUrlList!.length;
-    } else {
-      userId = widget.userData['uid'] ?? "";
-      userName = widget.userData['name'] ?? "";
-      userProfileImage = widget.userData['image'] ?? "";
-      facebookUrl = widget.userData['facebook'] ?? "";
-      instagramUrl = widget.userData['instagram'] ?? "";
-      whatsappUrl = widget.userData['whatsapp'] ?? "";
-      twitterUrl = widget.userData['twitter'] ?? "";
-      youtubeUrl = widget.userData['youtube'] ?? "";
-      thumbnailUrlList = await profileController.getUserAllVideoThumbnail(widget.userData['uid']) ?? [];
-      videoUrlList = await profileController.getUserAllVideoUrl(widget.userData['uid']) ?? [];
-      following = widget.userData['following'] ?? 0;
-      followers = widget.userData['followers'] ?? 0;
-      posts = thumbnailUrlList!.length;
-      isFollow = widget.userData['followersUidList'].toString().contains(FirebaseAuth.instance.currentUser!.uid);
-    }
+    Map<String, dynamic> userInfo = await profileController.getUserData(widget.uid!);
+    userId = userInfo['uid'];
+    userName = userInfo['name'] ?? "";
+    userProfileImage = userInfo['image'] ?? "";
+    facebookUrl = userInfo['facebook'] ?? "";
+    instagramUrl = userInfo['instagram'] ?? "";
+    whatsappUrl = userInfo['whatsapp'] ?? "";
+    twitterUrl = userInfo['twitter'] ?? "";
+    youtubeUrl = userInfo['youtube'] ?? "";
+    thumbnailUrlList = await profileController.getUserAllVideoThumbnail(userInfo['uid']) ?? [];
+    videoUrlList = await profileController.getUserAllVideoUrl(userInfo['uid']) ?? [];
+    following = userInfo['following'] ?? 0;
+    followers = userInfo['followers'] ?? 0;
+    posts = thumbnailUrlList!.length;
+    isFollow = userInfo['followersUidList'].toString().contains(FirebaseAuth.instance.currentUser!.uid);
     setState((){});
   }
 
