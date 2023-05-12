@@ -250,6 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   await profileController.unfollowUser(FirebaseAuth.instance.currentUser!.uid, userId!);
                   setState(() {
                     isFollow = !isFollow;
+                    followers = followers! - 1;
                   });
                 },
                 child: Container(
@@ -269,6 +270,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   await profileController.followUser(FirebaseAuth.instance.currentUser!.uid, userId!);
                   setState(() {
                     isFollow = !isFollow;
+                    followers = followers! + 1;
                   });
                 },
                 child: Container(
