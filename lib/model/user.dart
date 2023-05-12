@@ -14,6 +14,8 @@ class UserInfoData {
   int? following;
   int? followers;
   int? posts;
+  List? followingUidList;
+  List? followersUidList;
 
   UserInfoData(
       {this.name,
@@ -29,6 +31,8 @@ class UserInfoData {
         this.following,
         this.followers,
         this.posts,
+        this.followingUidList,
+        this.followersUidList,
       });
 
   Map<String, dynamic> toJson() => {
@@ -44,7 +48,9 @@ class UserInfoData {
     "instagram": instagram,
     "following": following,
     "followers": followers,
-    "posts": posts
+    "posts": posts,
+    "followingUidList": followingUidList,
+    "followersUidList": followersUidList,
   };
 
   static UserInfoData fromSnap(DocumentSnapshot snapshot){
@@ -63,6 +69,8 @@ class UserInfoData {
       following: dataSnapshot["following"],
       followers: dataSnapshot["followers"],
       posts: dataSnapshot["posts"],
+      followingUidList: dataSnapshot["followingUidList"],
+      followersUidList: dataSnapshot["followersUidList"],
     );
   }
 }
