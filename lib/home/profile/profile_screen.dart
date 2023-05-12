@@ -31,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List? thumbnailUrlList = [];
   List videoUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
+  bool isFollow = false;
 
   @override
   void initState() {
@@ -67,6 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       following = widget.userData['following'] ?? 0;
       followers = widget.userData['followers'] ?? 0;
       posts = thumbnailUrlList!.length;
+      isFollow = widget.userData['followersUidList'].toString().contains(FirebaseAuth.instance.currentUser!.uid);
     }
     setState((){});
   }
@@ -243,9 +245,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                 ),
+              ) : isFollow ? GestureDetector(
+                onTap: () async {
+                  await profileController.unfollowUser(FirebaseAuth.instance.currentUser!.uid, userId!);
+                  setState(() {
+                    isFollow = !isFollow;
+                  });
+                },
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: colorDarkRed, width: 1),
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                  ),
+                  child: const Center(
+                    child: Text("Unfollow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  ),
+                ),
               ) : GestureDetector(
                 onTap: () async {
                   await profileController.followUser(FirebaseAuth.instance.currentUser!.uid, userId!);
+                  setState(() {
+                    isFollow = !isFollow;
+                  });
                 },
                 child: Container(
                   width: double.infinity,
