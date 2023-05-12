@@ -1,28 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
+import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 
+import '../profile/profile_screen.dart';
+
 class UserFollowersScreen extends StatefulWidget {
-  const UserFollowersScreen({Key? key}) : super(key: key);
+  String? uid;
+  UserFollowersScreen(this.uid, {Key? key}) : super(key: key);
 
   @override
   State<UserFollowersScreen> createState() => _UserFollowersScreenState();
 }
 
 class _UserFollowersScreenState extends State<UserFollowersScreen> {
+  ProfileController profileController = Get.put(ProfileController());
+  List followersUserList = [];
+
+  @override
+  void initState() {
+    getFollowersData();
+    super.initState();
+  }
+
+  getFollowersData() async {
+    followersUserList = await profileController.getUserFollowersList(widget.uid!);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body: followersUserList.isEmpty ?
+      const Center(child: Text("No Followers")) :
+      ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: 2,
+        itemCount: followersUserList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-
-            },
+            onTap: () => Get.to(() => ProfileScreen(Strings.followers, followersUserList[index]['uid'])),
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
               decoration: const BoxDecoration(
@@ -33,15 +53,15 @@ class _UserFollowersScreenState extends State<UserFollowersScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                 child: Row(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage(AssetImagePath.profileAvatar),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(followersUserList[index]['image']),
                     ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Name", style: boldTextStyleWhite_16),
-                        Text("Email", style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
+                        Text(followersUserList[index]['name'], style: boldTextStyleWhite_16),
+                        Text(followersUserList[index]['email'], style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
                       ],
                     )
                   ],

@@ -36,6 +36,26 @@ class ProfileController extends GetxController {
     return userDocumentSnapshot.data() as Map<String, dynamic>;
   }
 
+
+  getUserFollowersList(String uid) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users')
+        .doc(uid)
+        .collection("followersList")
+        .get();
+    List followersUserDataList = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return followersUserDataList;
+  }
+
+  getUserFollowingList(String uid) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users')
+        .doc(uid)
+        .collection("followingList")
+        .get();
+    List followingUserDataList = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return followingUserDataList;
+  }
+
+
   followUser(String followersUID, String followingUID) async{
     try{
       //Get User's info
