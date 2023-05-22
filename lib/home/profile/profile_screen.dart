@@ -12,6 +12,7 @@ import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
 import 'package:to_let_go/widget/widget_common.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
 
@@ -26,7 +27,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userId, userName, userBio, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  String? userId, userName, userEmail, userBio, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   int? following, followers, posts;
   List? thumbnailUrlList = [];
   List videoUrlList = [];
@@ -44,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userId = userInfo['uid'];
     userName = userInfo['name'] ?? "";
     userBio = userInfo['bio'] ?? "";
+    userEmail = userInfo['email'] ?? "";
     userProfileImage = userInfo['image'] ?? "";
     facebookUrl = userInfo['facebook'] ?? "";
     instagramUrl = userInfo['instagram'] ?? "";
@@ -256,7 +258,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                       child: GestureDetector(
-                        onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
+                        onTap: () {
+                          String subject = "To Let Go";
+                          String body = "Hello Himanshu, \n\nMy Self $userName.\n\n";
+                          launchUrl(Uri.parse("mailto:$userEmail?subject=$subject&body=$body"));
+                        },
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 6),
@@ -265,7 +271,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: const BorderRadius.all(Radius.circular(40)),
                           ),
                           child: const Center(
-                            child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            child: Text("Email", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                           ),
                         ),
                       ),
