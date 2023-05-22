@@ -182,70 +182,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
-              Center(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
-                        onTap: () => Utility.launchGivenUrl(facebookUrl!),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14),
-                          child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
-                        ),
-                      ) : const SizedBox(),
-                      const SizedBox(width: 10),
-                      instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
-                        onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14),
-                          child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
-                        ),
-                      ) : const SizedBox(),
-                      const SizedBox(width: 10),
-                      whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
-                        onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14),
-                          child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
-                        ),
-                      ) : const SizedBox(),
-                      const SizedBox(width: 10),
-                      twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
-                        onTap: () => Utility.launchGivenUrl(twitterUrl!),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14),
-                          child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
-                        ),
-                      ) : const SizedBox(),
-                      const SizedBox(width: 10),
-                      youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
-                        onTap: () => Utility.launchGivenUrl(youtubeUrl!),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(14),
-                          child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
-                        ),
-                      ) : const SizedBox(),
-                    ],
-                  ),
-                ),
-              ),
+              // const SizedBox(height: 30),
+              // Center(
+              //   child: SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         facebookUrl != null && facebookUrl!.isNotEmpty ? GestureDetector(
+              //           onTap: () => Utility.launchGivenUrl(facebookUrl!),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: Image.asset(AssetImagePath.facebook, fit: BoxFit.fill, width: 50, height: 50),
+              //           ),
+              //         ) : const SizedBox(),
+              //         const SizedBox(width: 10),
+              //         instagramUrl != null && instagramUrl!.isNotEmpty ? GestureDetector(
+              //           onTap: () => Utility.launchGivenUrl("https://www.instagram.com/$instagramUrl"),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: Image.asset(AssetImagePath.instagram, fit: BoxFit.fill, width: 50, height: 50),
+              //           ),
+              //         ) : const SizedBox(),
+              //         const SizedBox(width: 10),
+              //         whatsappUrl != null && whatsappUrl!.isNotEmpty ? GestureDetector(
+              //           onTap: () => Utility.launchGivenUrl("https://wa.me/+91$whatsappUrl"),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: Image.asset(AssetImagePath.whatsapp, fit: BoxFit.fill, width: 50, height: 50),
+              //           ),
+              //         ) : const SizedBox(),
+              //         const SizedBox(width: 10),
+              //         twitterUrl != null && twitterUrl!.isNotEmpty ? GestureDetector(
+              //           onTap: () => Utility.launchGivenUrl(twitterUrl!),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: Image.asset(AssetImagePath.twitter, fit: BoxFit.fill, width: 50, height: 50),
+              //           ),
+              //         ) : const SizedBox(),
+              //         const SizedBox(width: 10),
+              //         youtubeUrl != null && youtubeUrl!.isNotEmpty ? GestureDetector(
+              //           onTap: () => Utility.launchGivenUrl(youtubeUrl!),
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: Image.asset(AssetImagePath.youtube, fit: BoxFit.fill, width: 50, height: 50),
+              //           ),
+              //         ) : const SizedBox(),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               SizedBox(height: widget.isComingFrom == Strings.me ? 20 : 0),
-              widget.isComingFrom == Strings.me ? GestureDetector(
-                onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 50),
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: colorDarkRed, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(40)),
-                  ),
-                  child: const Center(
-                    child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  ),
+              widget.isComingFrom == Strings.me ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () async => await Get.to(const AccountSetting()),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: colorDarkRed, width: 1),
+                            borderRadius: const BorderRadius.all(Radius.circular(40)),
+                          ),
+                          child: const Center(
+                            child: Text("Edit Profile", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () => logoutConfirmDialog("Sign Out", "Do you want to sign out?"),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: colorDarkRed, width: 1),
+                            borderRadius: const BorderRadius.all(Radius.circular(40)),
+                          ),
+                          child: const Center(
+                            child: Text("Sign Out", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ) : isFollow ? GestureDetector(
                 onTap: () async {
@@ -257,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
                     border: Border.all(color: colorDarkRed, width: 1),
@@ -277,7 +302,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 child: Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
                     border: Border.all(color: colorDarkRed, width: 1),
