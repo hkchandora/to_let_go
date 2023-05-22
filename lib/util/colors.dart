@@ -19,3 +19,4 @@ const colorDarkYellow = Color(0xffffe36a);
 const colorLightYellow = Color(0xffFFF8E8);
 const colorLightSky = Color(0xffE7EBFB);
 const colorDisable = Color(0xffdee0e0);
+const colorTransparent = Color(0x06ffffff);

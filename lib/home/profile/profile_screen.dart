@@ -113,10 +113,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             delegate: SliverChildListDelegate([
               const SizedBox(height: 20),
               Center(
-                child: userProfileImage != null ? CircleAvatar(
-                  radius: 80,
-                  backgroundImage: NetworkImage(userProfileImage!),
-                  backgroundColor: colorBlack,
+                child: userProfileImage != null ? GestureDetector(
+                  onTap: () => _showDialog(context, userProfileImage!),
+                  child: CircleAvatar(
+                    radius: 80,
+                    backgroundImage: NetworkImage(userProfileImage!),
+                    backgroundColor: colorBlack,
+                  ),
                 ) : const CircleAvatar(
                   radius: 80,
                   backgroundImage: AssetImage(AssetImagePath.profileAvatar),
@@ -370,4 +373,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+
+  void _showDialog(BuildContext context, String profileUrl) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          title: ClipOval(
+            child: CircleAvatar(backgroundImage: NetworkImage(profileUrl), radius: 150),
+          )
+        );
+      },
+    );
+  }
 }
