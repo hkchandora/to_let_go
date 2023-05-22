@@ -26,7 +26,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userId, userName, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  String? userId, userName, userBio, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   int? following, followers, posts;
   List? thumbnailUrlList = [];
   List videoUrlList = [];
@@ -43,6 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Map<String, dynamic> userInfo = await profileController.getUserData(widget.uid!);
     userId = userInfo['uid'];
     userName = userInfo['name'] ?? "";
+    userBio = userInfo['bio'] ?? "";
     userProfileImage = userInfo['image'] ?? "";
     facebookUrl = userInfo['facebook'] ?? "";
     instagramUrl = userInfo['instagram'] ?? "";
@@ -112,76 +113,72 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SliverList(
             delegate: SliverChildListDelegate([
               const SizedBox(height: 20),
-              Center(
-                child: userProfileImage != null ? Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    GestureDetector(
-                      onTap: () => _showDialog(context, userProfileImage!),
-                      child: CircleAvatar(
-                        radius: 80,
-                        backgroundImage: NetworkImage(userProfileImage!),
-                        backgroundColor: colorBlack,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        String imageUrl = await profileController.updateUserProfile();
-                        setState(() {
-                          userProfileImage = imageUrl;
-                        });
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.only(bottom: 6, right: 8),
-                        child: Icon(Icons.camera_alt_outlined, size: 34, color: colorRed),
-                      ),
-                    ),
-                  ],
-                ) : const CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage(AssetImagePath.profileAvatar),
-                  backgroundColor: colorBlack,
-                ),
-              ),
-              const SizedBox(height: 40),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(following.toString()),
-                          const Text("Following"),
-                        ],
-                      ),
-                      onTap: () => Get.to(UserAllData(userName, userId, Strings.following)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        userProfileImage != null ? GestureDetector(
+                          onTap: () => _showDialog(context, userProfileImage!),
+                          child: CircleAvatar(
+                            radius: MediaQuery.of(context).size.width * 0.12,
+                            backgroundImage: NetworkImage(userProfileImage!),
+                            backgroundColor: colorBlack,
+                          ),
+                        ) : CircleAvatar(
+                          radius: MediaQuery.of(context).size.width * 0.12,
+                          backgroundImage: const AssetImage(AssetImagePath.profileAvatar),
+                          backgroundColor: colorBlack,
+                        ),
+                        const SizedBox(width: 30),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(following.toString(), style: semiBoldTextStyle_18),
+                                    const Text("Following", style: mediumTextStyle_14),
+                                  ],
+                                ),
+                                onTap: () => Get.to(UserAllData(userName, userId, Strings.following)),
+                              ),
+                              GestureDetector(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(followers.toString(), style: semiBoldTextStyle_18),
+                                    const Text("Followers", style: mediumTextStyle_14),
+                                  ],
+                                ),
+                                onTap: () => Get.to(UserAllData(userName, userId, Strings.followers)),
+                              ),
+                              GestureDetector(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(posts.toString(), style: semiBoldTextStyle_18),
+                                    const Text("Posts", style: mediumTextStyle_14),
+                                  ],
+                                ),
+                                onTap: () => null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    GestureDetector(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(followers.toString()),
-                          const Text("Followers"),
-                        ],
-                      ),
-                      onTap: () => Get.to(UserAllData(userName, userId, Strings.followers)),
-                    ),
-                    GestureDetector(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(posts.toString()),
-                          const Text("Posts"),
-                        ],
-                      ),
-                      onTap: () => null,
-                    ),
+                    const SizedBox(height: 10),
+                    Text(userName ?? "", style: mediumTextStyle_14),
+                    Text(userBio ?? "", style: mediumTextStyle_14),
                   ],
                 ),
               ),
