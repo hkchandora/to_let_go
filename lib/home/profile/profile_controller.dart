@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/model/user.dart';
 import 'package:to_let_go/util/preferences.dart';
 
@@ -148,4 +151,14 @@ class ProfileController extends GetxController {
     }
   }
 
+
+  Future<String> updateUserProfile() async {
+    var authenticationController = AuthenticationController.instanceAuth;
+    File? profileImage;
+    profileImage = await authenticationController.chooseImageFromGallery();
+    String imageDownloadUrl = await authenticationController.uploadImageToStorage(profileImage);
+    await FirebaseFirestore.instance.collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid).update({'image' : imageDownloadUrl});
+    return imageDownloadUrl;
+  }
 }

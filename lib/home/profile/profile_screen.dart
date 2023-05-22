@@ -113,13 +113,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             delegate: SliverChildListDelegate([
               const SizedBox(height: 20),
               Center(
-                child: userProfileImage != null ? GestureDetector(
-                  onTap: () => _showDialog(context, userProfileImage!),
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundImage: NetworkImage(userProfileImage!),
-                    backgroundColor: colorBlack,
-                  ),
+                child: userProfileImage != null ? Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    GestureDetector(
+                      onTap: () => _showDialog(context, userProfileImage!),
+                      child: CircleAvatar(
+                        radius: 80,
+                        backgroundImage: NetworkImage(userProfileImage!),
+                        backgroundColor: colorBlack,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        String imageUrl = await profileController.updateUserProfile();
+                        setState(() {
+                          userProfileImage = imageUrl;
+                        });
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(bottom: 6, right: 8),
+                        child: Icon(Icons.camera_alt_outlined, size: 34, color: colorRed),
+                      ),
+                    ),
+                  ],
                 ) : const CircleAvatar(
                   radius: 80,
                   backgroundImage: AssetImage(AssetImagePath.profileAvatar),
