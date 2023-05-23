@@ -10,8 +10,8 @@ import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 
 class AccountSetting extends StatefulWidget {
-  String username, name, bio, link, gender;
-  AccountSetting(this.username, this.name, this.bio, this.link, this.gender, {Key? key}) : super(key: key);
+  String profile, username, name, bio, link, gender;
+  AccountSetting(this.profile, this.username, this.name, this.bio, this.link, this.gender, {Key? key}) : super(key: key);
 
   @override
   State<AccountSetting> createState() => _AccountSettingState();
@@ -55,6 +55,7 @@ class _AccountSettingState extends State<AccountSetting> {
       whatsappTextEditingController.text = userWhatsapp;
       twitterTextEditingController.text = userTwitter;
       youtubeTextEditingController.text = userYoutube;*/
+      profileImage = widget.profile;
       usernameTextEditingController.text = widget.username;
       nameTextEditingController.text = widget.name;
       bioTextEditingController.text = widget.bio;
@@ -69,7 +70,7 @@ class _AccountSettingState extends State<AccountSetting> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Account Setting"),
+          title: const Text("Edit Profile"),
           centerTitle: true,
           backgroundColor: colorBlack,
           leading: IconButton(

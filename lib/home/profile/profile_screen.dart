@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   profileAppBar(){
     return AppBar(
-      title: Text(userName ?? ""),
+      title: Text(userName ?? "", style: regularTextStyle_18),
       leading: widget.isComingFrom != Strings.me ?
       IconButton(
         onPressed: () => Get.back(),
@@ -81,22 +81,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         PopupMenuButton<String>(
           onSelected: (value) async {
             switch (value) {
-              case 'Settings':
-                await Get.to(AccountSetting(
-                    userName ?? "",
-                    name ?? "",
-                    userBio ?? "",
-                    link ?? "",
-                    gender ?? ""));
-                getData();
-                break;
               case 'Logout':
                 logoutConfirmDialog("Logout", "Do you want to log out?");
                 break;
             }
           },
           itemBuilder: (BuildContext context) {
-            return {'Settings', 'Logout'}.map((String choice) {
+            return {'Logout'}.map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: Text(choice),
@@ -264,12 +255,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () async => await Get.to(AccountSetting(
-                            userName ?? "",
-                            name ?? "",
-                            userBio ?? "",
-                            link ?? "",
-                            gender ?? "")),
+                        onTap: () async {
+                          await Get.to(AccountSetting(
+                              userProfileImage ?? "",
+                              userName ?? "",
+                              name ?? "",
+                              userBio ?? "",
+                              link ?? "",
+                              gender ?? ""));
+                          getData();
+                        },
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 6),

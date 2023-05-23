@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'Colors.dart';
+import 'package:to_let_go/util/colors.dart';
 
 //fontWeight
 const extraBold = FontWeight.w800;
@@ -57,8 +56,8 @@ const boldTextStyleBlack_20 = TextStyle(fontSize: textSize_20, fontWeight: bold,
 const extraBoldTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: extraBold, color: appTheme);
 const boldTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: bold, color: colorWhite);
 const semiBoldTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: semiBold, color: colorWhite);
-const mediumTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: medium, color: appTheme);
-const regularTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: regular, color: appTheme);
+const mediumTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: medium, color: colorWhite);
+const regularTextStyle_18 = TextStyle(fontSize: textSize_18, fontWeight: regular, color: colorWhite);
 const extraBoldTextStyleLightGray_18 = TextStyle(fontSize: textSize_18, fontWeight: extraBold, color: colorLightGray);
 const boldTextStyleLightGray_18 = TextStyle(fontSize: textSize_18, fontWeight: bold, color: colorLightGray);
 const semiBoldTextStyleLightGray_18 = TextStyle(fontSize: textSize_18, fontWeight: semiBold, color: colorLightGray);
