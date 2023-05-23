@@ -199,6 +199,23 @@ class AuthenticationController extends GetxController{
     showProgressBar = false;
   }
 
+  saveUserInfo(String userName, String name, String bio, String link, String gender) async {
+    try{
+      await FirebaseFirestore.instance.collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid).update({
+        "username": userName,
+        "name": name,
+        "bio": bio,
+        "link": link,
+        "gender": gender,
+      });
+      Get.back();
+    } catch (error){
+      Get.snackbar("Error Occurred","Something went wrong.");
+    }
+    showProgressBar = false;
+  }
+
 
   Future<bool> isUniqueName(String userName) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').get();

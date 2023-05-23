@@ -83,7 +83,7 @@ const boldTextStyleWhite_16 = TextStyle(fontSize: textSize_16, fontWeight: bold,
 
 //FontSize 14
 const extraBoldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: extraBold, color: appTheme);
-const boldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: bold, color: appTheme);
+const boldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: bold, color: colorWhite);
 const semiBoldTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: semiBold, color: appTheme);
 const mediumTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: medium, color: colorWhite);
 const regularTextStyle_14 = TextStyle(fontSize: textSize_14, fontWeight: regular, color: appTheme);

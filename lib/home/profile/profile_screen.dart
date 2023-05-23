@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
@@ -27,7 +28,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   Preferences preferences = Preferences();
-  String? userId, userName, userEmail, userBio, userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
+  String? userId, userName, userEmail, userBio, name, link, gender,
+      userProfileImage, facebookUrl, instagramUrl, whatsappUrl, twitterUrl, youtubeUrl;
   int? following, followers, posts;
   List? thumbnailUrlList = [];
   List videoUrlList = [];
@@ -43,7 +45,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   getData() async {
     Map<String, dynamic> userInfo = await profileController.getUserData(widget.uid!);
     userId = userInfo['uid'];
-    userName = userInfo['name'] ?? "";
+    userName = userInfo['username'] ?? "";
+    name = userInfo['name'] ?? "";
+    link = userInfo['link'] ?? "";
+    gender = userInfo['gender'] ?? "";
     userBio = userInfo['bio'] ?? "";
     userEmail = userInfo['email'] ?? "";
     userProfileImage = userInfo['image'] ?? "";
@@ -77,7 +82,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           onSelected: (value) async {
             switch (value) {
               case 'Settings':
-                await Get.to(const AccountSetting());
+                await Get.to(AccountSetting(
+                    userName ?? "",
+                    name ?? "",
+                    userBio ?? "",
+                    link ?? "",
+                    gender ?? ""));
                 getData();
                 break;
               case 'Logout':
@@ -179,8 +189,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Text(userName ?? "", style: mediumTextStyle_14),
+                    Text(name ?? "", style: boldTextStyle_14),
                     Text(userBio ?? "", style: mediumTextStyle_14),
+                    const SizedBox(height: 4),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: link,
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => Utility.launchGivenUrl(link!),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -241,7 +264,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: () async => await Get.to(const AccountSetting()),
+                        onTap: () async => await Get.to(AccountSetting(
+                            userName ?? "",
+                            name ?? "",
+                            userBio ?? "",
+                            link ?? "",
+                            gender ?? "")),
                         child: Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(vertical: 6),
