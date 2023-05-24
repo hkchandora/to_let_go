@@ -365,12 +365,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               itemCount: thumbnailUrlList!.length,
               itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () => Get.to(() => ForYouVideoScreen(false, videoUrlList)),
-                  child: Card(
-                    color: colorWhite,
-                    child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
-                  ),
+                return Card(
+                  color: colorWhite,
+                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
                 );
               },
             ),
