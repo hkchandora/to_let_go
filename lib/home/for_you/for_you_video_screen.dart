@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
-import 'package:to_let_go/util/Colors.dart';
-import 'package:to_let_go/util/style.dart';
 import 'package:video_player/video_player.dart';
 
 class ForYouVideoScreen extends StatefulWidget {
@@ -64,28 +62,62 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
       // controller: ,
       itemBuilder: (context, index) {
         return Stack(
+          alignment: Alignment.bottomRight,
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height - 90,
-              child: Container(color: index % 2 == 0 ? Colors.red : colorWhite),
+              height: MediaQuery.of(context).size.height - 86,
+              child: Container(color: index % 2 == 0 ? Colors.green : Colors.red),
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Icon(Icons.access_time, size: 50),
-                  Text("0"),
-                  SizedBox(height: 16),
-                  Icon(Icons.comment_outlined, size: 50),
-                  Text("0"),
-                  SizedBox(height: 16),
-                  Icon(Icons.share, size: 50),
-                  Text("0"),
-                  SizedBox(height: 40),
-                ],
-              ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, bottom: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(videoList[index]['userImage'].toString()),
+                              radius: 16,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(videoList[index]['userName'].toString()),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(videoList[index]['descriptionTags'].toString()),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            const Icon(Icons.music_note, size: 20),
+                            const SizedBox(width: 4),
+                            Text(videoList[index]['artistSongName'].toString()),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, bottom: 10),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.access_time, size: 30),
+                      Text((videoList[index]['totalComments'] ?? "0").toString()),
+                      const SizedBox(height: 16),
+                      const Icon(Icons.comment_outlined, size: 30),
+                      Text((videoList[index]['totalLikes'] ?? "0").toString()),
+                      const SizedBox(height: 16),
+                      const Icon(Icons.share, size: 30),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         );

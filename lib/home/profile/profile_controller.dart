@@ -147,6 +147,19 @@ class ProfileController extends GetxController {
     String imageDownloadUrl = await authenticationController.uploadImageToStorage(profileImage);
     await FirebaseFirestore.instance.collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid).update({'image' : imageDownloadUrl});
+
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('videos')
+        .where("userId", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    List allUsersVideoList = querySnapshot.docs.map((doc) => doc.data()).toList();
+    for(var element in allUsersVideoList){
+      if(element['userId'] == FirebaseAuth.instance.currentUser!.uid){
+        await FirebaseFirestore.instance.collection("videos")
+            .doc(element['videoID']).update({'userImage' : imageDownloadUrl});
+      }
+    }
+
     return imageDownloadUrl;
   }
 }

@@ -6,7 +6,7 @@ class ForYouController  extends GetxController {
   getAllVideoDataList() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('videos').get();
     final allVideoData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    return allVideoData;
+    return allVideoData.reversed.toList();
   }
 
   getAllVideoThumbnail() async {
