@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
-import 'package:to_let_go/home/profile/account_setting.dart';
+import 'package:to_let_go/home/profile/edit_profile_screen.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/user_all_data/user_all_data.dart';
 import 'package:to_let_go/util/Colors.dart';
@@ -256,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
-                          await Get.to(AccountSetting(
+                          await Get.to(EditProfileScreen(
                               userProfileImage ?? "",
                               userName ?? "",
                               name ?? "",

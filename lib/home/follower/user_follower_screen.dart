@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
-import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 

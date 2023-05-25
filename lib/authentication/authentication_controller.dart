@@ -73,7 +73,7 @@ class AuthenticationController extends GetxController{
       String imageDownloadUrl = await uploadImageToStorage(imageFile);
       String version = await Utility.getVersionInfo();
       user_model.UserInfoData user = user_model.UserInfoData(
-        name: userName,
+        userName: userName,
         email: userEmail,
         image: imageDownloadUrl,
         uid: credential.user!.uid,

@@ -22,3 +22,19 @@ class ArrowToolbarBackwardNavigation extends StatelessWidget {
     );
   }
 }
+
+
+class crossBackwardNavigation extends StatelessWidget {
+  const crossBackwardNavigation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      AssetImagePath.crossButton,
+      height: 18,
+      width: 18,
+      fit: BoxFit.fill,
+      color: colorWhite,
+    );
+  }
+}

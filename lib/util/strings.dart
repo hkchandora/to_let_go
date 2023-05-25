@@ -6,6 +6,7 @@ class Strings {
   static const String search = 'Search';
   static const String following = 'Following';
   static const String followers = 'Followers';
+  static const String foYou = 'For You';
 
 
 }

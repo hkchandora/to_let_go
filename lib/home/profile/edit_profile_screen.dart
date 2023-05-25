@@ -9,15 +9,15 @@ import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 
-class AccountSetting extends StatefulWidget {
+class EditProfileScreen extends StatefulWidget {
   String profile, username, name, bio, link, gender;
-  AccountSetting(this.profile, this.username, this.name, this.bio, this.link, this.gender, {Key? key}) : super(key: key);
+  EditProfileScreen(this.profile, this.username, this.name, this.bio, this.link, this.gender, {Key? key}) : super(key: key);
 
   @override
-  State<AccountSetting> createState() => _AccountSettingState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _AccountSettingState extends State<AccountSetting> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
 
   TextEditingController facebookTextEditingController = TextEditingController();
   TextEditingController instagramTextEditingController = TextEditingController();
@@ -75,7 +75,7 @@ class _AccountSettingState extends State<AccountSetting> {
           backgroundColor: colorBlack,
           leading: IconButton(
             padding: EdgeInsets.zero,
-            icon: const ArrowToolbarBackwardNavigation(),
+            icon: const crossBackwardNavigation(),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -254,6 +254,7 @@ class _AccountSettingState extends State<AccountSetting> {
                                     child: Radio<String>(
                                       value: "Male",
                                       toggleable: true,
+                                      activeColor: colorWhite,
                                       groupValue: gender,
                                       onChanged: (val){
                                         setState((){
@@ -272,13 +273,17 @@ class _AccountSettingState extends State<AccountSetting> {
                                     width: 25,
                                     height: 25,
                                     child: Radio<String>(
-                                        value: "Female", groupValue: gender, onChanged: (val){
-                                      setState((){
-                                        gender = val!;
-                                      });
-                                    }),
+                                      activeColor: colorWhite,
+                                      value: "Female",
+                                      groupValue: gender,
+                                      onChanged: (val){
+                                        setState((){
+                                          gender = val!;
+                                        });
+                                      },
+                                    ),
                                   ),
-                                  Text("  Female"),
+                                  const Text("  Female"),
                                 ],
                               ),
                             ],

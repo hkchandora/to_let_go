@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
+import 'package:to_let_go/home/profile/profile_screen.dart';
+import 'package:to_let_go/util/strings.dart';
 import 'package:video_player/video_player.dart';
 
 class ForYouVideoScreen extends StatefulWidget {
@@ -59,7 +61,6 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
       physics: const PageScrollPhysics(),
       scrollDirection: Axis.vertical,
       itemCount: videoList.length,
-      // controller: ,
       itemBuilder: (context, index) {
         return Stack(
           alignment: Alignment.bottomRight,
@@ -78,15 +79,18 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(videoList[index]['userImage'].toString()),
-                              radius: 16,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(videoList[index]['userName'].toString()),
-                          ],
+                        GestureDetector(
+                          onTap: () => Get.to(() => ProfileScreen(Strings.foYou, videoList[index]['userId'].toString())),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: NetworkImage(videoList[index]['userImage'].toString()),
+                                radius: 16,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(videoList[index]['userName'].toString()),
+                            ],
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Text(videoList[index]['descriptionTags'].toString()),
