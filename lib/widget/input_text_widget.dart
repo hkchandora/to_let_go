@@ -26,13 +26,14 @@ class InputTextWidget extends StatelessWidget {
       keyboardType: textInputType,
       enabled: !showProgressBar,
       maxLength: textInputType == TextInputType.phone ? 10 : 10000,
+      style: const TextStyle(color: colorWhite),
       decoration: InputDecoration(
         labelText: labelString,
         counterText: "",
         prefixIcon: iconData != null
             ? Icon(iconData, color: colorWhite)
             : Padding(padding: const EdgeInsets.all(8), child: ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.asset(assetReference!, width: 10))),
-        labelStyle: const TextStyle(fontSize: 18),
+        labelStyle: const TextStyle(fontSize: 18, color: colorWhite),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
           borderSide: const BorderSide(color: colorGrey)

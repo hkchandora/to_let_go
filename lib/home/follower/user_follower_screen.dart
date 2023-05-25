@@ -60,8 +60,8 @@ class _UserFollowersScreenState extends State<UserFollowersScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(followersUserList[index]['name'], style: boldTextStyleWhite_16),
-                        Text(followersUserList[index]['email'], style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
+                        Text(followersUserList[index]['username'] ?? "", style: boldTextStyleWhite_16),
+                        Text(followersUserList[index]['name'], style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite))
                       ],
                     )
                   ],

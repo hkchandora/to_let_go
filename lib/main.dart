@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/on_boarding/splash_screen.dart';
+import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/strings.dart';
 
 void main() async {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'To Let Go',
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Colors.black,
+        scaffoldBackgroundColor: colorBlack,
       ),
       home: const SplashScreen(),
     );

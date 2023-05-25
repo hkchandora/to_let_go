@@ -81,13 +81,15 @@ class UserInfoData {
 
 class ChildUserInfo {
   String? uid;
+  String? username;
   String? name;
   String? image;
   String? email;
 
-  ChildUserInfo({this.name, this.uid, this.email, this.image});
+  ChildUserInfo({this.username, this.name, this.uid, this.email, this.image});
 
   Map<String, dynamic> toJson() => {
+    "username": username,
     "name": name,
     "uid": uid,
     "image": image,
@@ -98,6 +100,7 @@ class ChildUserInfo {
     var dataSnapshot = snapshot.data() as Map<String, dynamic>;
     return ChildUserInfo(
       uid: dataSnapshot["uid"],
+      username: dataSnapshot["username"],
       name: dataSnapshot["name"],
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],

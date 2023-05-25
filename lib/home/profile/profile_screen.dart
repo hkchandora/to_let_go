@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/edit_profile_screen.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/user_all_data/user_all_data.dart';
-import 'package:to_let_go/util/Colors.dart';
+import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/preferences.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
@@ -69,6 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   profileAppBar(){
     return AppBar(
+      elevation: 0,
       title: Text(userName ?? "", style: regularTextStyle_18),
       leading: widget.isComingFrom != Strings.me ?
       IconButton(
@@ -194,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           TextSpan(
                             text: link,
-                            style: const TextStyle(color: Colors.blue),
+                            style: const TextStyle(color: colorBlue),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => Utility.launchGivenUrl(link!),
                           ),
@@ -279,7 +280,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: const BorderRadius.all(Radius.circular(40)),
                           ),
                           child: const Center(
-                            child: Text("Edit Profile", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            child: Text("Edit Profile", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: colorWhite)),
                           ),
                         ),
                       ),
@@ -300,7 +301,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: const BorderRadius.all(Radius.circular(40)),
                           ),
                           child: const Center(
-                            child: Text("Email", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            child: Text("Email", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: colorWhite)),
                           ),
                         ),
                       ),
@@ -324,7 +325,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(40)),
                   ),
                   child: const Center(
-                    child: Text("Unfollow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    child: Text("Unfollow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: colorWhite)),
                   ),
                 ),
               ) : GestureDetector(
@@ -344,7 +345,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: const BorderRadius.all(Radius.circular(40)),
                   ),
                   child: const Center(
-                    child: Text("Follow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                    child: Text("Follow", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: colorWhite)),
                   ),
                 ),
               ),
@@ -363,22 +364,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
           ) :
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 0.5,
-                  mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
-                ),
-                itemCount: thumbnailUrlList!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: colorWhite,
-                    child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
-                  );
-                },
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.5,
+                mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
               ),
+              itemCount: thumbnailUrlList!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  color: colorWhite,
+                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+                );
+              },
             ),
           ),
         ],
@@ -391,7 +389,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: colorTransparent,
           body: Align(
             alignment: Alignment.center,
             child: Container(
@@ -453,7 +451,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: Colors.transparent,
+          backgroundColor: colorTransparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

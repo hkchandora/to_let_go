@@ -69,8 +69,9 @@ class ProfileController extends GetxController {
       ChildUserInfo childUserInfoFollowing = ChildUserInfo(
         uid: followingUID,
         name: (followingDocumentSnapshot.data() as Map<String, dynamic>)["name"],
+        username: (followingDocumentSnapshot.data() as Map<String, dynamic>)["username"],
         email: (followingDocumentSnapshot.data() as Map<String, dynamic>)["email"],
-        image: (followingDocumentSnapshot.data() as Map<String, dynamic>)["image"]
+        image: (followingDocumentSnapshot.data() as Map<String, dynamic>)["image"],
       );
 
       await FirebaseFirestore.instance.collection("users")
@@ -80,6 +81,7 @@ class ProfileController extends GetxController {
       ChildUserInfo childUserInfoFollowers = ChildUserInfo(
           uid: followersUID,
           name: (followersDocumentSnapshot.data() as Map<String, dynamic>)["name"],
+          username: (followingDocumentSnapshot.data() as Map<String, dynamic>)["username"],
           email: (followersDocumentSnapshot.data() as Map<String, dynamic>)["email"],
           image: (followersDocumentSnapshot.data() as Map<String, dynamic>)["image"]
       );

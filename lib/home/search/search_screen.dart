@@ -28,11 +28,14 @@ class _SearchScreenState extends State<SearchScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: colorBlack,
+          elevation: 0,
           actions: [
             Expanded(
               child: TextField(
                 controller: searchTextEditingController,
                 keyboardType: TextInputType.text,
+                style: const TextStyle(color: colorWhite),
                 decoration: InputDecoration(
                     hintText: "Search...",
                     counterText: "",
@@ -110,8 +113,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(searchedUser[index]['name'].toString(), style: boldTextStyleWhite_16),
-                      Text(searchedUser[index]['email'].toString(), style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite70))
+                      Text(searchedUser[index]['username'].toString(), style: boldTextStyleWhite_16),
+                      Text(searchedUser[index]['name'].toString(), style: extraBoldTextStyleDarkGray_14.copyWith(color: colorLightWhite))
                     ],
                   )
                 ],

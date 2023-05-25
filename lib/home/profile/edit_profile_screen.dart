@@ -71,8 +71,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Edit Profile"),
+          title: const Text("Edit Profile",  style: TextStyle(color: colorWhite)),
           centerTitle: true,
+          elevation: 0,
           backgroundColor: colorBlack,
           leading: IconButton(
             padding: EdgeInsets.zero,
@@ -165,10 +166,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Text("Username    "),
+                        const Text("Username    ", style: TextStyle(color: colorWhite)),
                         Expanded(
                           child: TextField(
                             controller: usernameTextEditingController,
+                            style: const TextStyle(color: colorWhite),
                             keyboardType: TextInputType.text,
                             decoration: const InputDecoration(
                               hintText: 'Username',
@@ -183,10 +185,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        const Text("Name           "),
+                        const Text("Name           ", style: TextStyle(color: colorWhite),),
                         Expanded(
                           child: TextField(
                             controller: nameTextEditingController,
+                            style: const TextStyle(color: colorWhite),
                             keyboardType: TextInputType.text,
                             textCapitalization: TextCapitalization.words,
                             decoration: const InputDecoration(
@@ -202,10 +205,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        const Text("Bio                "),
+                        const Text("Bio                ", style: TextStyle(color: colorWhite),),
                         Expanded(
                           child: TextField(
                             controller: bioTextEditingController,
+                            style: const TextStyle(color: colorWhite),
                             textCapitalization: TextCapitalization.sentences,
                             keyboardType: TextInputType.multiline,
                             maxLines: 5,
@@ -223,10 +227,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        const Text("Link              "),
+                        const Text("Link              ", style: TextStyle(color: colorWhite),),
                         Expanded(
                           child: TextField(
                             controller: linkTextEditingController,
+                            style: const TextStyle(color: colorWhite),
                             keyboardType: TextInputType.url,
                             decoration: const InputDecoration(
                               hintText: 'Link',
@@ -241,7 +246,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        const Text("Gender       "),
+                        const Text("Gender       ", style: TextStyle(color: colorWhite),),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -256,6 +261,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       value: "Male",
                                       toggleable: true,
                                       activeColor: colorWhite,
+                                      fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
                                       groupValue: gender,
                                       onChanged: (val){
                                         setState((){
@@ -264,7 +270,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       },
                                     ),
                                   ),
-                                  const Text("  Male"),
+                                  const Text("  Male", style: TextStyle(color: colorWhite),),
                                 ],
                               ),
                               const SizedBox(height: 6),
@@ -275,6 +281,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     height: 25,
                                     child: Radio<String>(
                                       activeColor: colorWhite,
+                                      fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
                                       value: "Female",
                                       groupValue: gender,
                                       onChanged: (val){
@@ -284,7 +291,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       },
                                     ),
                                   ),
-                                  const Text("  Female"),
+                                  const Text("  Female", style: TextStyle(color: colorWhite),),
                                 ],
                               ),
                             ],

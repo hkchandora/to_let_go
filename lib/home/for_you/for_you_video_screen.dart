@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
+import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:video_player/video_player.dart';
 
@@ -70,7 +71,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 86,
-              child: Container(color: index % 2 == 0 ? Colors.green : Colors.red),
+              child: Container(color: index % 2 == 0 ? colorBlue : colorDarkRed),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
