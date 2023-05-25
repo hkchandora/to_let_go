@@ -9,6 +9,7 @@ import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 
+//ignore: must_be_immutable
 class EditProfileScreen extends StatefulWidget {
   String profile, username, name, bio, link, gender;
   EditProfileScreen(this.profile, this.username, this.name, this.bio, this.link, this.gender, {Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           backgroundColor: colorBlack,
           leading: IconButton(
             padding: EdgeInsets.zero,
-            icon: const crossBackwardNavigation(),
+            icon: const CrossBackwardNavigation(),
             onPressed: () => Navigator.pop(context),
           ),
         ),
@@ -240,7 +241,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        Text("Gender       "),
+                        const Text("Gender       "),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -263,10 +264,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       },
                                     ),
                                   ),
-                                  Text("  Male"),
+                                  const Text("  Male"),
                                 ],
                               ),
-                              SizedBox(height: 6),
+                              const SizedBox(height: 6),
                               Row(
                                 children: [
                                   SizedBox(
@@ -292,7 +293,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Divider(color: colorWhite,thickness: 0.1,height: 0.1),
+                    const Divider(color: colorWhite,thickness: 0.1,height: 0.1),
                   ],
                 ),
                 const SizedBox(height: 50),

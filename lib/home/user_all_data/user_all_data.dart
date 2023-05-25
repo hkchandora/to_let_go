@@ -3,6 +3,7 @@ import 'package:to_let_go/home/follower/user_follower_screen.dart';
 import 'package:to_let_go/home/following/user_following_screen.dart';
 import 'package:to_let_go/util/strings.dart';
 
+//ignore: must_be_immutable
 class UserAllData extends StatefulWidget {
   String? userName;
   String? uid;

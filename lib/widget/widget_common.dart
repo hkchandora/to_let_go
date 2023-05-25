@@ -24,8 +24,8 @@ class ArrowToolbarBackwardNavigation extends StatelessWidget {
 }
 
 
-class crossBackwardNavigation extends StatelessWidget {
-  const crossBackwardNavigation({Key? key}) : super(key: key);
+class CrossBackwardNavigation extends StatelessWidget {
+  const CrossBackwardNavigation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

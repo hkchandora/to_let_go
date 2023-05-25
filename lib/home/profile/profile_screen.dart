@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
 import 'package:to_let_go/home/profile/edit_profile_screen.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/user_all_data/user_all_data.dart';
@@ -15,6 +14,7 @@ import 'package:to_let_go/util/utility.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+//ignore: must_be_immutable
 class ProfileScreen extends StatefulWidget {
 
   String isComingFrom;
@@ -348,7 +348,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ]),
           )
         ];

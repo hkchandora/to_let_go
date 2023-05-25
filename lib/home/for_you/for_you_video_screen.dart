@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
@@ -7,6 +6,7 @@ import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:video_player/video_player.dart';
 
+//ignore: must_be_immutable
 class ForYouVideoScreen extends StatefulWidget {
   bool isComingFromDashboard = true;
   ForYouVideoScreen(this.isComingFromDashboard, {Key? key}) : super(key: key);

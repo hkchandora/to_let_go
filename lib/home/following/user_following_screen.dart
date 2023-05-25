@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/util/Colors.dart';
-import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 
+//ignore: must_be_immutable
 class UserFollowingsScreen extends StatefulWidget {
   String? uid;
   UserFollowingsScreen(this.uid, {Key? key}) : super(key: key);
@@ -28,9 +28,6 @@ class _UserFollowingsScreenState extends State<UserFollowingsScreen> {
 
   getFollowingData() async {
     followingUserList = await profileController.getUserFollowingList(widget.uid!);
-    print("followingUserList");
-    print(followingUserList);
-    print(followingUserList.length);
     setState(() {});
   }
 

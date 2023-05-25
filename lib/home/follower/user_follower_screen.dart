@@ -7,6 +7,7 @@ import 'package:to_let_go/util/style.dart';
 
 import '../profile/profile_screen.dart';
 
+//ignore: must_be_immutable
 class UserFollowersScreen extends StatefulWidget {
   String? uid;
   UserFollowersScreen(this.uid, {Key? key}) : super(key: key);
