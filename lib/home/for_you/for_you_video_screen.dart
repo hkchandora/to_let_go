@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
@@ -80,7 +82,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: () => Get.to(() => ProfileScreen(Strings.foYou, videoList[index]['userId'].toString())),
+                          onTap: () => Get.to(() => ProfileScreen(
+                              videoList[index]['userId'].toString() == FirebaseAuth.instance.currentUser!.uid ? Strings.me : Strings.foYou,
+                              videoList[index]['userId'].toString())),
                           child: Row(
                             children: [
                               CircleAvatar(

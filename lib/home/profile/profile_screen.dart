@@ -34,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List? thumbnailUrlList = [];
   List videoUrlList = [];
   ProfileController profileController = Get.put(ProfileController());
+  ScrollController scrollController = ScrollController();
   bool isFollow = false;
 
   @override
@@ -110,6 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget schemeSelectionBody() {
     return NestedScrollView(
+      controller: scrollController,
       physics: const NeverScrollableScrollPhysics(),
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
@@ -172,7 +174,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const Text("Posts", style: mediumTextStyle_14),
                                   ],
                                 ),
-                                onTap: () => null,
+                                onTap: () {
+                                  scrollController.animateTo(500,
+                                      duration: const Duration(milliseconds: 500),
+                                      curve: Curves.easeInOut);
+                                },
                               ),
                             ],
                           ),
@@ -357,19 +363,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
           ) :
           Expanded(
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 0.5,
-                mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.5,
+                  mainAxisExtent: MediaQuery.of(context).size.height / 3.5,
+                ),
+                itemCount: thumbnailUrlList!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    color: colorWhite,
+                    child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
+                  );
+                },
               ),
-              itemCount: thumbnailUrlList!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Card(
-                  color: colorWhite,
-                  child: Image.network(thumbnailUrlList![index], fit: BoxFit.fill),
-                );
-              },
             ),
           ),
         ],

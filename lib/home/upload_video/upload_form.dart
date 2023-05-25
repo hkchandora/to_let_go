@@ -42,8 +42,9 @@ class _UploadFormState extends State<UploadForm> {
 
   @override
   void dispose() {
-    super.dispose();
+    playerController!.pause();
     playerController!.dispose();
+    super.dispose();
   }
 
   @override
@@ -107,6 +108,7 @@ class _UploadFormState extends State<UploadForm> {
                             widget.videoPath,
                             context,
                           );
+                          playerController!.pause();
                           setState(() {
                             showProgressBar = true;
                           });
