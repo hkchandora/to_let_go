@@ -34,6 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Preferences preferences = Preferences();
   String? profileImage;
   String gender = "";
+  String theme = "";
 
   @override
   void initState() {
@@ -48,7 +49,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     String userWhatsapp = await preferences.getUserWhatsapp();
     String userTwitter = await preferences.getUserTwitter();
     String userYoutube = await preferences.getUserYoutube();*/
-
+    bool isDark = await preferences.getIsDarkTheme();
     setState(() {
     /*  profileImage = userProfileImage;
       facebookTextEditingController.text = userFacebook;
@@ -62,6 +63,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       bioTextEditingController.text = widget.bio;
       linkTextEditingController.text = widget.link;
       gender = widget.gender;
+      theme = isDark ? "Dark" : "Light";
     });
   }
 
@@ -82,38 +84,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.fromLTRB(20,6,20,20),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(
-                  child: profileImage != null ? Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      CircleAvatar(
-                        radius: MediaQuery.of(context).size.width * 0.12,
-                        backgroundImage: NetworkImage(profileImage!),
-                        backgroundColor: colorBlack,
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          ProfileController profileController = Get.put(ProfileController());
-                          String userImage = await profileController.updateUserProfile();
-                          setState(() {
-                            profileImage = userImage;
-                          });
-                        },
-                        child: const Icon(Icons.camera_alt_outlined, color: colorWhite, size: 24),
-                      )
-                    ],
-                  ) : const CircleAvatar(
-                    radius: 80,
-                    backgroundImage: AssetImage(AssetImagePath.profileAvatar),
-                    backgroundColor: colorBlack,
+                CircleAvatar(
+                  radius: MediaQuery.of(context).size.width * 0.12,
+                  backgroundImage: NetworkImage(profileImage!),
+                  backgroundColor: colorBlack,
+                ),
+                const SizedBox(height: 4),
+                GestureDetector(
+                  onTap: () async {
+                    ProfileController profileController = Get.put(ProfileController());
+                    String userImage = await profileController.updateUserProfile();
+                    setState(() {
+                      profileImage = userImage;
+                    });
+                  },
+                  child: const Text("Change Profile",
+                    style: TextStyle(color: colorBlue),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
 
 
@@ -246,53 +240,111 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     spacerLine(),
                     Row(
                       children: [
-                        const Text("Gender       ", style: TextStyle(color: colorWhite),),
+                        const Text("Gender       ", style: TextStyle(color: colorWhite)),
                         Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: Radio<String>(
-                                      value: "Male",
-                                      toggleable: true,
-                                      activeColor: colorWhite,
-                                      fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
-                                      groupValue: gender,
-                                      onChanged: (val){
-                                        setState((){
-                                          gender = val!;
-                                        });
-                                      },
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: Radio<String>(
+                                        value: "Male",
+                                        toggleable: true,
+                                        activeColor: colorWhite,
+                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                                        groupValue: gender,
+                                        onChanged: (val){
+                                          setState((){
+                                            gender = val!;
+                                          });
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  const Text("  Male", style: TextStyle(color: colorWhite),),
-                                ],
+                                    const Text(" Male", style: TextStyle(color: colorWhite),),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(height: 6),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 25,
-                                    height: 25,
-                                    child: Radio<String>(
-                                      activeColor: colorWhite,
-                                      fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
-                                      value: "Female",
-                                      groupValue: gender,
-                                      onChanged: (val){
-                                        setState((){
-                                          gender = val!;
-                                        });
-                                      },
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: Radio<String>(
+                                        activeColor: colorWhite,
+                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                                        value: "Female",
+                                        groupValue: gender,
+                                        onChanged: (val){
+                                          setState((){
+                                            gender = val!;
+                                          });
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  const Text("  Female", style: TextStyle(color: colorWhite),),
-                                ],
+                                    const Text(" Female", style: TextStyle(color: colorWhite),),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    spacerLine(),
+                    Row(
+                      children: [
+                        const Text("Theme       ", style: TextStyle(color: colorWhite),),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: Radio<String>(
+                                        value: "Light",
+                                        toggleable: true,
+                                        activeColor: colorWhite,
+                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                                        groupValue: theme,
+                                        onChanged: (val){
+                                          setState((){
+                                            theme = val!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    const Text(" Light", style: TextStyle(color: colorWhite),),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: Radio<String>(
+                                        activeColor: colorWhite,
+                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                                        value: "Dark",
+                                        groupValue: theme,
+                                        onChanged: (val){
+                                          setState((){
+                                            theme = val!;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    const Text(" Dark", style: TextStyle(color: colorWhite),),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -324,6 +376,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           linkTextEditingController.text.trim(),
                           gender
                       );
+                      preferences.setIsDarkTheme(theme == "Dark" ? true : false);
                       /*await authenticationController.saveSocialMediaDetails(
                           facebookTextEditingController.text.trim(),
                           instagramTextEditingController.text.trim(),

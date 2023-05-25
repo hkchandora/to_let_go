@@ -13,6 +13,7 @@ class Preferences {
   static const String keyUserFollowing = "userFollowing";
   static const String keyUserFollowers = "userFollowers";
   static const String keyUserPosts = "userPosts";
+  static const String keyIsDarkTheme = "isDarkTheme";
 
   Future<String> getUserName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -145,6 +146,17 @@ class Preferences {
   setUserPosts(int value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(keyUserPosts, value);
+  }
+
+  Future<bool> getIsDarkTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool userPost = prefs.getBool(keyIsDarkTheme) ?? true;
+    return userPost;
+  }
+
+  setIsDarkTheme(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(keyIsDarkTheme, value);
   }
 
   clearPreferences() async {
