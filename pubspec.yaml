@@ -83,6 +83,9 @@ flutter:
     - images/no_data.png
     - images/upload.png
     - images/cross.png
+    - images/like.png
+    - images/unlike.png
+    - images/comment.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

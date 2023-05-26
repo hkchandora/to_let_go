@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
+import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:video_player/video_player.dart';
@@ -125,12 +126,13 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                             await forYouController.likeVideo(videoList[index]['videoID']);
                           }
                         },
-                        child: Icon(videoList[index]['likeUidList'].toString().contains(currentUserId)
-                            ? Icons.timer : Icons.access_time, size: 30),
+                        child: Image.asset(videoList[index]['likeUidList'].toString().contains(currentUserId)
+                            ? AssetImagePath.like : AssetImagePath.unlike, height: 34, width: 34, fit: BoxFit.fill,
+                          color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorBlack),
                       ),
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
-                      const Icon(Icons.comment_outlined, size: 30),
+                      Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
                       const SizedBox(height: 16),
                       const Icon(Icons.share, size: 30),

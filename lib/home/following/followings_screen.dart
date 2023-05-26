@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/following/following_controller.dart';
+import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/util/Colors.dart';
+import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 
@@ -17,6 +20,7 @@ class FollowingsScreen extends StatefulWidget {
 class _FollowingsScreenState extends State<FollowingsScreen> {
 
   FollowingController followingController = Get.put(FollowingController());
+  ForYouController forYouController = Get.put(ForYouController());
   List videoList = [];
 
   @override
@@ -101,11 +105,22 @@ class _FollowingsScreenState extends State<FollowingsScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.access_time, size: 30),
-                      Text((videoList[index]['totalComments'] ?? "0").toString()),
+                      GestureDetector(
+                        onTap: () async {
+                          if(videoList[index]['likeUidList'].toString().contains(currentUserId)){
+                            await forYouController.unLikeVideo(videoList[index]['videoID']);
+                          } else {
+                            await forYouController.likeVideo(videoList[index]['videoID']);
+                          }
+                        },
+                        child: Image.asset(videoList[index]['likeUidList'].toString().contains(currentUserId)
+                            ? AssetImagePath.like : AssetImagePath.unlike, height: 34, width: 34, fit: BoxFit.fill,
+                            color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorBlack),
+                      ),
+                      Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
-                      const Icon(Icons.comment_outlined, size: 30),
-                      Text((videoList[index]['totalLikes'] ?? "0").toString()),
+                      Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
+                      Text((videoList[index]['totalComments'] ?? "0").toString()),
                       const SizedBox(height: 16),
                       const Icon(Icons.share, size: 30),
                     ],
