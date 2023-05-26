@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/global.dart';
+import 'package:to_let_go/home/comment/comment_screen.dart';
 import 'package:to_let_go/home/following/following_controller.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
@@ -119,7 +120,10 @@ class _FollowingsScreenState extends State<FollowingsScreen> {
                       ),
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
-                      Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
+                      GestureDetector(
+                        onTap: () async  => await Get.to(const CommentScreen()),
+                        child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
+                      ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
                       const SizedBox(height: 16),
                       const Icon(Icons.share, size: 30),
