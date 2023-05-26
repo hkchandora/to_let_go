@@ -3,7 +3,8 @@ import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 
 class CommentScreen extends StatefulWidget {
-  const CommentScreen({Key? key}) : super(key: key);
+  String videoID;
+  CommentScreen(this.videoID, {Key? key}) : super(key: key);
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();

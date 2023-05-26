@@ -121,7 +121,7 @@ class _FollowingsScreenState extends State<FollowingsScreen> {
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
                       GestureDetector(
-                        onTap: () async  => await Get.to(const CommentScreen()),
+                        onTap: () async  => await Get.to(CommentScreen(videoList[index]['videoID'])),
                         child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
                       ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
