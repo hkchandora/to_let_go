@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/util/colors.dart';
@@ -116,11 +117,21 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.access_time, size: 30),
-                      Text((videoList[index]['totalComments'] ?? "0").toString()),
+                      GestureDetector(
+                        onTap: () async {
+                          if(videoList[index]['likeUidList'].toString().contains(currentUserId)){
+                            await forYouController.unLikeVideo(videoList[index]['videoID']);
+                          } else {
+                            await forYouController.likeVideo(videoList[index]['videoID']);
+                          }
+                        },
+                        child: Icon(videoList[index]['likeUidList'].toString().contains(currentUserId)
+                            ? Icons.timer : Icons.access_time, size: 30),
+                      ),
+                      Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
                       const Icon(Icons.comment_outlined, size: 30),
-                      Text((videoList[index]['totalLikes'] ?? "0").toString()),
+                      Text((videoList[index]['totalComments'] ?? "0").toString()),
                       const SizedBox(height: 16),
                       const Icon(Icons.share, size: 30),
                     ],
