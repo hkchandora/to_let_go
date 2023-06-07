@@ -129,13 +129,13 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                         },
                         child: Image.asset(videoList[index]['likeUidList'].toString().contains(currentUserId)
                             ? AssetImagePath.like : AssetImagePath.unlike, height: 34, width: 34, fit: BoxFit.fill,
-                          color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorBlack),
+                          color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorWhite),
                       ),
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 16),
                       GestureDetector(
                         onTap: () async  => await Get.to(CommentScreen(videoList[index]['videoID'])),
-                        child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorBlack),
+                        child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorWhite),
                       ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
                       const SizedBox(height: 16),
