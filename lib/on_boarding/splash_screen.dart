@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:to_let_go/on_boarding/login_screen.dart';
+import 'package:to_let_go/on_boarding/splash_controller.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/utility.dart';
@@ -14,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
+  SplashController splashController = Get.put(SplashController());
   String? versionName;
   Timer? timer;
 
@@ -23,6 +26,22 @@ class _SplashScreenState extends State<SplashScreen> {
     getVersionInfo();
     startTime();
     super.initState();
+  }
+
+  getAppUpdateData() async {
+    List appUpdateList = await splashController.getAppUpdateData();
+    print(appUpdateList.toString());
+    if(appUpdateList.isNotEmpty){
+      String storeVersion = Platform.isAndroid ?
+      appUpdateList[0]["androidVersion"]
+          : appUpdateList[0]["iosVersion"];
+      bool isUpdateAvailable = await splashController.canUpdateVersion(storeVersion, versionName);
+      if(isUpdateAvailable){
+        bool isForceUpdate = appUpdateList[0]["isForceUpdate"];
+        String whatsNew = appUpdateList[0]["whatsNew"];
+        // Utility().forceUpdatePopUp(context, isForceUpdate, whatsNew);
+      }
+    }
   }
 
   startTime() async {
