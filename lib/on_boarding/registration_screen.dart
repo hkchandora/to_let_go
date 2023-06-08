@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
@@ -115,11 +116,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             setState(() {
                               showProgressBar = true;
                             });
+                            String? firebaseToken = await FirebaseMessaging.instance.getToken();
                             bool isSuccessful = await authenticationController.createAccountForNewUser(
                                 authenticationController.profileImage!,
                                 userNameTextEditingController.text.toString().trim().toLowerCase(),
                                 emailTextEditingController.text.toString().trim().toLowerCase(),
-                                passwordTextEditingController.text.toString().trim()
+                                passwordTextEditingController.text.toString().trim(),
+                                firebaseToken!
                             );
                             if(!isSuccessful){
                               setState(() {});

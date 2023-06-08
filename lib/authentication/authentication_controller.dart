@@ -64,7 +64,7 @@ class AuthenticationController extends GetxController{
   }
 
 
-  Future<bool> createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword) async {
+  Future<bool> createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword, String firebaseToken) async {
     try{
       UserCredential credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail,
@@ -75,6 +75,7 @@ class AuthenticationController extends GetxController{
       user_model.UserInfoData user = user_model.UserInfoData(
         userName: userName,
         email: userEmail,
+        firebaseToken: firebaseToken,
         image: imageDownloadUrl,
         uid: credential.user!.uid,
         appVersion: version,
@@ -120,13 +121,17 @@ class AuthenticationController extends GetxController{
   }
 
 
-  Future<bool> logInUserNow(String userEmail, String userPassword) async {
+  Future<bool> logInUserNow(String userEmail, String userPassword, String firebaseToken) async {
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
           .collection("users")
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
+
+      await FirebaseFirestore.instance.collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'firebaseToken' : firebaseToken});
 
       Preferences preferences = Preferences();
       preferences.setUserEmail(userEmail);
