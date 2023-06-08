@@ -24,6 +24,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
   ForYouController forYouController = Get.put(ForYouController());
   int currentIndex = 0;
   List videoList = [];
+  bool isApiCalling = true;
 
   @override
   void initState() {
@@ -42,7 +43,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
       // playerControllerList![i].setVolume(2);
       // playerControllerList![i].setLooping(true);
     }
-    setState(() {});
+    setState(() {
+      isApiCalling = false;
+    });
   }
 
   @override
@@ -57,7 +60,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: forYouScreenList(),
+        body: isApiCalling ? const Center(child: Text("Loading...")) : forYouScreenList(),
       ),
     );
   }

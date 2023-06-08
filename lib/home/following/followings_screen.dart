@@ -23,6 +23,7 @@ class _FollowingsScreenState extends State<FollowingsScreen> {
   FollowingController followingController = Get.put(FollowingController());
   ForYouController forYouController = Get.put(ForYouController());
   List videoList = [];
+  bool isApiCalling = true;
 
   @override
   void initState() {
@@ -32,14 +33,16 @@ class _FollowingsScreenState extends State<FollowingsScreen> {
 
   getAllFollowingVideoData() async {
     videoList = await followingController.getAllFollowingVideoDataList();
-    setState(() {});
+    setState(() {
+      isApiCalling = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: allFollowingVideoList(),
+        body: isApiCalling ? const Center(child: Text("Loading...")) : allFollowingVideoList(),
       ),
     );
   }
