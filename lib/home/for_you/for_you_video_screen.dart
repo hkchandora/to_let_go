@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/comment/comment_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
@@ -135,14 +136,18 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                           color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorWhite),
                       ),
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       GestureDetector(
                         onTap: () async  => await Get.to(CommentScreen(videoList[index]['videoID'])),
                         child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorWhite),
                       ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
-                      const SizedBox(height: 16),
-                      const Icon(Icons.share, size: 30),
+                      const SizedBox(height: 12),
+                      GestureDetector(
+                        onTap: () => Share.share(videoList[index]['videoUrl']),
+                        child: const Icon(Icons.share, size: 30),
+                      ),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),
