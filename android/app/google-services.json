@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "467804634898",
+    "firebase_url": "https://to-let-go-4112b-default-rtdb.firebaseio.com",
     "project_id": "to-let-go-4112b",
     "storage_bucket": "to-let-go-4112b.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "467804634898-f3nu0pmdbd1h8fb7hus1lh73gl043qt4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.himanshu.to_let_go",
+            "certificate_hash": "4faf26577797863f513787985c55c1bbd2a9a0ed"
+          }
+        },
         {
           "client_id": "467804634898-qmfrm4rgtolijts03tgvtr0vrh86v2mj.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +38,13 @@
             {
               "client_id": "467804634898-qmfrm4rgtolijts03tgvtr0vrh86v2mj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "467804634898-tftgf4u4lho6g5p5ofqfamartldqbr0u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.himanshu.to-let-go"
+              }
             }
           ]
         }
