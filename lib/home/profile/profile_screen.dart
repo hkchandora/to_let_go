@@ -11,6 +11,7 @@ import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
+import 'package:to_let_go/widget/LoadingDialogWidget.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -313,11 +314,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ) : isFollow ? GestureDetector(
                 onTap: () async {
+                  LoadingDialogWidget.showDialogLoading(context, Strings.pleaseWait);
                   await profileController.unfollowUser(FirebaseAuth.instance.currentUser!.uid, userId!);
                   setState(() {
                     isFollow = !isFollow;
                     followers = followers! - 1;
                   });
+                  Navigator.pop(context);
                 },
                 child: Container(
                   width: double.infinity,
@@ -333,11 +336,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ) : GestureDetector(
                 onTap: () async {
+                  LoadingDialogWidget.showDialogLoading(context, Strings.pleaseWait);
                   await profileController.followUser(FirebaseAuth.instance.currentUser!.uid, userId!);
                   setState(() {
                     isFollow = !isFollow;
                     followers = followers! + 1;
                   });
+                  Navigator.pop(context);
                 },
                 child: Container(
                   width: double.infinity,
