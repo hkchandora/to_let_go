@@ -105,7 +105,7 @@ class ProfileController extends GetxController {
 
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
-      fcmController.sendFCM(
+      await fcmController.sendFCM(
         (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
         "Follow",
         "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
@@ -152,7 +152,7 @@ class ProfileController extends GetxController {
 
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
-      fcmController.sendFCM(
+      await fcmController.sendFCM(
         (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
         "Unfollow",
         "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) unfollow you.",

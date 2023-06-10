@@ -15,6 +15,13 @@ class CommentController extends GetxController{
     return "$name&&$firebaseToken";
   }
 
+  Future<String> getFirebaseTokenByUserId(String uid) async {
+    DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+        .collection("users").doc(uid).get();
+    String firebaseToken = (userDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"];
+    return firebaseToken;
+  }
+
 
   addComment(String videoId, String username, String name, String profileImage, String firebaseToken, String commentText) async {
     try {
@@ -44,7 +51,7 @@ class CommentController extends GetxController{
 
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
-      fcmController.sendFCM(
+      await fcmController.sendFCM(
         firebaseToken,
         "Comment",
         "$username comment on your post.",
@@ -66,25 +73,47 @@ class CommentController extends GetxController{
   }
 
 
-  likeVideoComment(String videoId, String commentUserId, String commentId) async{
+  likeVideoComment(String videoId, String commentUserId, String commentId, String currentUserName) async{
     try {
       String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      String firebaseToken = await getFirebaseTokenByUserId(commentUserId);
       await FirebaseFirestore.instance
           .collection("videos").doc(videoId).collection("commentList")
           .doc("$commentUserId&&$commentId")
           .update({"commentLikeUidList": FieldValue.arrayUnion([currentUserId])});
+
+    //Send Notification
+      FcmController fcmController = Get.put(FcmController());
+      await fcmController.sendFCM(
+        firebaseToken,
+        "Comment Like",
+        "$currentUserName like your comment.",
+        {},
+      );
     } catch (error){
+      print("error");
+      print(error.toString());
       Get.snackbar("Error Occurred","Something went wrong.");
     }
   }
 
-  unLikeVideoComment(String videoId, String commentUserId, String commentId) async{
+  unLikeVideoComment(String videoId, String commentUserId, String commentId, String currentUserName) async{
     try{
       String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      String firebaseToken = await getFirebaseTokenByUserId(commentUserId);
       await FirebaseFirestore.instance
           .collection("videos").doc(videoId).collection("commentList")
           .doc("$commentUserId&&$commentId")
           .update({"commentLikeUidList": FieldValue.arrayRemove([currentUserId])});
+
+      //Send Notification
+      FcmController fcmController = Get.put(FcmController());
+      await fcmController.sendFCM(
+        firebaseToken,
+        "Comment Unlike",
+        "$currentUserName unlike your comment.",
+        {},
+      );
     } catch (error){
       Get.snackbar("Error Occurred","Something went wrong.");
     }

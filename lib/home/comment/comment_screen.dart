@@ -95,12 +95,14 @@ class _CommentScreenState extends State<CommentScreen> {
                                     widget.videoID!,
                                     widget.userID!,
                                     commentList[index]['commentId'],
+                                    commentList[index]['name'],
                                   );
                                 } else {
                                   await commentController.likeVideoComment(
                                     widget.videoID!,
                                     widget.userID!,
                                     commentList[index]['commentId'],
+                                    commentList[index]['name'],
                                   );
                                 }
                                 getAllComments(false);
