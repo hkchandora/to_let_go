@@ -35,15 +35,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
 
   getAllVideoListData() async {
     videoList = await forYouController.getAllVideoDataList();
-    for (var element in videoList) {
-      playerControllerList!.add(VideoPlayerController.network(element['videoUrl'].toString()));
-    }
-    for(int i=0; i<videoList.length; i++){
-      // playerControllerList![i].initialize();
-      // playerControllerList![i].play();
-      // playerControllerList![i].setVolume(2);
-      // playerControllerList![i].setLooping(true);
-    }
+    // for (var element in videoList) {
+    //   playerControllerList!.add(VideoPlayerController.network(element['videoUrl'].toString()));
+    // }
     setState(() {
       isApiCalling = false;
     });
@@ -52,9 +46,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
   @override
   void dispose() {
     super.dispose();
-    if(!widget.isComingFromDashboard) {
-      playerControllerList![currentIndex].dispose();
-    }
+    // if(!widget.isComingFromDashboard) {
+    //   playerControllerList![currentIndex].dispose();
+    // }
   }
   
   @override
@@ -130,6 +124,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                           } else {
                             await forYouController.likeVideo(videoList[index]['videoID']);
                           }
+                          await getAllVideoListData();
                         },
                         child: Image.asset(videoList[index]['likeUidList'].toString().contains(currentUserId)
                             ? AssetImagePath.like : AssetImagePath.unlike, height: 34, width: 34, fit: BoxFit.fill,
@@ -145,6 +140,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                             videoList[index]['userImage'],
                             videoList[index]['videoID'],
                           ));
+                          await getAllVideoListData();
                         },
                         child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorWhite),
                       ),
