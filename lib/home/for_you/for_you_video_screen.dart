@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:to_let_go/global.dart';
+import 'package:to_let_go/home/comment/comment_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_controller.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
+import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:video_player/video_player.dart';
@@ -21,6 +25,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
   ForYouController forYouController = Get.put(ForYouController());
   int currentIndex = 0;
   List videoList = [];
+  bool isApiCalling = true;
 
   @override
   void initState() {
@@ -39,7 +44,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
       // playerControllerList![i].setVolume(2);
       // playerControllerList![i].setLooping(true);
     }
-    setState(() {});
+    setState(() {
+      isApiCalling = false;
+    });
   }
 
   @override
@@ -54,7 +61,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: forYouScreenList(),
+        body: isApiCalling ? const Center(child: Text("Loading...")) : forYouScreenList(),
       ),
     );
   }
@@ -116,13 +123,31 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.access_time, size: 30),
+                      GestureDetector(
+                        onTap: () async {
+                          if(videoList[index]['likeUidList'].toString().contains(currentUserId)){
+                            await forYouController.unLikeVideo(videoList[index]['videoID']);
+                          } else {
+                            await forYouController.likeVideo(videoList[index]['videoID']);
+                          }
+                        },
+                        child: Image.asset(videoList[index]['likeUidList'].toString().contains(currentUserId)
+                            ? AssetImagePath.like : AssetImagePath.unlike, height: 34, width: 34, fit: BoxFit.fill,
+                          color: videoList[index]['likeUidList'].toString().contains(currentUserId) ? colorDarkRed: colorWhite),
+                      ),
+                      Text(List.from(videoList[index]['likeUidList']).length.toString()),
+                      const SizedBox(height: 12),
+                      GestureDetector(
+                        onTap: () async  => await Get.to(CommentScreen(videoList[index]['videoID'])),
+                        child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorWhite),
+                      ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
-                      const SizedBox(height: 16),
-                      const Icon(Icons.comment_outlined, size: 30),
-                      Text((videoList[index]['totalLikes'] ?? "0").toString()),
-                      const SizedBox(height: 16),
-                      const Icon(Icons.share, size: 30),
+                      const SizedBox(height: 12),
+                      GestureDetector(
+                        onTap: () => Share.share(videoList[index]['videoUrl']),
+                        child: const Icon(Icons.share, size: 30),
+                      ),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),

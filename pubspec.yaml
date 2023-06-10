@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.4.5
   firebase_core: ^2.8.0
   firebase_auth: ^4.3.0
+  firebase_messaging: ^14.6.2
   image_picker: ^0.8.7+1
   firebase_storage: ^11.0.16
   video_player: ^2.6.1
@@ -46,6 +47,8 @@ dependencies:
   shared_preferences: ^2.1.0
   url_launcher: ^6.1.10
   image_cropper: ^3.0.3
+  share_plus: ^7.0.2
+  dio: ^5.2.0+1
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +86,9 @@ flutter:
     - images/no_data.png
     - images/upload.png
     - images/cross.png
+    - images/like.png
+    - images/unlike.png
+    - images/comment.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

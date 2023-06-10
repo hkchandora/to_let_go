@@ -6,6 +6,7 @@ class UserInfoData {
   String? uid;
   String? image;
   String? email;
+  String? firebaseToken;
   String? appVersion;
   String? youtube;
   String? facebook;
@@ -24,6 +25,7 @@ class UserInfoData {
         this.uid,
         this.image,
         this.email,
+        this.firebaseToken,
         this.appVersion,
         this.youtube,
         this.facebook,
@@ -43,6 +45,7 @@ class UserInfoData {
     "uid": uid,
     "image": image,
     "email": email,
+    "firebaseToken": firebaseToken,
     "appVersion": appVersion,
     "youtube": youtube,
     "facebook": facebook,
@@ -64,6 +67,7 @@ class UserInfoData {
       uid: dataSnapshot["uid"],
       image: dataSnapshot["image"],
       email: dataSnapshot["email"],
+      firebaseToken: dataSnapshot["firebaseToken"],
       appVersion: dataSnapshot["appVersion"],
       youtube: dataSnapshot["youtube"],
       whatsapp: dataSnapshot["whatsapp"],

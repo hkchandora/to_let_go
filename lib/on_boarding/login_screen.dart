@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
@@ -83,9 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                setState(() {
                                  showProgressBar = true;
                                });
+                               String? firebaseToken = await FirebaseMessaging.instance.getToken();
                                bool isSuccessful = await authenticationController.logInUserNow(
                                    emailTextEditingController.text.trim().toString(),
-                                   passwordTextEditingController.text.toString()
+                                   passwordTextEditingController.text.toString(),
+                                   firebaseToken!
                                );
                                if(!isSuccessful){
                                  setState(() {});

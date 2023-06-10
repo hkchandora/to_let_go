@@ -4,7 +4,6 @@ import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/profile/profile_controller.dart';
 import 'package:to_let_go/util/preferences.dart';
-import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/colors.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/widget/widget_common.dart';
@@ -294,63 +293,63 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ],
                     ),
-                    spacerLine(),
-                    Row(
-                      children: [
-                        const Text("Theme       ", style: TextStyle(color: colorWhite),),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 25,
-                                      height: 25,
-                                      child: Radio<String>(
-                                        value: "Light",
-                                        toggleable: true,
-                                        activeColor: colorWhite,
-                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
-                                        groupValue: theme,
-                                        onChanged: (val){
-                                          setState((){
-                                            theme = val!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    const Text(" Light", style: TextStyle(color: colorWhite),),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 25,
-                                      height: 25,
-                                      child: Radio<String>(
-                                        activeColor: colorWhite,
-                                        fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
-                                        value: "Dark",
-                                        groupValue: theme,
-                                        onChanged: (val){
-                                          setState((){
-                                            theme = val!;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    const Text(" Dark", style: TextStyle(color: colorWhite),),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // spacerLine(),
+                    // Row(
+                    //   children: [
+                    //     const Text("Theme       ", style: TextStyle(color: colorWhite),),
+                    //     Expanded(
+                    //       child: Row(
+                    //         children: [
+                    //           Expanded(
+                    //             child: Row(
+                    //               children: [
+                    //                 SizedBox(
+                    //                   width: 25,
+                    //                   height: 25,
+                    //                   child: Radio<String>(
+                    //                     value: "Light",
+                    //                     toggleable: true,
+                    //                     activeColor: colorWhite,
+                    //                     fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                    //                     groupValue: theme,
+                    //                     onChanged: (val){
+                    //                       setState((){
+                    //                         theme = val!;
+                    //                       });
+                    //                     },
+                    //                   ),
+                    //                 ),
+                    //                 const Text(" Light", style: TextStyle(color: colorWhite),),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //           Expanded(
+                    //             child: Row(
+                    //               children: [
+                    //                 SizedBox(
+                    //                   width: 25,
+                    //                   height: 25,
+                    //                   child: Radio<String>(
+                    //                     activeColor: colorWhite,
+                    //                     fillColor: MaterialStateColor.resolveWith((states) => colorWhite),
+                    //                     value: "Dark",
+                    //                     groupValue: theme,
+                    //                     onChanged: (val){
+                    //                       setState((){
+                    //                         theme = val!;
+                    //                       });
+                    //                     },
+                    //                   ),
+                    //                 ),
+                    //                 const Text(" Dark", style: TextStyle(color: colorWhite),),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     const SizedBox(height: 10),
                     const Divider(color: colorWhite,thickness: 0.1,height: 0.1),
                   ],

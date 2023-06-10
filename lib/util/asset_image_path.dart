@@ -11,4 +11,7 @@ class AssetImagePath {
   static const search = 'images/search.png';
   static const noData = 'images/no_data.png';
   static const upload = 'images/upload.png';
+  static const like = 'images/like.png';
+  static const unlike = 'images/unlike.png';
+  static const comment = 'images/comment.png';
 }

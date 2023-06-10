@@ -1,4 +1,8 @@
-class Constant {
+class Constants {
+  static const int connectionTimeOut = 900000;
+  static const String fcmBaseUrl = "https://fcm.googleapis.com";
+  static const String fcmKey = "key=AAAAbOtUPxI:APA91bFUZnED8HkWXMVMHXK4bN1En5CXzwDNjGzTB7JPX0V1R7eI-rQtqOL6gS0ZkXE4p3QcP5jRSC15uaemV9XqqN-hwcme8hFrgDtnZg1QOXVY5tZ5mUX4f4_ME1w9sIuj6KFHYdtw";
+  static const String fcm = "/fcm/send";
 
 }
 

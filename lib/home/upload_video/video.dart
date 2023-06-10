@@ -38,7 +38,7 @@ class Video{
     "videoID" : videoID,
     "totalComments" : totalComments,
     "totalShares" : totalShares,
-    "likeList" : likeList,
+    "likeUidList" : likeList,
     "artistSongName" : artistSongName,
     "descriptionTags" : descriptionTags,
     "videoUrl" : videoUrl,

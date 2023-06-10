@@ -7,6 +7,7 @@ class Strings {
   static const String following = 'Following';
   static const String followers = 'Followers';
   static const String foYou = 'For You';
+  static const String pleaseWait = 'Please wait...';
 
 
 }
