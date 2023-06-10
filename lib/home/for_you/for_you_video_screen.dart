@@ -78,7 +78,7 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height - 86,
-              child: Container(color: index % 2 == 0 ? colorBlue : colorDarkRed),
+              child: Image.network(videoList[index]['thumbnailUrl'], fit: BoxFit.fill),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
