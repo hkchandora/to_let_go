@@ -34,6 +34,13 @@ class CommentController extends GetxController{
       await FirebaseFirestore.instance.collection("videos")
           .doc(videoId).collection("commentList").doc("$currentUserId&&$commentId").set(comment.toJson());
 
+      //Update count of Comments
+      DocumentSnapshot videoDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("videos").doc(videoId).get();
+      int comments = (videoDocumentSnapshot.data() as Map<String, dynamic>)["totalComments"];
+      await FirebaseFirestore.instance.collection("videos")
+          .doc(videoId).update({'totalComments' : comments + 1});
+
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       fcmController.sendFCM(
