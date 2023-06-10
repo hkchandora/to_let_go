@@ -29,15 +29,17 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   void initState() {
-    getAllComments();
+    getAllComments(true);
     super.initState();
   }
 
-  getAllComments() async {
-    String? nameAndToken;
-    nameAndToken = await commentController.getNameAndFirebaseTokenByUserId(widget.userID!);
-    name = nameAndToken.split("&&")[0];
-    userFirebaseToken = nameAndToken.split("&&")[1];
+  getAllComments(bool isFromInit) async {
+    if(isFromInit) {
+      String? nameAndToken;
+      nameAndToken = await commentController.getNameAndFirebaseTokenByUserId(widget.userID!);
+      name = nameAndToken.split("&&")[0];
+      userFirebaseToken = nameAndToken.split("&&")[1];
+    }
     commentList = await commentController.getAllVideoComment(widget.videoID!);
     setState(() {
       isApiCalling = false;
@@ -124,6 +126,7 @@ class _CommentScreenState extends State<CommentScreen> {
                           );
                           commentTextEditingController.clear();
                           Navigator.pop(context);
+                          getAllComments(false);
                         },
                         child: const Icon(Icons.send),
                       ),
