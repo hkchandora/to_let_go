@@ -138,7 +138,14 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                       Text(List.from(videoList[index]['likeUidList']).length.toString()),
                       const SizedBox(height: 12),
                       GestureDetector(
-                        onTap: () async  => await Get.to(CommentScreen(videoList[index]['videoID'])),
+                        onTap: () async {
+                          await Get.to(CommentScreen(
+                            videoList[index]['userId'],
+                            videoList[index]['userName'],
+                            videoList[index]['userImage'],
+                            videoList[index]['videoID'],
+                          ));
+                        },
                         child: Image.asset(AssetImagePath.comment, height: 34, width: 34, fit: BoxFit.fill, color: colorWhite),
                       ),
                       Text((videoList[index]['totalComments'] ?? "0").toString()),
