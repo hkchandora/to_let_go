@@ -30,7 +30,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   getAppUpdateData() async {
     List appUpdateList = await splashController.getAppUpdateData();
-    print(appUpdateList.toString());
     if(appUpdateList.isNotEmpty){
       String storeVersion = Platform.isAndroid ?
       appUpdateList[0]["androidVersion"]

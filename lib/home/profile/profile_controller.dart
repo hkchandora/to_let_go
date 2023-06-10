@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
+import 'package:to_let_go/fcm/fcm_request_bean.dart';
+import 'package:to_let_go/util/base_dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/model/user.dart';
+import 'package:to_let_go/util/constants.dart';
 import 'package:to_let_go/util/preferences.dart';
 
 class ProfileController extends GetxController {
@@ -75,7 +79,8 @@ class ProfileController extends GetxController {
       );
 
       await FirebaseFirestore.instance.collection("users")
-          .doc(followersUID).collection("followingList").doc("$followingUID&&$followersUID").set(childUserInfoFollowing.toJson());
+          .doc(followersUID).collection("followingList").doc("$followingUID&&$followersUID")
+          .set(childUserInfoFollowing.toJson());
 
       //set Followers collect user info
       ChildUserInfo childUserInfoFollowers = ChildUserInfo(
@@ -87,13 +92,37 @@ class ProfileController extends GetxController {
       );
 
       await FirebaseFirestore.instance.collection("users")
-          .doc(followingUID).collection("followersList").doc("$followersUID&&$followingUID").set(childUserInfoFollowers.toJson());
+          .doc(followingUID).collection("followersList").doc("$followersUID&&$followingUID")
+          .set(childUserInfoFollowers.toJson());
 
       //Set followers and following uid list
       await FirebaseFirestore.instance.collection("users")
           .doc(followersUID).update({"followingUidList": FieldValue.arrayUnion([followingUID])});
       await FirebaseFirestore.instance.collection("users")
           .doc(followingUID).update({"followersUidList": FieldValue.arrayUnion([followersUID])});
+
+
+      //Send Notification
+      Dio dio = await BaseDio().getBaseDioForFCM();
+      FcmRequestBean fcmRequestBean = FcmRequestBean(
+        registrationIds: [(followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"]],
+        notification: Notification(
+            title: "Follow",
+            body: "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
+        ),
+        apns: Apns(
+          payload: Payload(
+            aps: Aps(
+              alert: Notification(
+                  title: "Follow",
+                  body: "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you."
+              ),
+            ),
+          ),
+        ),
+      );
+      await dio.post(Constants.fcm, data: fcmRequestBean.toJson());
+
 
       Preferences preferences = Preferences();
       preferences.setUserFollowing(following + 1);
