@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:to_let_go/fcm/fcm_controller.dart';
 import 'package:to_let_go/fcm/fcm_request_bean.dart';
 import 'package:to_let_go/util/base_dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -103,27 +104,13 @@ class ProfileController extends GetxController {
 
 
       //Send Notification
-      Dio dio = await BaseDio().getBaseDioForFCM();
-      FcmRequestBean fcmRequestBean = FcmRequestBean(
-        registrationIds: [(followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"]],
-        notification: Notification(
-            title: "Follow",
-            body: "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
-        ),
-        apns: Apns(
-          payload: Payload(
-            aps: Aps(
-              alert: Notification(
-                  title: "Follow",
-                  body: "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you."
-              ),
-            ),
-          ),
-        ),
+      FcmController fcmController = Get.put(FcmController());
+      fcmController.sendFCM(
+        (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
+        "Follow",
+        "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
+        {},
       );
-      await dio.post(Constants.fcm, data: fcmRequestBean.toJson());
-
-
       Preferences preferences = Preferences();
       preferences.setUserFollowing(following + 1);
     } catch (error){
@@ -162,6 +149,15 @@ class ProfileController extends GetxController {
           .doc(followersUID).update({"followingUidList": FieldValue.arrayRemove([followingUID])});
       await FirebaseFirestore.instance.collection("users")
           .doc(followingUID).update({"followersUidList": FieldValue.arrayRemove([followersUID])});
+
+      //Send Notification
+      FcmController fcmController = Get.put(FcmController());
+      fcmController.sendFCM(
+        (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
+        "Unfollow",
+        "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) unfollow you.",
+        {},
+      );
 
       Preferences preferences = Preferences();
       preferences.setUserFollowing(following - 1);
