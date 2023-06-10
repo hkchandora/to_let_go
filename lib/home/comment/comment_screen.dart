@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/home/comment/comment_controller.dart';
@@ -9,7 +10,6 @@ import 'package:to_let_go/widget/LoadingDialogWidget.dart';
 class CommentScreen extends StatefulWidget {
   String? userID;
   String? username;
-
   String? profileImage;
   String? videoID;
   CommentScreen(this.userID, this.username, this.profileImage, this.videoID, {Key? key}) : super(key: key);
@@ -26,6 +26,7 @@ class _CommentScreenState extends State<CommentScreen> {
   String? name;
   List commentList = [];
   bool isApiCalling = true;
+  String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
@@ -87,8 +88,31 @@ class _CommentScreenState extends State<CommentScreen> {
                               ),
                             ),
                             const SizedBox(width: 10),
-                            Image.asset(index % 2 == 0 ? AssetImagePath.like : AssetImagePath.unlike, height: 32, width: 32,
-                                color: index % 2 == 0 ? colorDarkRed : colorWhite)
+                            GestureDetector(
+                              onTap: () async {
+                                if(commentList[index]['commentLikeUidList'].toString().contains(currentUserId)){
+                                  await commentController.unLikeVideoComment(
+                                    widget.videoID!,
+                                    widget.userID!,
+                                    commentList[index]['commentId'],
+                                  );
+                                } else {
+                                  await commentController.likeVideoComment(
+                                    widget.videoID!,
+                                    widget.userID!,
+                                    commentList[index]['commentId'],
+                                  );
+                                }
+                                getAllComments(false);
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(commentList[index]['commentLikeUidList'].toString().contains(currentUserId) ? AssetImagePath.like : AssetImagePath.unlike, height: 32, width: 32,
+                                      color: commentList[index]['commentLikeUidList'].toString().contains(currentUserId) ? colorDarkRed : colorWhite),
+                                  Text(List.from(commentList[index]['commentLikeUidList']).length.toString()),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -99,38 +123,42 @@ class _CommentScreenState extends State<CommentScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 14, right: 14),
                 child: Card(
-                  child: Row(
-                    children: [
-                      CircleAvatar(backgroundImage: NetworkImage(widget.profileImage!)),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: TextField(
-                          controller: commentTextEditingController,
-                          textCapitalization: TextCapitalization.sentences,
-                          minLines: 2,
-                          maxLines: 5,
-                          keyboardType: TextInputType.multiline,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        CircleAvatar(backgroundImage: NetworkImage(widget.profileImage!)),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            controller: commentTextEditingController,
+                            textCapitalization: TextCapitalization.sentences,
+                            minLines: 2,
+                            maxLines: 5,
+                            keyboardType: TextInputType.multiline,
+                          ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          FocusScope.of(context).unfocus();
-                          LoadingDialogWidget.showDialogLoading(context, Strings.pleaseWait);
-                          await commentController.addComment(
-                            widget.videoID!,
-                            widget.username!,
-                            name!,
-                            widget.profileImage!,
-                            userFirebaseToken!,
-                            commentTextEditingController.text.toString().trim(),
-                          );
-                          commentTextEditingController.clear();
-                          Navigator.pop(context);
-                          getAllComments(false);
-                        },
-                        child: const Icon(Icons.send),
-                      ),
-                    ],
+                        const SizedBox(width: 10),
+                        GestureDetector(
+                          onTap: () async {
+                            FocusScope.of(context).unfocus();
+                            LoadingDialogWidget.showDialogLoading(context, Strings.pleaseWait);
+                            await commentController.addComment(
+                              widget.videoID!,
+                              widget.username!,
+                              name!,
+                              widget.profileImage!,
+                              userFirebaseToken!,
+                              commentTextEditingController.text.toString().trim(),
+                            );
+                            commentTextEditingController.clear();
+                            Navigator.pop(context);
+                            getAllComments(false);
+                          },
+                          child: const Icon(Icons.send),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

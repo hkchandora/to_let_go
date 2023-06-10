@@ -28,7 +28,8 @@ class CommentController extends GetxController{
         commentText: commentText,
         profileImage: profileImage,
         dateTime: DateTime.now().toString(),
-        commentId: commentId
+        commentId: commentId,
+        commentLikeUidList: []
       );
 
       await FirebaseFirestore.instance.collection("videos")
@@ -55,7 +56,6 @@ class CommentController extends GetxController{
     }
   }
 
-
   getAllVideoComment(String videoId) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('videos')
         .doc(videoId)
@@ -64,4 +64,30 @@ class CommentController extends GetxController{
     List commentDataList = querySnapshot.docs.map((doc) => doc.data()).toList();
     return commentDataList;
   }
+
+
+  likeVideoComment(String videoId, String commentUserId, String commentId) async{
+    try {
+      String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance
+          .collection("videos").doc(videoId).collection("commentList")
+          .doc("$commentUserId&&$commentId")
+          .update({"commentLikeUidList": FieldValue.arrayUnion([currentUserId])});
+    } catch (error){
+      Get.snackbar("Error Occurred","Something went wrong.");
+    }
+  }
+
+  unLikeVideoComment(String videoId, String commentUserId, String commentId) async{
+    try{
+      String currentUserId = FirebaseAuth.instance.currentUser!.uid;
+      await FirebaseFirestore.instance
+          .collection("videos").doc(videoId).collection("commentList")
+          .doc("$commentUserId&&$commentId")
+          .update({"commentLikeUidList": FieldValue.arrayRemove([currentUserId])});
+    } catch (error){
+      Get.snackbar("Error Occurred","Something went wrong.");
+    }
+  }
+
 }
