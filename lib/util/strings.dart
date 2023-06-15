@@ -9,6 +9,10 @@ class Strings {
   static const String foYou = 'For You';
   static const String pleaseWait = 'Please wait...';
   static const String loading = 'Loading...';
+  static const String notificationTypeFollow = 'follow';
+  static const String notificationTypeLike = 'like';
+  static const String notificationTypeComment = 'comment';
+  static const String notificationTypeCommentLike = 'commentLike';
 
 
 }

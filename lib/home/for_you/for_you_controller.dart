@@ -4,6 +4,7 @@ import 'package:to_let_go/fcm/fcm_controller.dart';
 import 'package:to_let_go/global.dart';
 import 'package:to_let_go/home/comment/comment_controller.dart';
 import 'package:to_let_go/model/user.dart';
+import 'package:to_let_go/util/strings.dart';
 
 class ForYouController  extends GetxController {
 
@@ -39,17 +40,18 @@ class ForYouController  extends GetxController {
           .doc(videoId).collection("likeList").doc("$currentUserId&&$videoId").set(childUserInfoFollowing.toJson());
 
       if(currentUserId != userId){
-        CommentController commentController = Get.put(CommentController());
-        String firebaseToken = await commentController.getFirebaseTokenByUserId(userId);
-        //Send Notification
-        FcmController fcmController = Get.put(FcmController());
-        await fcmController.sendFCM(
+      CommentController commentController = Get.put(CommentController());
+      String firebaseToken = await commentController.getFirebaseTokenByUserId(userId);
+      //Send Notification
+      FcmController fcmController = Get.put(FcmController());
+      await fcmController.sendFCM(
           userId,
           firebaseToken,
           "Like Post",
           "${(userDocumentSnapshot.data() as Map<String, dynamic>)["username"]} like your post.",
           {},
-        );
+          Strings.notificationTypeLike
+      );
       }
     } catch (error){
       Get.snackbar("Error Occurred","Something went wrong.");
@@ -65,17 +67,18 @@ class ForYouController  extends GetxController {
 
 
       if(currentUserId != userId){
-        CommentController commentController = Get.put(CommentController());
-        String firebaseToken = await commentController.getFirebaseTokenByUserId(userId);
-        //Send Notification
-        FcmController fcmController = Get.put(FcmController());
-        await fcmController.sendFCM(
+      CommentController commentController = Get.put(CommentController());
+      String firebaseToken = await commentController.getFirebaseTokenByUserId(userId);
+      //Send Notification
+      FcmController fcmController = Get.put(FcmController());
+      await fcmController.sendFCM(
           userId,
           firebaseToken,
           "Like Post",
           "$userName like your post.",
           {},
-        );
+          Strings.notificationTypeLike
+      );
       }
     } catch (error){
       Get.snackbar("Error Occurred","Something went wrong.");

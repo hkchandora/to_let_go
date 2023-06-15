@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/model/user.dart';
 import 'package:to_let_go/util/preferences.dart';
+import 'package:to_let_go/util/strings.dart';
 
 class ProfileController extends GetxController {
 
@@ -102,11 +103,12 @@ class ProfileController extends GetxController {
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
-        followingUID,
-        (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
-        "Follow",
-        "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
-        {},
+          followingUID,
+          (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
+          "Follow",
+          "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
+          {},
+          Strings.notificationTypeFollow
       );
       Preferences preferences = Preferences();
       preferences.setUserFollowing(following + 1);
@@ -155,6 +157,7 @@ class ProfileController extends GetxController {
         "Unfollow",
         "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) unfollow you.",
         {},
+        Strings.notificationTypeFollow
       );
 
       Preferences preferences = Preferences();
