@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:to_let_go/fcm/fcm_request_bean.dart';
 import 'package:to_let_go/home/following/followings_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
+import 'package:to_let_go/home/notification/notification.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';
 import 'package:to_let_go/home/search/search_screen.dart';
 import 'package:to_let_go/home/upload_video/upload_custom_icon.dart';
@@ -23,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
     ForYouVideoScreen(true),
     const SearchScreen(),
     const UploadVideoScreen(),
-    const FollowingsScreen(),
+    // const FollowingsScreen(),
+    const NotificationScreen(),
     ProfileScreen(Strings.me, FirebaseAuth.instance.currentUser!.uid),
   ];
 
@@ -60,9 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: UploadCustomIcon(),
             label: ""
           ),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.inbox_sharp, size: 30),
+          //     label: "Following"
+          // ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.inbox_sharp, size: 30),
-              label: "Following"
+              icon: Icon(Icons.notifications, size: 30),
+              label: "Notification"
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.person , size: 30),
