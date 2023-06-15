@@ -120,9 +120,9 @@ class _ForYouVideoScreenState extends State<ForYouVideoScreen> {
                       GestureDetector(
                         onTap: () async {
                           if(videoList[index]['likeUidList'].toString().contains(currentUserId)){
-                            await forYouController.unLikeVideo(videoList[index]['videoID']);
+                            await forYouController.unLikeVideo(videoList[index]['videoID'], videoList[index]['userId'], videoList[index]['userName']);
                           } else {
-                            await forYouController.likeVideo(videoList[index]['videoID']);
+                            await forYouController.likeVideo(videoList[index]['videoID'], videoList[index]['userId'], videoList[index]['userName']);
                           }
                           await getAllVideoListData();
                         },
