@@ -6,7 +6,7 @@ import 'package:to_let_go/util/constants.dart';
 
 class FcmController extends GetxController{
 
-  sendFCM(String firebaseToken, String title, String body, Map<String, dynamic> data) async {
+  sendFCM(String receiverUserId, String firebaseToken, String title, String body, Map<String, dynamic> data) async {
     Dio dio = await BaseDio().getBaseDioForFCM();
     FcmRequestBean fcmRequestBean = FcmRequestBean(
       registrationIds: [firebaseToken],

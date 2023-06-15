@@ -11,7 +11,7 @@ import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
 import 'package:to_let_go/util/style.dart';
 import 'package:to_let_go/util/utility.dart';
-import 'package:to_let_go/widget/LoadingDialogWidget.dart';
+import 'package:to_let_go/widget/loading_dialog_widget.dart';
 import 'package:to_let_go/widget/widget_common.dart';
 import 'package:url_launcher/url_launcher.dart';
 

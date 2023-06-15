@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:to_let_go/fcm/fcm_request_bean.dart';
-import 'package:to_let_go/home/following/followings_screen.dart';
 import 'package:to_let_go/home/for_you/for_you_video_screen.dart';
 import 'package:to_let_go/home/notification/notification.dart';
 import 'package:to_let_go/home/profile/profile_screen.dart';

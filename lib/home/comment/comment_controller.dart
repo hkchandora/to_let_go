@@ -23,7 +23,7 @@ class CommentController extends GetxController{
   }
 
 
-  addComment(String videoId, String username, String name, String profileImage, String firebaseToken, String commentText) async {
+  addComment(String videoUserId, String videoId, String username, String name, String profileImage, String firebaseToken, String commentText) async {
     try {
       String currentUserId = FirebaseAuth.instance.currentUser!.uid;
       String commentId = DateTime.now().millisecondsSinceEpoch.toString();
@@ -52,6 +52,7 @@ class CommentController extends GetxController{
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
+        videoUserId,
         firebaseToken,
         "Comment",
         "$username comment on your post.",
@@ -85,14 +86,13 @@ class CommentController extends GetxController{
     //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
+        commentUserId,
         firebaseToken,
         "Comment Like",
         "$currentUserName like your comment.",
         {},
       );
     } catch (error){
-      print("error");
-      print(error.toString());
       Get.snackbar("Error Occurred","Something went wrong.");
     }
   }
@@ -109,6 +109,7 @@ class CommentController extends GetxController{
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
+        commentUserId,
         firebaseToken,
         "Comment Unlike",
         "$currentUserName unlike your comment.",

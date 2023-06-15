@@ -5,8 +5,9 @@ import 'package:to_let_go/home/comment/comment_controller.dart';
 import 'package:to_let_go/util/Colors.dart';
 import 'package:to_let_go/util/asset_image_path.dart';
 import 'package:to_let_go/util/strings.dart';
-import 'package:to_let_go/widget/LoadingDialogWidget.dart';
+import 'package:to_let_go/widget/loading_dialog_widget.dart';
 
+// ignore: must_be_immutable
 class CommentScreen extends StatefulWidget {
   String? userID;
   String? username;
@@ -146,6 +147,7 @@ class _CommentScreenState extends State<CommentScreen> {
                             FocusScope.of(context).unfocus();
                             LoadingDialogWidget.showDialogLoading(context, Strings.pleaseWait);
                             await commentController.addComment(
+                              widget.userID!,
                               widget.videoID!,
                               widget.username!,
                               name!,

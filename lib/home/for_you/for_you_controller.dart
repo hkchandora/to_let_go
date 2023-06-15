@@ -44,6 +44,7 @@ class ForYouController  extends GetxController {
         //Send Notification
         FcmController fcmController = Get.put(FcmController());
         await fcmController.sendFCM(
+          userId,
           firebaseToken,
           "Like Post",
           "${(userDocumentSnapshot.data() as Map<String, dynamic>)["username"]} like your post.",
@@ -69,6 +70,7 @@ class ForYouController  extends GetxController {
         //Send Notification
         FcmController fcmController = Get.put(FcmController());
         await fcmController.sendFCM(
+          userId,
           firebaseToken,
           "Like Post",
           "$userName like your post.",

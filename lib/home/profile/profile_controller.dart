@@ -1,15 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:to_let_go/fcm/fcm_controller.dart';
-import 'package:to_let_go/fcm/fcm_request_bean.dart';
-import 'package:to_let_go/util/base_dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:to_let_go/authentication/authentication_controller.dart';
 import 'package:to_let_go/model/user.dart';
-import 'package:to_let_go/util/constants.dart';
 import 'package:to_let_go/util/preferences.dart';
 
 class ProfileController extends GetxController {
@@ -106,6 +102,7 @@ class ProfileController extends GetxController {
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
+        followingUID,
         (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
         "Follow",
         "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) has started to follow you.",
@@ -153,6 +150,7 @@ class ProfileController extends GetxController {
       //Send Notification
       FcmController fcmController = Get.put(FcmController());
       await fcmController.sendFCM(
+        followingUID,
         (followingDocumentSnapshot.data() as Map<String, dynamic>)["firebaseToken"],
         "Unfollow",
         "${(followingDocumentSnapshot.data() as Map<String, dynamic>)["name"]} (@${(followingDocumentSnapshot.data() as Map<String, dynamic>)["username"]}) unfollow you.",

@@ -41,9 +41,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   const SizedBox(width: 24),
                   MaterialButton(
                     onPressed: (){},
-                    child: const Text("Follow"),
                     color: colorDarkGray,
                     elevation: 0,
+                    child: const Text("Follow"),
                   ),
                 ],
               ),
